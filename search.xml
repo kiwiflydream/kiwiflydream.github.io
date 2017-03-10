@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[lombok使用教程]]></title>
-      <url>http://yoursite.com/2017/03/10/lombok-base/</url>
+      <url>http://blog.coder4j.cn/2017/03/10/lombok-base/</url>
       <content type="html"><![CDATA[<h1 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h1><h4 id="作用：帮使用者提高编码效率，减少重复与冗余的代码"><a href="#作用：帮使用者提高编码效率，减少重复与冗余的代码" class="headerlink" title="作用：帮使用者提高编码效率，减少重复与冗余的代码"></a>作用：帮使用者提高编码效率，减少重复与冗余的代码</h4><h4 id="原理：ASM-动态修改class文件"><a href="#原理：ASM-动态修改class文件" class="headerlink" title="原理：ASM  动态修改class文件"></a>原理：ASM  动态修改class文件</h4><hr>
 <h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
 <h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.6.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">     <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></div></pre></td></tr></table></figure>
@@ -365,11 +365,17 @@
 ]]></content>
       
         
+        <tags>
+            
+            <tag> lombok </tag>
+            
+        </tags>
+        
     </entry>
     
     <entry>
       <title><![CDATA[Tomcat配置https证书]]></title>
-      <url>http://yoursite.com/2017/03/10/tomcat-https/</url>
+      <url>http://blog.coder4j.cn/2017/03/10/tomcat-https/</url>
       <content type="html"><![CDATA[<h1 id="Tomcat配置https证书"><a href="#Tomcat配置https证书" class="headerlink" title="Tomcat配置https证书"></a>Tomcat配置https证书</h1><blockquote>
 <p>网上搜索出来大多数是通过keytool自已生成证书来完成，这种在工作很少用到（浏览器会报不安全）。以下是通过申请的证书配置过程。因为在配置中遇到了一些坑，记之  </p>
 </blockquote>
@@ -398,7 +404,7 @@
     
     <entry>
       <title><![CDATA[Hello World]]></title>
-      <url>http://yoursite.com/2017/03/09/hello-world/</url>
+      <url>http://blog.coder4j.cn/2017/03/09/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
