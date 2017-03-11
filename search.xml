@@ -4,6 +4,36 @@
   
     
     <entry>
+      <title><![CDATA[hexo搭建整理]]></title>
+      <url>https://blog.coder4j.cn/2017/03/11/hexo-%E6%95%99%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<ul>
+<li><p>基础教程：<br><a href="https://xuanwo.org/2015/03/26/hexo-intor/" target="_blank" rel="external">史上最详细的Hexo博客搭建图文教程</a></p>
+</li>
+<li><p>模板<br><a href="https://material.viosey.com/" target="_blank" rel="external">material</a></p>
+</li>
+<li><p>http转https:<br>[为Github的Hexo博客启用SSL/TLS]</p>
+</li>
+</ul>
+<p>(<a href="https://g2ex.github.io/2015/10/14/Hexo-with-SSL-Hosted-on-Github-Page/" target="_blank" rel="external">https://g2ex.github.io/2015/10/14/Hexo-with-SSL-Hosted-on-Github-Page/</a>)</p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2017/03/11/hexo-教程/">https://blog.coder4j.cn/2017/03/11/hexo-教程/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> hexo </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Spring Aop注解教程]]></title>
       <url>https://blog.coder4j.cn/2017/03/10/Spring-Aop%E6%B3%A8%E8%A7%A3%E6%95%99%E7%A8%8B/</url>
       <content type="html"><![CDATA[<blockquote>

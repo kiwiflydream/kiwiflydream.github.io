@@ -10,7 +10,7 @@
     
     <title>
         
-            about | 
+            hexo搭建整理 | 
         
         求索之路
     </title>
@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="kiwi">
     <meta name="description" content="null">
-    <meta name="keywords" content="null">
+    <meta name="keywords" content="null,hexo">
 
     <!--iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -48,9 +48,9 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://blog.coder4j.cn">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="about | 求索之路">
+    <meta property="og:title" content="hexo搭建整理 | 求索之路">
     <meta property="og:description" content="null">
-    
+    <meta property="og:article:tag" content="hexo"> 
 
     <!--[if lte IE 9]>
         <link rel="stylesheet" href="/css/ie-blocker.css">
@@ -216,6 +216,41 @@
 
                     <!-- Post TOC -->
 
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
 
 <!-- Layouts -->
 
@@ -241,7 +276,7 @@
         
     
             <p class="article-headline-p">
-                about
+                hexo搭建整理
             </p>
         </div>
 
@@ -260,7 +295,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>kiwi</strong>
-        <span>3月 10, 2017</span>
+        <span>3月 11, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -284,7 +319,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        
+        <a class="post_tag-link" href="/tags/hexo/">hexo</a>
     </ul>
     
 
@@ -298,7 +333,7 @@
     <!-- Leancloud Views -->
         <a class="post_share-link" href="#">
             <li class="mdl-menu__item">
-                <span id="/about/index.html" class="leancloud-views_num" data-flag-title="about">
+                <span id="/2017/03/11/hexo-教程/" class="leancloud-views_num" data-flag-title="hexo搭建整理">
      &nbsp;浏览量
 </span>
 
@@ -321,7 +356,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=about&url=https://blog.coder4j.cn//about/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=hexo搭建整理&url=https://blog.coder4j.cn//2017/03/11/hexo-教程/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -330,7 +365,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=about&url=https://blog.coder4j.cn//about/index.html&via=kiwi" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=hexo搭建整理&url=https://blog.coder4j.cn//2017/03/11/hexo-教程/index.html&via=kiwi" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -339,7 +374,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.coder4j.cn//about/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.coder4j.cn//2017/03/11/hexo-教程/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -348,7 +383,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://blog.coder4j.cn//about/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://blog.coder4j.cn//2017/03/11/hexo-教程/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -372,7 +407,16 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>Hello !</p>
+        <ul>
+<li><p>基础教程：<br><a href="https://xuanwo.org/2015/03/26/hexo-intor/" target="_blank" rel="external">史上最详细的Hexo博客搭建图文教程</a></p>
+</li>
+<li><p>模板<br><a href="https://material.viosey.com/" target="_blank" rel="external">material</a></p>
+</li>
+<li><p>http转https:<br>[为Github的Hexo博客启用SSL/TLS]</p>
+</li>
+</ul>
+<p>(<a href="https://g2ex.github.io/2015/10/14/Hexo-with-SSL-Hosted-on-Github-Page/" target="_blank" rel="external">https://g2ex.github.io/2015/10/14/Hexo-with-SSL-Hosted-on-Github-Page/</a>)</p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2017/03/11/hexo-教程/">https://blog.coder4j.cn/2017/03/11/hexo-教程/</a> </p>
 
     
 
@@ -401,9 +445,9 @@
 <div id="comments">
     <!-- 多说评论框 start -->
     <div class="ds-thread"
-        data-thread-key="about/index.html"
-        data-url="https://blog.coder4j.cn/about/index.html"
-        data-title="about">
+        data-thread-key="2017/03/11/hexo-教程/"
+        data-url="https://blog.coder4j.cn/2017/03/11/hexo-教程/"
+        data-title="hexo搭建整理">
     </div>
     <!-- 多说评论框 end -->
 </div>
@@ -425,6 +469,14 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2017/03/10/Spring-Aop注解教程/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -586,6 +638,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
