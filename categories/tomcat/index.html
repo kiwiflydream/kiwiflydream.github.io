@@ -46,7 +46,7 @@
     <meta name="apple-mobile-web-app-title" content="求索之路">
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://blog.coder4j.cn">
+    <meta property="og:url" content="https://blog.coder4j.cn">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="分类: tomcat | 求索之路">
     <meta property="og:description" content="null">
@@ -179,6 +179,12 @@
     </script>
 
     
+
+    <script type="text/javascript">
+    var host = "blog.coder4j.cn";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
 
     
 
@@ -687,7 +693,7 @@ It will not impact the appearance and can give developers a lot of support :)
                 var ds = document.createElement('script');
                 ds.type = 'text/javascript';
                 ds.async = true;
-                ds.src = 'http://static.duoshuo.com/embed.js';
+                ds.src = 'https://static.duoshuo.com/embed.js';
                 ds.charset = 'UTF-8';
                 (document.getElementsByTagName('head')[0]
                  || document.getElementsByTagName('body')[0]).appendChild(ds);

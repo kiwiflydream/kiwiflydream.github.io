@@ -2,22 +2,22 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <sitemap>
-        <loc>http://blog.coder4j.cn/post-sitemap.xml</loc>
+        <loc>https://blog.coder4j.cn/post-sitemap.xml</loc>
         <lastmod>2017-03-10T14:18:11.000Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://blog.coder4j.cn/page-sitemap.xml</loc>
+        <loc>https://blog.coder4j.cn/page-sitemap.xml</loc>
         <lastmod>2017-03-09T16:51:51.000Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://blog.coder4j.cn/category-sitemap.xml</loc>
+        <loc>https://blog.coder4j.cn/category-sitemap.xml</loc>
         <lastmod>2017-03-10T14:12:32.000Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://blog.coder4j.cn/tag-sitemap.xml</loc>
+        <loc>https://blog.coder4j.cn/tag-sitemap.xml</loc>
         <lastmod>2017-03-10T10:27:11.000Z</lastmod>
     </sitemap>
 

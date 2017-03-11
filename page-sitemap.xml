@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://blog.coder4j.cn</loc>
+        <loc>https://blog.coder4j.cn</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
     
     <url>
-        <loc>http://blog.coder4j.cn/tags/</loc>
+        <loc>https://blog.coder4j.cn/tags/</loc>
         <lastmod>2017-03-09T16:51:51.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>http://blog.coder4j.cn/about/</loc>
+        <loc>https://blog.coder4j.cn/about/</loc>
         <lastmod>2017-03-09T16:49:31.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>http://blog.coder4j.cn/links/</loc>
+        <loc>https://blog.coder4j.cn/links/</loc>
         <lastmod>2017-03-09T16:48:52.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
