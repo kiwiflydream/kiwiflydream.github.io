@@ -10,6 +10,8 @@
     
     <title>
         
+            Tomcat配置https证书 | 
+        
         求索之路
     </title>
 
@@ -25,7 +27,7 @@
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="kiwi">
     <meta name="description" content="null">
-    <meta name="keywords" content="null">
+    <meta name="keywords" content="null,tomcat,https">
 
     <!--iOS -->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -46,9 +48,9 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="https://blog.coder4j.cn">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="求索之路">
+    <meta property="og:title" content="Tomcat配置https证书 | 求索之路">
     <meta property="og:description" content="null">
-    
+    <meta property="og:article:tag" content="tomcat"> <meta property="og:article:tag" content="https"> 
 
     <!--[if lte IE 9]>
         <link rel="stylesheet" href="/css/ie-blocker.css">
@@ -214,6 +216,41 @@
 
                     <!-- Post TOC -->
 
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Tomcat配置https证书"><span class="post-toc-number">1.</span> <span class="post-toc-text">Tomcat配置https证书</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、准备证书与私钥"><span class="post-toc-number">1.0.0.1.</span> <span class="post-toc-text">1、准备证书与私钥</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、合并证书"><span class="post-toc-number">1.0.0.2.</span> <span class="post-toc-text">2、合并证书</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、生成keystore文件"><span class="post-toc-number">1.0.0.3.</span> <span class="post-toc-text">3、生成keystore文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、配置tomcat"><span class="post-toc-number">1.0.0.4.</span> <span class="post-toc-text">4、配置tomcat</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#参数地址："><span class="post-toc-number">1.0.0.5.</span> <span class="post-toc-text">参数地址：</span></a></li></ol></li></ol></li></ol></li></ol>
+
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+
+
+
 
 <!-- Layouts -->
 
@@ -239,7 +276,7 @@
         
     
             <p class="article-headline-p">
-                
+                Tomcat配置https证书
             </p>
         </div>
 
@@ -258,7 +295,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>kiwi</strong>
-        <span>3月 12, 2017</span>
+        <span>9月 10, 2016</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -282,7 +319,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        
+        <a class="post_tag-link" href="/tags/https/">https</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/tomcat/">tomcat</a>
     </ul>
     
 
@@ -296,7 +333,7 @@
     <!-- Leancloud Views -->
         <a class="post_share-link" href="#">
             <li class="mdl-menu__item">
-                <span id="/google2e6ddb0f2b7e1137.html" class="leancloud-views_num" data-flag-title="">
+                <span id="/2016/09/10/tomcat-https/" class="leancloud-views_num" data-flag-title="Tomcat配置https证书">
      &nbsp;浏览量
 </span>
 
@@ -319,7 +356,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=&url=https://blog.coder4j.cn//google2e6ddb0f2b7e1137.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Tomcat配置https证书&url=https://blog.coder4j.cn//2016/09/10/tomcat-https/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -328,7 +365,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=&url=https://blog.coder4j.cn//google2e6ddb0f2b7e1137.html&via=kiwi" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Tomcat配置https证书&url=https://blog.coder4j.cn//2016/09/10/tomcat-https/index.html&via=kiwi" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -337,7 +374,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.coder4j.cn//google2e6ddb0f2b7e1137.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.coder4j.cn//2016/09/10/tomcat-https/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -346,7 +383,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://blog.coder4j.cn//google2e6ddb0f2b7e1137.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=https://blog.coder4j.cn//2016/09/10/tomcat-https/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -370,7 +407,45 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        google-site-verification: google2e6ddb0f2b7e1137.html
+        <h1 id="Tomcat配置https证书"><a href="#Tomcat配置https证书" class="headerlink" title="Tomcat配置https证书"></a>Tomcat配置https证书</h1><blockquote>
+<p>网上搜索出来大多数是通过keytool自已生成证书来完成，这种在工作很少用到（浏览器会报不安全）。以下是通过申请的证书配置过程。因为在配置中遇到了一些坑，记之  </p>
+</blockquote>
+<h4 id="1、准备证书与私钥"><a href="#1、准备证书与私钥" class="headerlink" title="1、准备证书与私钥"></a>1、准备证书与私钥</h4><p><code>demo.crt</code>  <code>demo.key</code></p>
+<h4 id="2、合并证书"><a href="#2、合并证书" class="headerlink" title="2、合并证书"></a>2、合并证书</h4><pre><code>openssl pkcs12 -export -in demo.crt -inkey demo.key -out demo.p12 -name demo
+</code></pre><blockquote>
+<p>注意：<br>1、 demo.crt 是你的证书<br>2、 demo.key 是你的私钥<br>3、 demo.p12 是合并后的证书<br>4、-name 后面的demo是指定的别名，后面配置tomcat8.5之后的版本需要用到，要记住<br>5、执行这条命令要设置一个导出密码，后面要用到，要记住，最好6位以上  </p>
+</blockquote>
+<h4 id="3、生成keystore文件"><a href="#3、生成keystore文件" class="headerlink" title="3、生成keystore文件"></a>3、生成keystore文件</h4><pre><code>keytool -importkeystore -srckeystore demo.p12 -srcstoretype PKCS12 -destkeystore demo.jks
+</code></pre><blockquote>
+<p>注意：<br>1、demo.p12 是第二步生成的证书名<br>2、demo.jks 是生成的keystore文件名<br>3、执行这条命令会首先让你设置一个密码，这个密码后面配置会用到，要记住。然后验证上一步设置的密码。推荐该步骤设置的密码与上一步一致，如果不一致可能会出现错误详见 <a href="http://hw1287789687.iteye.com/blog/1965703" target="_blank" rel="external">java.security.UnrecoverableKeyException: Cannot recover key - 简单的幸福 - ITeye技术网站</a>   </p>
+</blockquote>
+<h4 id="4、配置tomcat"><a href="#4、配置tomcat" class="headerlink" title="4、配置tomcat"></a>4、配置tomcat</h4><p><code>tomcat 8.5 之前</code></p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Connector</span> <span class="token attr-name">SSLEnabled</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> <span class="token attr-name">acceptCount</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100<span class="token punctuation">"</span></span> <span class="token attr-name">clientAuth</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span>
+    <span class="token attr-name">disableUploadTimeout</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> <span class="token attr-name">enableLookups</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token attr-name">maxThreads</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>25<span class="token punctuation">"</span></span>
+    <span class="token attr-name">port</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>8443<span class="token punctuation">"</span></span> <span class="token attr-name">keystoreFile</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>~/ssl/demo.jks<span class="token punctuation">"</span></span> <span class="token attr-name">keystorePass</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>123456<span class="token punctuation">"</span></span>
+    <span class="token attr-name">protocol</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.apache.coyote.http11.Http11NioProtocol<span class="token punctuation">"</span></span> <span class="token attr-name">scheme</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https<span class="token punctuation">"</span></span>
+    <span class="token attr-name">secure</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> <span class="token attr-name">sslProtocol</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>TLS<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+</code></pre>
+<p><code>tomcat 8.5 之后</code></p>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Connector</span> <span class="token attr-name">port</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>8643<span class="token punctuation">"</span></span> <span class="token attr-name">protocol</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.apache.coyote.http11.Http11NioProtocol<span class="token punctuation">"</span></span>
+<span class="token attr-name">maxThreads</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>150<span class="token punctuation">"</span></span> <span class="token attr-name">SSLEnabled</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SSLHostConfig</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Certificate</span> <span class="token attr-name">certificateKeystoreFile</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>~/ssl/demo.jks<span class="token punctuation">"</span></span>
+<span class="token attr-name">certificateKeyAlias</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>demo<span class="token punctuation">"</span></span>
+<span class="token attr-name">certificateKeystorePassword</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>123456<span class="token punctuation">"</span></span>
+<span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>RSA<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SSLHostConfig</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Connector</span><span class="token punctuation">></span></span>
+</code></pre>
+<blockquote>
+<p>注意：<br>1、~_ssl_demo.jks  是你前面步骤生成的storekey文件的路径<br>2、123456 是前面第3步设置的密码<br>3、tomcat8.5之后有一个certificateKeyAlias这个是2步设置-name的值  </p>
+</blockquote>
+<h4 id="参数地址："><a href="#参数地址：" class="headerlink" title="参数地址："></a>参数地址：</h4><p><a href="http://blog.csdn.net/freeiceflame/article/details/50420059" target="_blank" rel="external">TOMCAT导入通过第三方证书机构获取的证书 - IceFlame博客频道 - CSDN.NET</a></p>
+<p>  <a href="http://hw1287789687.iteye.com/blog/1965703" target="_blank" rel="external">java.security.UnrecoverableKeyException: Cannot recover key - 简单的幸福 - ITeye技术网站</a></p>
+<p><a href="https://www.oschina.net/question/12_23148" target="_blank" rel="external">5分钟内搞定 Tomcat 的 SSL 配置 - 开源中国社区</a></p>
+<p><a href="https://bbs.wosign.com/forum.php?mod=viewthread&amp;tid=2881" target="_blank" rel="external">tomcat 8.5+版本SSL证书部署-沃通CA官方论坛 -  专业数字证书论坛</a></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2016/09/10/tomcat-https/">https://blog.coder4j.cn/2016/09/10/tomcat-https/</a> </p>
+
     
 
     
@@ -398,9 +473,9 @@
 <div id="comments">
     <!-- 多说评论框 start -->
     <div class="ds-thread"
-        data-thread-key="google2e6ddb0f2b7e1137.html"
-        data-url="https://blog.coder4j.cn/google2e6ddb0f2b7e1137.html"
-        data-title="">
+        data-thread-key="2016/09/10/tomcat-https/"
+        data-url="https://blog.coder4j.cn/2016/09/10/tomcat-https/"
+        data-title="Tomcat配置https证书">
     </div>
     <!-- 多说评论框 end -->
 </div>
@@ -417,11 +492,27 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
+        <a href="/2017/03/10/Spring-Aop注解教程/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2016/09/01/lombok-base/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -603,6 +694,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 

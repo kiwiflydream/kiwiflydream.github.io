@@ -2,43 +2,57 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://blog.coder4j.cn/tags/lombok/</loc>
-        <lastmod>2017-03-10T10:27:11.000Z</lastmod>
+        <loc>https://blog.coder4j.cn/tags/hexo/</loc>
+        <lastmod>2017-03-11T06:58:33.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/maven/</loc>
+        <lastmod>2017-03-11T15:26:05.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/profile/</loc>
+        <lastmod>2017-03-11T15:26:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.coder4j.cn/tags/tomcat/</loc>
-        <lastmod>2017-03-10T14:12:32.000Z</lastmod>
+        <lastmod>2017-03-11T15:27:48.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.coder4j.cn/tags/https/</loc>
-        <lastmod>2017-03-10T14:12:32.000Z</lastmod>
+        <lastmod>2017-03-11T15:27:48.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/lombok/</loc>
+        <lastmod>2017-03-11T15:28:56.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.coder4j.cn/tags/spring/</loc>
-        <lastmod>2017-03-10T14:18:11.000Z</lastmod>
+        <lastmod>2017-03-11T15:44:53.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.coder4j.cn/tags/aop/</loc>
-        <lastmod>2017-03-10T14:18:11.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.coder4j.cn/tags/hexo/</loc>
-        <lastmod>2017-03-11T06:58:33.000Z</lastmod>
+        <lastmod>2017-03-11T15:44:53.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

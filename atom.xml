@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>求索之路</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://blog.coder4j.cn/"/>
+  <updated>2017-03-11T15:26:05.000Z</updated>
+  <id>https://blog.coder4j.cn/</id>
+  
+  <author>
+    <name>kiwi</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>maven按环境加载配置文件</title>
+    <link href="https://blog.coder4j.cn/2017/03/11/maven%E6%8C%89%E7%8E%AF%E5%A2%83%E5%8A%A0%E8%BD%BD%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"/>
+    <id>https://blog.coder4j.cn/2017/03/11/maven按环境加载配置文件/</id>
+    <published>2017-03-11T15:04:00.000Z</published>
+    <updated>2017-03-11T15:26:05.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;通过maven的profile实现按环境来加载配置文件&lt;br&gt;
+    
+    </summary>
+    
+      <category term="maven" scheme="https://blog.coder4j.cn/categories/maven/"/>
+    
+    
+      <category term="maven" scheme="https://blog.coder4j.cn/tags/maven/"/>
+    
+      <category term="profile" scheme="https://blog.coder4j.cn/tags/profile/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo搭建整理</title>
+    <link href="https://blog.coder4j.cn/2017/03/11/hexo-%E6%95%99%E7%A8%8B/"/>
+    <id>https://blog.coder4j.cn/2017/03/11/hexo-教程/</id>
+    <published>2017-03-11T02:55:00.000Z</published>
+    <updated>2017-03-11T06:58:33.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本博客搭建参考的教程&lt;br&gt;
+    
+    </summary>
+    
+      <category term="hexo" scheme="https://blog.coder4j.cn/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="https://blog.coder4j.cn/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Aop注解教程</title>
+    <link href="https://blog.coder4j.cn/2017/03/10/Spring-Aop%E6%B3%A8%E8%A7%A3%E6%95%99%E7%A8%8B/"/>
+    <id>https://blog.coder4j.cn/2017/03/10/Spring-Aop注解教程/</id>
+    <published>2017-03-10T14:16:00.000Z</published>
+    <updated>2017-03-11T15:44:53.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;spring aop常用的有以下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;通知类型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;前置通知（Before advice）：在某连接点之前执行的通知，但这个通知不能阻止连接点之前的执行流程（除非它抛出一个异常）。&lt;/li&gt;
+&lt;
+    
+    </summary>
+    
+      <category term="spring" scheme="https://blog.coder4j.cn/categories/spring/"/>
+    
+      <category term="aop" scheme="https://blog.coder4j.cn/categories/spring/aop/"/>
+    
+    
+      <category term="spring" scheme="https://blog.coder4j.cn/tags/spring/"/>
+    
+      <category term="aop" scheme="https://blog.coder4j.cn/tags/aop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tomcat配置https证书</title>
+    <link href="https://blog.coder4j.cn/2016/09/10/tomcat-https/"/>
+    <id>https://blog.coder4j.cn/2016/09/10/tomcat-https/</id>
+    <published>2016-09-09T16:23:00.000Z</published>
+    <updated>2017-03-11T15:27:48.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Tomcat配置https证书&quot;&gt;&lt;a href=&quot;#Tomcat配置https证书&quot; class=&quot;headerlink&quot; title=&quot;Tomcat配置https证书&quot;&gt;&lt;/a&gt;Tomcat配置https证书&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;网上搜索出
+    
+    </summary>
+    
+      <category term="tomcat" scheme="https://blog.coder4j.cn/categories/tomcat/"/>
+    
+      <category term="https" scheme="https://blog.coder4j.cn/categories/tomcat/https/"/>
+    
+    
+      <category term="tomcat" scheme="https://blog.coder4j.cn/tags/tomcat/"/>
+    
+      <category term="https" scheme="https://blog.coder4j.cn/tags/https/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>lombok使用教程</title>
+    <link href="https://blog.coder4j.cn/2016/09/01/lombok-base/"/>
+    <id>https://blog.coder4j.cn/2016/09/01/lombok-base/</id>
+    <published>2016-08-31T16:31:00.000Z</published>
+    <updated>2017-03-11T15:28:56.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Lombok&quot;&gt;&lt;a href=&quot;#Lombok&quot; class=&quot;headerlink&quot; title=&quot;Lombok&quot;&gt;&lt;/a&gt;Lombok&lt;/h1&gt;&lt;h4 id=&quot;作用：帮使用者提高编码效率，减少重复与冗余的代码&quot;&gt;&lt;a href=&quot;#作用：帮使用者提高编码效率
+    
+    </summary>
+    
+    
+      <category term="lombok" scheme="https://blog.coder4j.cn/tags/lombok/"/>
+    
+  </entry>
+  
+</feed>

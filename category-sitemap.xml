@@ -7,36 +7,43 @@
     </url>
 
     <url>
+        <loc>https://blog.coder4j.cn/categories/hexo/</loc>
+        <lastmod>2017-03-11T06:58:33.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/maven/</loc>
+        <lastmod>2017-03-11T15:26:05.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://blog.coder4j.cn/categories/tomcat/</loc>
-        <lastmod>2017-03-10T14:12:32.000Z</lastmod>
+        <lastmod>2017-03-11T15:27:48.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.coder4j.cn/categories/tomcat/https/</loc>
-        <lastmod>2017-03-10T14:12:32.000Z</lastmod>
+        <lastmod>2017-03-11T15:27:48.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.coder4j.cn/categories/spring/</loc>
-        <lastmod>2017-03-10T14:18:11.000Z</lastmod>
+        <lastmod>2017-03-11T15:44:53.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.coder4j.cn/categories/spring/aop/</loc>
-        <lastmod>2017-03-10T14:18:11.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.coder4j.cn/categories/hexo/</loc>
-        <lastmod>2017-03-11T06:58:33.000Z</lastmod>
+        <lastmod>2017-03-11T15:44:53.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
