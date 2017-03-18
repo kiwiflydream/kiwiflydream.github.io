@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2017-03-11T15:26:05.000Z</updated>
+  <updated>2017-03-18T14:04:32.000Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CDN原理</title>
+    <link href="https://blog.coder4j.cn/2017/03/18/CDN%E5%8E%9F%E7%90%86/"/>
+    <id>https://blog.coder4j.cn/2017/03/18/CDN原理/</id>
+    <published>2017-03-18T13:45:00.000Z</published>
+    <updated>2017-03-18T14:04:32.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;CDN是构建在网络之上的内容分发网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术
+    
+    </summary>
+    
+      <category term="架构" scheme="https://blog.coder4j.cn/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+    
+      <category term="cdn" scheme="https://blog.coder4j.cn/tags/cdn/"/>
+    
+      <category term="架构" scheme="https://blog.coder4j.cn/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>maven按环境加载配置文件</title>
