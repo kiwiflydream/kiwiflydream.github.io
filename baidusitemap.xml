@@ -4,15 +4,51 @@
 
     
   <url>
+    <loc>https://blog.coder4j.cn/2018/01/01/2018%E5%B9%B4%E6%96%B0%E5%B9%B4%E6%84%BF%E6%99%AF/</loc>
+    <lastmod>2018-01-01T12:14:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>2018年新年愿景</title>
+        <pubTime>2018-01-01T11:49:00.000Z</pubTime>
+        
+        <tag>2018</tag>
+         
+        <tag>新年愿景</tag>
+         
+         
+           
+             
+              <breadCrumb title="新年愿景" url="https://blog.coder4j.cn/categories/%E6%96%B0%E5%B9%B4%E6%84%BF%E6%99%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.coder4j.cn/2018/01/01/Spring-boot-%E5%AF%B9%E4%BA%8E-js-%E7%9A%84-long-%E7%B2%BE%E5%BA%A6%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2018-01-01T11:34:35.000Z</lastmod>
+    <lastmod>2018-01-01T11:41:39.000Z</lastmod>
     <data>
         <display>
         <title>Spring boot 对于 js 的 long 精度问题处理</title>
-        <pubTime>2018-01-01T11:31:00.000Z</pubTime>
+        <pubTime>2018-01-01T09:40:00.000Z</pubTime>
         
+        <tag>spring boot</tag>
+         
+        <tag>json</tag>
+         
+        <tag>精度</tag>
+         
+        <tag>js</tag>
+         
          
            
+             
+              <breadCrumb title="spring boot" url="https://blog.coder4j.cn/categories/spring-boot/"/>
+          
+             
+              <breadCrumb title="json" url="https://blog.coder4j.cn/categories/spring-boot/json/"/>
+          
         </display>
     </data>
     </url>
