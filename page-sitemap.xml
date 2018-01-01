@@ -7,6 +7,13 @@
     </url>
     
     <url>
+        <loc>https://blog.coder4j.cn/about/</loc>
+        <lastmod>2018-01-01T06:18:13.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
         <loc>https://blog.coder4j.cn/baidu_verify_hOpMTaVZfi.html</loc>
         <lastmod>2017-03-11T16:11:17.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -23,13 +30,6 @@
     <url>
         <loc>https://blog.coder4j.cn/tags/</loc>
         <lastmod>2017-03-09T16:51:51.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://blog.coder4j.cn/about/</loc>
-        <lastmod>2017-03-09T16:49:31.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
