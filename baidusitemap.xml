@@ -4,6 +4,56 @@
 
     
   <url>
+    <loc>https://blog.coder4j.cn/2018/01/01/%E4%BD%BF%E7%94%A8-docker-%E5%85%89%E9%80%9F%E5%AE%89%E8%A3%85-workdpress/</loc>
+    <lastmod>2018-01-01T15:49:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用 docker 光速安装 wordpress</title>
+        <pubTime>2018-01-01T15:45:00.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+        <tag>wordpress</tag>
+         
+         
+           
+             
+              <breadCrumb title="docker" url="https://blog.coder4j.cn/categories/docker/"/>
+          
+             
+              <breadCrumb title="wordpress" url="https://blog.coder4j.cn/categories/docker/wordpress/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.coder4j.cn/2018/01/01/%E4%BD%BF%E7%94%A8-docker-%E5%85%89%E9%80%9F%E5%AE%89%E8%A3%85-gitlab/</loc>
+    <lastmod>2018-01-01T15:47:14.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用 docker 光速安装 gitlab</title>
+        <pubTime>2018-01-01T15:46:00.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+        <tag>gitlab</tag>
+         
+         
+           
+             
+              <breadCrumb title="docker" url="https://blog.coder4j.cn/categories/docker/"/>
+          
+             
+              <breadCrumb title="gitlab" url="https://blog.coder4j.cn/categories/docker/gitlab/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.coder4j.cn/2018/01/01/2018%E5%B9%B4%E6%96%B0%E5%B9%B4%E6%84%BF%E6%99%AF/</loc>
     <lastmod>2018-01-01T12:14:42.000Z</lastmod>
     <data>

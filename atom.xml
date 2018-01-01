@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2018-01-01T12:14:42.000Z</updated>
+  <updated>2018-01-01T15:47:14.000Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -14,6 +14,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 docker 光速安装 gitlab</title>
+    <link href="https://blog.coder4j.cn/2018/01/01/%E4%BD%BF%E7%94%A8-docker-%E5%85%89%E9%80%9F%E5%AE%89%E8%A3%85-gitlab/"/>
+    <id>https://blog.coder4j.cn/2018/01/01/使用-docker-光速安装-gitlab/</id>
+    <published>2018-01-01T15:46:00.000Z</published>
+    <updated>2018-01-01T15:47:14.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;使用 docker 安装 gitlab&lt;pre&gt;&lt;code&gt;# 安装 postgresql
+docker run --name=gitlab-postgresql -d --env DB_NAME=gitlabhq_prodution --env DB_USER
+    
+    </summary>
+    
+      <category term="docker" scheme="https://blog.coder4j.cn/categories/docker/"/>
+    
+      <category term="gitlab" scheme="https://blog.coder4j.cn/categories/docker/gitlab/"/>
+    
+    
+      <category term="docker" scheme="https://blog.coder4j.cn/tags/docker/"/>
+    
+      <category term="gitlab" scheme="https://blog.coder4j.cn/tags/gitlab/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 docker 光速安装 wordpress</title>
+    <link href="https://blog.coder4j.cn/2018/01/01/%E4%BD%BF%E7%94%A8-docker-%E5%85%89%E9%80%9F%E5%AE%89%E8%A3%85-workdpress/"/>
+    <id>https://blog.coder4j.cn/2018/01/01/使用-docker-光速安装-workdpress/</id>
+    <published>2018-01-01T15:45:00.000Z</published>
+    <updated>2018-01-01T15:49:01.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;使用 docker 安装 wordpress&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;# 安装数据库
+docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
+
+# 安装 wordpr
+    
+    </summary>
+    
+      <category term="docker" scheme="https://blog.coder4j.cn/categories/docker/"/>
+    
+      <category term="wordpress" scheme="https://blog.coder4j.cn/categories/docker/wordpress/"/>
+    
+    
+      <category term="docker" scheme="https://blog.coder4j.cn/tags/docker/"/>
+    
+      <category term="wordpress" scheme="https://blog.coder4j.cn/tags/wordpress/"/>
+    
+  </entry>
   
   <entry>
     <title>2018年新年愿景</title>

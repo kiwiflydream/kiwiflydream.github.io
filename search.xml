@@ -4,6 +4,115 @@
   
     
     <entry>
+      <title><![CDATA[使用 docker 光速安装 gitlab]]></title>
+      <url>https://blog.coder4j.cn/2018/01/01/%E4%BD%BF%E7%94%A8-docker-%E5%85%89%E9%80%9F%E5%AE%89%E8%A3%85-gitlab/</url>
+      <content type="html"><![CDATA[<ul>
+<li>使用 docker 安装 gitlab<pre><code># 安装 postgresql
+docker run --name=gitlab-postgresql -d --env DB_NAME=gitlabhq_prodution --env DB_USER=gitlab --env DB_PASS=password sameersbn/postgresql:9.4-12
+# 安装 redis
+docker run --name gitlab-redis -d sameersbn/redis
+# 安装 gitlab
+docker run --name gitlab -d --link gitlab-postgresql:postgresql --link gitlab-redis:redisio --publish 10022:22 --publish 10080:80 --env GITLAB_PORT=10080 --env GITLAB_SSH_PORT=10022 --env GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alpha-numeric-string sameersbn/gitlab:8.4.4
+</code></pre></li>
+<li>访问 <a href="http://本地ip:10080" target="_blank" rel="external">http://本地ip:10080</a><br><img src="http://ww1.sinaimg.cn/large/68f7efe0gy1fn1jbcqanij21ro11sq8s.jpg" alt=""></li>
+</ul>
+<ul>
+<li>参考链接<br><a href="https://github.com/sameersbn/docker-gitlab" target="_blank" rel="external">docker-gitlab</a><br><a href="http://www.damagehead.com/docker-gitlab/" target="_blank" rel="external">Zero to GitLab in 5 seconds or less*</a>  </li>
+</ul>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/01/01/使用-docker-光速安装-gitlab/">https://blog.coder4j.cn/2018/01/01/使用-docker-光速安装-gitlab/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> docker </category>
+            
+            <category> gitlab </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> gitlab </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[使用 docker 光速安装 wordpress]]></title>
+      <url>https://blog.coder4j.cn/2018/01/01/%E4%BD%BF%E7%94%A8-docker-%E5%85%89%E9%80%9F%E5%AE%89%E8%A3%85-workdpress/</url>
+      <content type="html"><![CDATA[<ul>
+<li>使用 docker 安装 wordpress</li>
+</ul>
+<pre><code># 安装数据库
+docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
+
+# 安装 wordpress
+docker run --name MyWordPress --link db:mysql -p 8080:80 -d wordpress
+</code></pre><p>安装成功效果图<br><img src="http://ww1.sinaimg.cn/large/68f7efe0gy1fn1igx342oj21sc0tsdjn.jpg" alt=""></p>
+<ul>
+<li>命令解析  <ul>
+<li>安装数据库<pre><code>  docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
+</code></pre><ul>
+<li>docker run <ul>
+<li>启动容器的命令</li>
+</ul>
+</li>
+<li>–name db<ul>
+<li>指定启动容器的名称</li>
+</ul>
+</li>
+<li>–env MYSQL_ROOT_PASSWORD=example<ul>
+<li>传入环境变量，此处是设置 mysql 密码为 example</li>
+</ul>
+</li>
+<li>-d <ul>
+<li>后台运行，否则前台进行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安装 wordpress<pre><code>  docker run --name MyWordPress --link db:mysql -p 8080:80 -d wordpress
+</code></pre><ul>
+<li>–link db:mysql<ul>
+<li>与上面启动的 db 容器建立联系</li>
+</ul>
+</li>
+<li>-p 8080:80<ul>
+<li>端口映射，把宿主机的8080端口映射到容器内的80端口</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/01/01/使用-docker-光速安装-workdpress/">https://blog.coder4j.cn/2018/01/01/使用-docker-光速安装-workdpress/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> docker </category>
+            
+            <category> wordpress </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> wordpress </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[2018年新年愿景]]></title>
       <url>https://blog.coder4j.cn/2018/01/01/2018%E5%B9%B4%E6%96%B0%E5%B9%B4%E6%84%BF%E6%99%AF/</url>
       <content type="html"><![CDATA[<div class="tip"><br>  今天是2018年第一天，转眼2017就这样过去了，感觉荒废了大把时光，新的一年希望自己可以蜕变！<br>  成为一个靠谱的人！<br></div>
