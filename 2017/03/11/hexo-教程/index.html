@@ -1,34 +1,27 @@
-extends partial/layout
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="kiwi"><title>hexo搭建整理 · 求索之路</title><meta name="description" content="本博客搭建参考的教程
 
-include mixins
+基础教程：史上最详细的Hexo博客搭建图文教程
 
-block site_title
-    != page.title + " · " + config.title
+模板material
 
-block description
-    - var desc = page.desc || strip_html(page.content).replace(/^\s*/, '').replace(/\s*$/, '').substring(0, 150);
-    meta(name="description", content=desc)
+http转https:为Github的Hexo博客启用SSL/TLS
 
-block content
-  .autopagerize_page_element: .content: .post-page
-    include mixins
-    +make_post(page, true)
-    .share
-      .evernote
-        a.fa.fa-bookmark(href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();", ref="nofollow", target="_blank")
-      .weibo
-        a.fa.fa-weibo(href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&title=',e(d.title),'&appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));")
-      .twitter
-        a.fa.fa-twitter(href=url_for("http://twitter.com/home?status="+","+config.url+"/"+page.path+","+config.title+","+page.title+",;"))
-    - var prev = page.prev ? page.prev.path : false;
-    - var next = page.next ? page.next.path : false;
-    .pagination
-      ul.clearfix
-        if prev
-          li.pre.pagbuttons
-            a.btn(role="navigation",href=url_for(prev), title=page.prev.title)!= __('prev_post')
-        if next
-          li.next.pagbuttons
-            a.btn(role="navigation",href=url_for(next), title=page.next.title)!= __('next_post')
-    if page.comments
-        include partial/comments
+其它配置:hexo创建个人博客（附加插入音乐、分享、评论、标签页、搜索）
+
+访问分流:Hexo同时部署在Coding和GitHub"><meta name="keywords"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-coy.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">求索之路</a></h3></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/about">Sobre</a></li><li><a href="/archives">Arquivo</a></li><li><a href="/links">Links</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>hexo搭建整理</a></h3></div><div class="post-content"><p>本博客搭建参考的教程<br><a id="more"></a></p>
+<ul>
+<li><p>基础教程：<br><a href="https://xuanwo.org/2015/03/26/hexo-intor/" target="_blank" rel="external">史上最详细的Hexo博客搭建图文教程</a></p>
+</li>
+<li><p>模板<br><a href="https://material.viosey.com/" target="_blank" rel="external">material</a></p>
+</li>
+<li><p>http转https:<br><a href="https://g2ex.github.io/2015/10/14/Hexo-with-SSL-Hosted-on-Github-Page/" target="_blank" rel="external">为Github的Hexo博客启用SSL/TLS</a></p>
+</li>
+<li><p>其它配置:<br><a href="http://www.jianshu.com/p/a52b68794a6b" target="_blank" rel="external">hexo创建个人博客（附加插入音乐、分享、评论、标签页、搜索）</a></p>
+</li>
+<li><p>访问分流:<br><a href="http://www.franktly.com/2016/07/05/Hexo%E5%90%8C%E6%97%B6%E9%83%A8%E7%BD%B2%E5%9C%A8Coding%E5%92%8CGitHub%E4%B8%8A%E5%B9%B6%E4%BD%BF%E7%94%A8DNSPod%E5%88%86%E6%B5%81/" target="_blank" rel="external">Hexo同时部署在Coding和GitHub上并使用DNSPod分流</a></p>
+</li>
+<li><p>SEO:<br><a href="http://www.jianshu.com/p/86557c34b671" target="_blank" rel="external">Hexo Seo优化让你的博客在google搜索排名第一</a><br><a href="http://www.jianshu.com/p/619dab2d3c08" target="_blank" rel="external">hexo提交搜索引擎（百度+谷歌）</a></p>
+</li>
+</ul>
+<p>本文地址 <a href="https://blog.coder4j.cn/2017/03/11/hexo-教程/">https://blog.coder4j.cn/2017/03/11/hexo-教程/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-03-11</span><i class="fa fa-tag"></i><a class="tag" href="/categories/hexo/" title="hexo">hexo </a><a class="tag" href="/tags/hexo/" title="hexo">hexo </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2017/03/11/hexo-教程/,求索之路,hexo搭建整理,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2017/03/11/maven按环境加载配置文件/" title="maven按环境加载配置文件">Post Anterior</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2017/03/10/Spring-Aop注解教程/" title="Spring Aop注解教程">Próximo post</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
