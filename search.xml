@@ -4,6 +4,66 @@
   
     
     <entry>
+      <title><![CDATA[Spring boot 对于 js 的 long 精度问题处理]]></title>
+      <url>https://blog.coder4j.cn/2018/01/01/Spring-boot-%E5%AF%B9%E4%BA%8E-js-%E7%9A%84-long-%E7%B2%BE%E5%BA%A6%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/</url>
+      <content type="html"><![CDATA[<p>title: Spring boot 对于 js 的 long 精度问题处理<br>author: kiwi<br>tags:</p>
+<ul>
+<li>spring boot</li>
+<li>js </li>
+<li>long</li>
+<li>精度<br>categories:</li>
+<li>spring boot<br>date: 2018-01-01 17:10:36</li>
+</ul>
+<hr>
+<p>这几天前后端联调，遇到一个诡异的问题。前端请求后端提供的详情接口得到用户的 Id 与其它数据。然后前端又把这个 Id与修改的数据内容一同传回后端的修改接口。结果前端反馈死活修改不了。  </p>
+<p>然后各种 debug 查日志，发现详情接口返回给前端的与前端调用修改接口传回的 Id 不一致。  </p>
+<p>然后一查发现是 js 的精度问题，原以为 js 只是浮点型会有精度问题，没想到长整型也会出现。因为是语言的限制，前端要解决这个问题，还是很吃力的。所以只能在后端在传 json 的时候把 long 全部转成 string 类型。  </p>
+<p>然后问题又来了，因为项目已写了差不多了。太多地方用了 long 类型，改基础类的字段类型是不可能了。于是想在对象转 json 的时候能否统一处理。  </p>
+<p>因为使用的是 spring boot 框架，而 spring boot 默认的 json 框架的Jackson。就是找了一下，果然 jackson 有一个可以自定义的类型转换器机制。直接上代码↓  </p>
+<ul>
+<li><p>json 转换器<br>JsonLong2StrConverter</p>
+<pre><code>public class JsonLong2StrConverter extends StdSerializer&lt;Long&gt; {
+
+  public JsonLong2StrConverter() {
+    super(Long.class);
+  }
+
+  @Override
+  public void serialize(Long value, JsonGenerator gen, SerializerProvider provider)
+      throws IOException {
+
+    gen.writeString(value.toString());
+  }
+}
+</code></pre></li>
+<li><p>使用配置<br>JsonConf</p>
+<pre><code>@Configuration
+@EnableWebMvc
+public class JsonConf extends WebMvcConfigurerAdapter {
+
+  @Override
+  public void configureMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
+    converters.add(new MappingJackson2HttpMessageConverter(
+        new Jackson2ObjectMapperBuilder()
+//            .propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
+            .serializationInclusion(
+                Include.NON_NULL)
+            .serializerByType(Long.class, new JsonLong2StrConverter())
+            .serializerByType(Long.TYPE, new JsonLong2StrConverter()).build()));
+  }
+
+}
+</code></pre></li>
+</ul>
+<p>这样 spring boot 在转换 json 时，发现是 Long 类型就直接转成 String 类型，也就是加个单引号。</p>
+<p>参考：<br><a href="http://okeeper.leanote.com/post/Spring-boot-%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89Json%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2" target="_blank" rel="external">Spring boot 配置自定义Json类型转换</a></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/01/01/Spring-boot-对于-js-的-long-精度问题处理/">https://blog.coder4j.cn/2018/01/01/Spring-boot-对于-js-的-long-精度问题处理/</a> </p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[CDN原理]]></title>
       <url>https://blog.coder4j.cn/2017/03/18/CDN%E5%8E%9F%E7%90%86/</url>
       <content type="html"><![CDATA[<blockquote>
