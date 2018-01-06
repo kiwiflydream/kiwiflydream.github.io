@@ -66,9 +66,9 @@ docker run --name=gitlab-postgresql -d --env DB_NAME=gitlabhq_prodution --env DB
       <category term="gitlab" scheme="https://blog.coder4j.cn/categories/docker/gitlab/"/>
     
     
-      <category term="gitlab" scheme="https://blog.coder4j.cn/tags/gitlab/"/>
-    
       <category term="docker" scheme="https://blog.coder4j.cn/tags/docker/"/>
+    
+      <category term="gitlab" scheme="https://blog.coder4j.cn/tags/gitlab/"/>
     
   </entry>
   

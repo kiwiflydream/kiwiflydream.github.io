@@ -160,9 +160,9 @@ docker run --name gitlab -d --link gitlab-postgresql:postgresql --link gitlab-re
         
         <tags>
             
-            <tag> gitlab </tag>
-            
             <tag> docker </tag>
+            
+            <tag> gitlab </tag>
             
         </tags>
         
