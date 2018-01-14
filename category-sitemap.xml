@@ -56,13 +56,6 @@
     </url>
 
     <url>
-        <loc>https://blog.coder4j.cn/categories/spring-boot/</loc>
-        <lastmod>2018-01-01T11:41:39.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://blog.coder4j.cn/categories/spring-boot/json/</loc>
         <lastmod>2018-01-01T11:41:39.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -114,6 +107,27 @@
     <url>
         <loc>https://blog.coder4j.cn/categories/%E6%BC%AB%E6%BC%AB%E4%BA%BA%E7%94%9F%E8%B7%AF/</loc>
         <lastmod>2018-01-06T14:51:00.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/exception/</loc>
+        <lastmod>2018-01-13T07:02:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/exception/spring/</loc>
+        <lastmod>2018-01-13T07:02:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/spring-boot/</loc>
+        <lastmod>2018-01-13T07:34:16.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

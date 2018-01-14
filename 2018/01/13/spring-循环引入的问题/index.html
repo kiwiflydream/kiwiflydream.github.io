@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><title>[转]spring 循环依赖 · 求索之路</title><meta name="description" content="本文由 简悦 SimpRead 转码， 原文地址 http://www.importnew.com/17580.html 原文出处： 张开涛
+
+3.2.1  什么是循环依赖循环依赖就是循环引用，就是两个或多个 Bean 相互之间的持有对方，比如 CircleA 引用 CircleB，CircleB "><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>[转]spring 循环依赖</a></h3></div><div class="post-content"><blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/" target="_blank" rel="external">简悦 SimpRead</a> 转码， 原文地址 <a href="http://www.importnew.com/17580.html" target="_blank" rel="external">http://www.importnew.com/17580.html</a> 原文出处： <a href="http://sishuok.com/forum/blogPost/list/2448.html" target="_blank" rel="external">张开涛</a></p>
+</blockquote>
+<h3 id="3-2-1-什么是循环依赖"><a href="#3-2-1-什么是循环依赖" class="headerlink" title="3.2.1  什么是循环依赖"></a>3.2.1  什么是循环依赖</h3><p>循环依赖就是循环引用，就是两个或多个 Bean 相互之间的持有对方，比如 CircleA 引用 CircleB，CircleB 引用 CircleC，CircleC 引用 CircleA，则它们最终反映为一个环。此处不是循环调用，循环调用是方法之间的环调用。如图 3-5 所示：</p>
+<p> <img src="http://sishuok.com/forum/upload/2012/2/20/07001b6dc0a31b138de5923cf5c28314__1.JPG" alt=""></p>
+<p>图 3-5 循环引用</p>
+<pre><code>   循环调用是无法解决的，除非有终结条件，否则就是死循环，最终导致内存溢出错误。
+</code></pre><p>Spring 容器循环依赖包括构造器循环依赖和 setter 循环依赖，那 Spring 容器如何解决循环依赖呢？首先让我们来定义循环引用类： </p>
+<pre><code>package cn.javass.spring.chapter3.bean;
+public class CircleA {
+    private CircleB circleB;
+    public CircleA() {
+    }
+    public CircleA(CircleB circleB) {
+        this.circleB = circleB;
+    }
+public void setCircleB(CircleB circleB) 
+{
+        this.circleB = circleB;
+    }
+public void a() {
+   circleB.b();
+}
+}
+</code></pre><pre><code>package cn.javass.spring.chapter3.bean;
+public class CircleB {
+    private CircleC circleC;
+    public CircleB() {
+    }
+    public CircleB(CircleC circleC) {
+        this.circleC = circleC;
+    }
+public void setCircleC(CircleC circleC) 
+{
+        this.circleC = circleC;
+    }
+    public void b() {
+        circleC.c();
+    }
+}
+</code></pre><pre><code>package cn.javass.spring.chapter3.bean;
+public class CircleC {
+    private CircleC circleC;
+    public CircleB() {
+    }
+    public CircleB(CircleC circleC) {
+        this.circleC = circleC;
+    }
+public void setCircleC(CircleC circleC) 
+{
+        this.circleC = circleC;
+    }
+    public void b() {
+        circleC.c();
+    }
+}
+</code></pre><h3 id="3-2-2-Spring-如何解决循环依赖"><a href="#3-2-2-Spring-如何解决循环依赖" class="headerlink" title="3.2.2        Spring 如何解决循环依赖"></a>3.2.2        Spring 如何解决循环依赖</h3><p><strong>一、构造器循环依赖：</strong>表示通过构造器注入构成的循环依赖，此依赖是无法解决的，只能抛出 BeanCurrentlyInCreationException 异常表示循环依赖。</p>
+<p>如在创建 CircleA 类时，构造器需要 CircleB 类，那将去创建 CircleB，在创建 CircleB 类时又发现需要 CircleC 类，则又去创建 CircleC，最终在创建 CircleC 时发现又需要 CircleA；从而形成一个环，没办法创建。</p>
+<p>Spring 容器将每一个正在创建的 Bean 标识符放在一个 “当前创建 Bean 池” 中，Bean 标识符在创建过程中将一直保持在这个池中，因此如果在创建 Bean 过程中发现自己已经在 “当前创建 Bean 池” 里时将抛出 BeanCurrentlyInCreationException 异常表示循环依赖；而对于创建完毕的 Bean 将从 “当前创建 Bean 池” 中清除掉。</p>
+<p>1）首先让我们看一下配置文件（chapter3/circleInjectByConstructor.xml）：</p>
+<pre><code>&lt;bean id=&quot;circleA&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleA&quot;&gt;
+&lt;constructor-arg index=&quot;0&quot; ref=&quot;circleB&quot;/&gt;
+&lt;/bean&gt;
+&lt;bean id=&quot;circleB&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleB&quot;&gt;
+&lt;constructor-arg index=&quot;0&quot; ref=&quot;circleC&quot;/&gt;
+&lt;/bean&gt;
+&lt;bean id=&quot;circleC&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleC&quot;&gt;
+&lt;constructor-arg index=&quot;0&quot; ref=&quot;circleA&quot;/&gt;
+&lt;/bean&gt;
+</code></pre><p>2）写段测试代码（cn.javass.spring.chapter3.CircleTest）测试一下吧：</p>
+<pre><code>@Test(expected = BeanCurrentlyInCreationException.class)
+public void testCircleByConstructor() throws Throwable {
+try {
+      new ClassPathXmlApplicationContext(&quot;chapter3/circleInjectByConstructor.xml&quot;);
+    }
+    catch (Exception e) {
+      //因为要在创建circle3时抛出；
+      Throwable e1 = e.getCause().getCause().getCause();
+      throw e1;
+    }
+}
+</code></pre><p>让我们分析一下吧：</p>
+<p>1、Spring 容器创建 “circleA” Bean，首先去“当前创建 Bean 池” 查找是否当前 Bean 正在创建，如果没发现，则继续准备其需要的构造器参数“circleB”，并将“circleA” 标识符放到“当前创建 Bean 池”；</p>
+<p>2、Spring 容器创建 “circleB” Bean，首先去“当前创建 Bean 池” 查找是否当前 Bean 正在创建，如果没发现，则继续准备其需要的构造器参数“circleC”，并将“circleB” 标识符放到“当前创建 Bean 池”；</p>
+<p>3、Spring 容器创建 “circleC” Bean，首先去“当前创建 Bean 池” 查找是否当前 Bean 正在创建，如果没发现，则继续准备其需要的构造器参数“circleA”，并将“circleC” 标识符放到“当前创建 Bean 池”；</p>
+<p>4、到此为止 Spring 容器要去创建 “circleA”Bean，发现该 Bean 标识符在“当前创建 Bean 池” 中，因为表示循环依赖，抛出 BeanCurrentlyInCreationException。</p>
+<p><strong>二、setter 循环依赖：</strong>表示通过 setter 注入方式构成的循环依赖。</p>
+<p>对于 setter 注入造成的依赖是通过 Spring 容器提前暴露刚完成构造器注入但未完成其他步骤（如 setter 注入）的 Bean 来完成的，而且只能解决单例作用域的 Bean 循环依赖。</p>
+<p>如下代码所示，通过提前暴露一个单例工厂方法，从而使其他 Bean 能引用到该 Bean。</p>
+<pre><code>addSingletonFactory(beanName, new ObjectFactory() {
+    public Object getObject() throws BeansException {
+        return getEarlyBeanReference(beanName, mbd, bean);
+    }
+});
+</code></pre><p>具体步骤如下：</p>
+<p>1、Spring 容器创建单例 “circleA” Bean，首先根据无参构造器创建 Bean，并暴露一个“ObjectFactory ” 用于返回一个提前暴露一个创建中的 Bean，并将“circleA” 标识符放到“当前创建 Bean 池”；然后进行 setter 注入“circleB”；</p>
+<p>2、Spring 容器创建单例 “circleB” Bean，首先根据无参构造器创建 Bean，并暴露一个“ObjectFactory” 用于返回一个提前暴露一个创建中的 Bean，并将“circleB” 标识符放到“当前创建 Bean 池”，然后进行 setter 注入“circleC”；</p>
+<p>3、Spring 容器创建单例 “circleC” Bean，首先根据无参构造器创建 Bean，并暴露一个“ObjectFactory ” 用于返回一个提前暴露一个创建中的 Bean，并将 “circleC” 标识符放到“当前创建 Bean 池”，然后进行 setter 注入“circleA”；进行注入“circleA” 时由于提前暴露了 “ObjectFactory” 工厂从而使用它返回提前暴露一个创建中的 Bean；</p>
+<p>4、最后在依赖注入 “circleB” 和“circleA”，完成 setter 注入。</p>
+<p>对于 “prototype” 作用域 Bean，Spring 容器无法完成依赖注入，因为 “prototype” 作用域的 Bean，Spring 容器不进行缓存，因此无法提前暴露一个创建中的 Bean。</p>
+<pre><code>&lt;!-- 定义Bean配置文件，注意scope都是“prototype”--&gt;
+&lt;bean id=&quot;circleA&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleA&quot; scope=&quot;prototype&quot;&gt;
+        &lt;property name=&quot;circleB&quot; ref=&quot;circleB&quot;/&gt;
+   &lt;/bean&gt;
+   &lt;bean id=&quot;circleB&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleB&quot; scope=&quot;prototype&quot;&gt;
+       &lt;property name=&quot;circleC&quot; ref=&quot;circleC&quot;/&gt;
+   &lt;/bean&gt;
+   &lt;bean id=&quot;circleC&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleC&quot; scope=&quot;prototype&quot;&gt;
+       &lt;property name=&quot;circleA&quot; ref=&quot;circleA&quot;/&gt;
+   &lt;/bean&gt;
+</code></pre><pre><code>//测试代码cn.javass.spring.chapter3.CircleTest
+@Test(expected = BeanCurrentlyInCreationException.class)
+public void testCircleBySetterAndPrototype () throws Throwable {
+    try {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
+&quot;chapter3/circleInjectBySetterAndPrototype.xml&quot;);
+        System.out.println(ctx.getBean(&quot;circleA&quot;));
+    }
+    catch (Exception e) {
+        Throwable e1 = e.getCause().getCause().getCause();
+        throw e1;
+    }
+}
+</code></pre><p>对于 “singleton” 作用域 Bean，可以通过 “setAllowCircularReferences(false);” 来禁用循环引用：</p>
+<pre><code>@Test(expected = BeanCurrentlyInCreationException.class)
+public void testCircleBySetterAndSingleton2() throws Throwable {
+    try {
+        ClassPathXmlApplicationContext ctx =
+new ClassPathXmlApplicationContext();
+        ctx.setConfigLocation(&quot;chapter3/circleInjectBySetterAndSingleton.xml&quot;);
+        ctx.refresh();
+    }
+    catch (Exception e) {
+        Throwable e1 = e.getCause().getCause().getCause();
+        throw e1;
+    }
+}
+</code></pre><p>本文地址 <a href="https://blog.coder4j.cn/2018/01/13/spring-循环引入的问题/">https://blog.coder4j.cn/2018/01/13/spring-循环引入的问题/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-01-13</span><i class="fa fa-tag"></i><a class="tag" href="/categories/exception/" title="exception">exception </a><a class="tag" href="/categories/exception/spring/" title="spring">spring </a><a class="tag" href="/tags/spring/" title="spring">spring </a><a class="tag" href="/tags/exception/" title="exception">exception </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2018/01/13/spring-循环引入的问题/,求索之路,[转]spring 循环依赖,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2018/01/13/spring-boot-集成-redis/" title="spring boot 集成 redis">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/01/06/人的一切痛苦，本质上都是对自己无能的愤怒/" title="人的一切痛苦，本质上都是对自己无能的愤怒">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

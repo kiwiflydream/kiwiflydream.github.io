@@ -4,6 +4,272 @@
   
     
     <entry>
+      <title><![CDATA[spring boot 集成监控]]></title>
+      <url>https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90%E7%9B%91%E6%8E%A7/</url>
+      <content type="html"><![CDATA[<pre class=" language-xml"><code class="language-xml">  <span class="token comment" spellcheck="true">&lt;!--spring boot 系统监控--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-actuator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-security<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true"># 对外开放监控</span>
+<span class="token comment" spellcheck="true"># 将其它健康接口也暴露出去</span>
+<span class="token attr-name">endpoints.health.sensitive</span> <span class="token punctuation">=</span> <span class="token attr-value">false</span>
+<span class="token attr-name">management.security.enabled</span> <span class="token punctuation">=</span> <span class="token attr-value">false</span>
+<span class="token comment" spellcheck="true"># 设置健康监控的应用名</span>
+<span class="token comment" spellcheck="true">#management.context-path=/manage/api/</span>
+<span class="token comment" spellcheck="true"># 开启基础鉴权</span>
+<span class="token comment" spellcheck="true">#security.basic.enabled=true</span>
+<span class="token comment" spellcheck="true"># 要鉴权路径</span>
+<span class="token comment" spellcheck="true">#security.basic.path=/manage/api/*</span>
+<span class="token comment" spellcheck="true">#security.user.name=admin</span>
+<span class="token comment" spellcheck="true">#security.user.password=123456</span>
+</code></pre>
+<p><em>不加security也可以使用，但是会报权限不足</em></p>
+<blockquote>
+<p>有两种方法解决这个问题，一个是加上security，做拦截，并且配置相应的账号密码。另一个配置上面所示的属性，对监控页面关闭默认权限验证，然后我们自己去实现</p>
+</blockquote>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/01/13/spring-boot-集成监控/">https://blog.coder4j.cn/2018/01/13/spring-boot-集成监控/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> spring boot </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> spring boot </tag>
+            
+            <tag> 监控 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[spring boot 集成 redis]]></title>
+      <url>https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90-redis/</url>
+      <content type="html"><![CDATA[<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--集成redis--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-data-redis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-propreties"><code class="language-propreties">######################redis配置#########################
+# REDIS (RedisProperties)
+# Redis数据库索引（默认为0）
+spring.redis.database=0
+# Redis服务器地址
+spring.redis.host=localhost
+# Redis服务器连接端口
+spring.redis.port=6379
+# Redis服务器连接密码（默认为空）
+spring.redis.password=
+# 连接池最大连接数（使用负值表示没有限制）
+spring.redis.pool.max-active=8
+# 连接池最大阻塞等待时间（使用负值表示没有限制）
+spring.redis.pool.max-wait=-1
+# 连接池中的最大空闲连接
+spring.redis.pool.max-idle=8
+# 连接池中的最小空闲连接
+spring.redis.pool.min-idle=0
+# 连接超时时间（毫秒）
+spring.redis.timeout=0
+</code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Autowired</span>  
+<span class="token keyword">private</span> StringRedisTemplate stringRedisTemplate<span class="token punctuation">;</span>  
+<span class="token annotation punctuation">@Resource</span>  
+<span class="token keyword">private</span> RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Users<span class="token operator">></span> redisTemplate<span class="token punctuation">;</span>
+</code></pre>
+<blockquote>
+<p>然后就可以在类里使用了，使用泛型的时候如果用@Autowired按类型注入会报错，要用@Resource    </p>
+</blockquote>
+<p><em>如果方法想用缓存，要在配置类上加上@EnableCaching打开缓存，并且要在方法上加上@Cacheable(value = “getByUsername”)</em></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/01/13/spring-boot-集成-redis/">https://blog.coder4j.cn/2018/01/13/spring-boot-集成-redis/</a> </p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> spring boot </tag>
+            
+            <tag> redis </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[[转]spring 循环依赖]]></title>
+      <url>https://blog.coder4j.cn/2018/01/13/spring-%E5%BE%AA%E7%8E%AF%E5%BC%95%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/" target="_blank" rel="external">简悦 SimpRead</a> 转码， 原文地址 <a href="http://www.importnew.com/17580.html" target="_blank" rel="external">http://www.importnew.com/17580.html</a> 原文出处： <a href="http://sishuok.com/forum/blogPost/list/2448.html" target="_blank" rel="external">张开涛</a></p>
+</blockquote>
+<h3 id="3-2-1-什么是循环依赖"><a href="#3-2-1-什么是循环依赖" class="headerlink" title="3.2.1  什么是循环依赖"></a>3.2.1  什么是循环依赖</h3><p>循环依赖就是循环引用，就是两个或多个 Bean 相互之间的持有对方，比如 CircleA 引用 CircleB，CircleB 引用 CircleC，CircleC 引用 CircleA，则它们最终反映为一个环。此处不是循环调用，循环调用是方法之间的环调用。如图 3-5 所示：</p>
+<p> <img src="http://sishuok.com/forum/upload/2012/2/20/07001b6dc0a31b138de5923cf5c28314__1.JPG" alt=""></p>
+<p>图 3-5 循环引用</p>
+<pre><code>   循环调用是无法解决的，除非有终结条件，否则就是死循环，最终导致内存溢出错误。
+</code></pre><p>Spring 容器循环依赖包括构造器循环依赖和 setter 循环依赖，那 Spring 容器如何解决循环依赖呢？首先让我们来定义循环引用类： </p>
+<pre><code>package cn.javass.spring.chapter3.bean;
+public class CircleA {
+    private CircleB circleB;
+    public CircleA() {
+    }
+    public CircleA(CircleB circleB) {
+        this.circleB = circleB;
+    }
+public void setCircleB(CircleB circleB) 
+{
+        this.circleB = circleB;
+    }
+public void a() {
+   circleB.b();
+}
+}
+</code></pre><pre><code>package cn.javass.spring.chapter3.bean;
+public class CircleB {
+    private CircleC circleC;
+    public CircleB() {
+    }
+    public CircleB(CircleC circleC) {
+        this.circleC = circleC;
+    }
+public void setCircleC(CircleC circleC) 
+{
+        this.circleC = circleC;
+    }
+    public void b() {
+        circleC.c();
+    }
+}
+</code></pre><pre><code>package cn.javass.spring.chapter3.bean;
+public class CircleC {
+    private CircleC circleC;
+    public CircleB() {
+    }
+    public CircleB(CircleC circleC) {
+        this.circleC = circleC;
+    }
+public void setCircleC(CircleC circleC) 
+{
+        this.circleC = circleC;
+    }
+    public void b() {
+        circleC.c();
+    }
+}
+</code></pre><h3 id="3-2-2-Spring-如何解决循环依赖"><a href="#3-2-2-Spring-如何解决循环依赖" class="headerlink" title="3.2.2        Spring 如何解决循环依赖"></a>3.2.2        Spring 如何解决循环依赖</h3><p><strong>一、构造器循环依赖：</strong>表示通过构造器注入构成的循环依赖，此依赖是无法解决的，只能抛出 BeanCurrentlyInCreationException 异常表示循环依赖。</p>
+<p>如在创建 CircleA 类时，构造器需要 CircleB 类，那将去创建 CircleB，在创建 CircleB 类时又发现需要 CircleC 类，则又去创建 CircleC，最终在创建 CircleC 时发现又需要 CircleA；从而形成一个环，没办法创建。</p>
+<p>Spring 容器将每一个正在创建的 Bean 标识符放在一个 “当前创建 Bean 池” 中，Bean 标识符在创建过程中将一直保持在这个池中，因此如果在创建 Bean 过程中发现自己已经在 “当前创建 Bean 池” 里时将抛出 BeanCurrentlyInCreationException 异常表示循环依赖；而对于创建完毕的 Bean 将从 “当前创建 Bean 池” 中清除掉。</p>
+<p>1）首先让我们看一下配置文件（chapter3/circleInjectByConstructor.xml）：</p>
+<pre><code>&lt;bean id=&quot;circleA&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleA&quot;&gt;
+&lt;constructor-arg index=&quot;0&quot; ref=&quot;circleB&quot;/&gt;
+&lt;/bean&gt;
+&lt;bean id=&quot;circleB&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleB&quot;&gt;
+&lt;constructor-arg index=&quot;0&quot; ref=&quot;circleC&quot;/&gt;
+&lt;/bean&gt;
+&lt;bean id=&quot;circleC&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleC&quot;&gt;
+&lt;constructor-arg index=&quot;0&quot; ref=&quot;circleA&quot;/&gt;
+&lt;/bean&gt;
+</code></pre><p>2）写段测试代码（cn.javass.spring.chapter3.CircleTest）测试一下吧：</p>
+<pre><code>@Test(expected = BeanCurrentlyInCreationException.class)
+public void testCircleByConstructor() throws Throwable {
+try {
+      new ClassPathXmlApplicationContext(&quot;chapter3/circleInjectByConstructor.xml&quot;);
+    }
+    catch (Exception e) {
+      //因为要在创建circle3时抛出；
+      Throwable e1 = e.getCause().getCause().getCause();
+      throw e1;
+    }
+}
+</code></pre><p>让我们分析一下吧：</p>
+<p>1、Spring 容器创建 “circleA” Bean，首先去“当前创建 Bean 池” 查找是否当前 Bean 正在创建，如果没发现，则继续准备其需要的构造器参数“circleB”，并将“circleA” 标识符放到“当前创建 Bean 池”；</p>
+<p>2、Spring 容器创建 “circleB” Bean，首先去“当前创建 Bean 池” 查找是否当前 Bean 正在创建，如果没发现，则继续准备其需要的构造器参数“circleC”，并将“circleB” 标识符放到“当前创建 Bean 池”；</p>
+<p>3、Spring 容器创建 “circleC” Bean，首先去“当前创建 Bean 池” 查找是否当前 Bean 正在创建，如果没发现，则继续准备其需要的构造器参数“circleA”，并将“circleC” 标识符放到“当前创建 Bean 池”；</p>
+<p>4、到此为止 Spring 容器要去创建 “circleA”Bean，发现该 Bean 标识符在“当前创建 Bean 池” 中，因为表示循环依赖，抛出 BeanCurrentlyInCreationException。</p>
+<p><strong>二、setter 循环依赖：</strong>表示通过 setter 注入方式构成的循环依赖。</p>
+<p>对于 setter 注入造成的依赖是通过 Spring 容器提前暴露刚完成构造器注入但未完成其他步骤（如 setter 注入）的 Bean 来完成的，而且只能解决单例作用域的 Bean 循环依赖。</p>
+<p>如下代码所示，通过提前暴露一个单例工厂方法，从而使其他 Bean 能引用到该 Bean。</p>
+<pre><code>addSingletonFactory(beanName, new ObjectFactory() {
+    public Object getObject() throws BeansException {
+        return getEarlyBeanReference(beanName, mbd, bean);
+    }
+});
+</code></pre><p>具体步骤如下：</p>
+<p>1、Spring 容器创建单例 “circleA” Bean，首先根据无参构造器创建 Bean，并暴露一个“ObjectFactory ” 用于返回一个提前暴露一个创建中的 Bean，并将“circleA” 标识符放到“当前创建 Bean 池”；然后进行 setter 注入“circleB”；</p>
+<p>2、Spring 容器创建单例 “circleB” Bean，首先根据无参构造器创建 Bean，并暴露一个“ObjectFactory” 用于返回一个提前暴露一个创建中的 Bean，并将“circleB” 标识符放到“当前创建 Bean 池”，然后进行 setter 注入“circleC”；</p>
+<p>3、Spring 容器创建单例 “circleC” Bean，首先根据无参构造器创建 Bean，并暴露一个“ObjectFactory ” 用于返回一个提前暴露一个创建中的 Bean，并将 “circleC” 标识符放到“当前创建 Bean 池”，然后进行 setter 注入“circleA”；进行注入“circleA” 时由于提前暴露了 “ObjectFactory” 工厂从而使用它返回提前暴露一个创建中的 Bean；</p>
+<p>4、最后在依赖注入 “circleB” 和“circleA”，完成 setter 注入。</p>
+<p>对于 “prototype” 作用域 Bean，Spring 容器无法完成依赖注入，因为 “prototype” 作用域的 Bean，Spring 容器不进行缓存，因此无法提前暴露一个创建中的 Bean。</p>
+<pre><code>&lt;!-- 定义Bean配置文件，注意scope都是“prototype”--&gt;
+&lt;bean id=&quot;circleA&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleA&quot; scope=&quot;prototype&quot;&gt;
+        &lt;property name=&quot;circleB&quot; ref=&quot;circleB&quot;/&gt;
+   &lt;/bean&gt;
+   &lt;bean id=&quot;circleB&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleB&quot; scope=&quot;prototype&quot;&gt;
+       &lt;property name=&quot;circleC&quot; ref=&quot;circleC&quot;/&gt;
+   &lt;/bean&gt;
+   &lt;bean id=&quot;circleC&quot; class=&quot;cn.javass.spring.chapter3.bean.CircleC&quot; scope=&quot;prototype&quot;&gt;
+       &lt;property name=&quot;circleA&quot; ref=&quot;circleA&quot;/&gt;
+   &lt;/bean&gt;
+</code></pre><pre><code>//测试代码cn.javass.spring.chapter3.CircleTest
+@Test(expected = BeanCurrentlyInCreationException.class)
+public void testCircleBySetterAndPrototype () throws Throwable {
+    try {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
+&quot;chapter3/circleInjectBySetterAndPrototype.xml&quot;);
+        System.out.println(ctx.getBean(&quot;circleA&quot;));
+    }
+    catch (Exception e) {
+        Throwable e1 = e.getCause().getCause().getCause();
+        throw e1;
+    }
+}
+</code></pre><p>对于 “singleton” 作用域 Bean，可以通过 “setAllowCircularReferences(false);” 来禁用循环引用：</p>
+<pre><code>@Test(expected = BeanCurrentlyInCreationException.class)
+public void testCircleBySetterAndSingleton2() throws Throwable {
+    try {
+        ClassPathXmlApplicationContext ctx =
+new ClassPathXmlApplicationContext();
+        ctx.setConfigLocation(&quot;chapter3/circleInjectBySetterAndSingleton.xml&quot;);
+        ctx.refresh();
+    }
+    catch (Exception e) {
+        Throwable e1 = e.getCause().getCause().getCause();
+        throw e1;
+    }
+}
+</code></pre><p>本文地址 <a href="https://blog.coder4j.cn/2018/01/13/spring-循环引入的问题/">https://blog.coder4j.cn/2018/01/13/spring-循环引入的问题/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> exception </category>
+            
+            <category> spring </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> spring </tag>
+            
+            <tag> exception </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[人的一切痛苦，本质上都是对自己无能的愤怒]]></title>
       <url>https://blog.coder4j.cn/2018/01/06/%E4%BA%BA%E7%9A%84%E4%B8%80%E5%88%87%E7%97%9B%E8%8B%A6%EF%BC%8C%E6%9C%AC%E8%B4%A8%E4%B8%8A%E9%83%BD%E6%98%AF%E5%AF%B9%E8%87%AA%E5%B7%B1%E6%97%A0%E8%83%BD%E7%9A%84%E6%84%A4%E6%80%92/</url>
       <content type="html"><![CDATA[<p>&emsp;人的一切痛苦，本质上都是对自己无能的愤怒！</p>
@@ -313,9 +579,9 @@ docker run --name gitlab -d --link gitlab-postgresql:postgresql --link gitlab-re
         
         <tags>
             
-            <tag> docker </tag>
-            
             <tag> gitlab </tag>
+            
+            <tag> docker </tag>
             
         </tags>
         
@@ -955,6 +1221,155 @@ eg. mvn clean install -Pdev  --打包开发环境的配置文件
             <tag> spring </tag>
             
             <tag> aop </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[spring 集成druid]]></title>
+      <url>https://blog.coder4j.cn/2017/02/17/spring-%E9%9B%86%E6%88%90druid/</url>
+      <content type="html"><![CDATA[<p><strong>application.properties</strong></p>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">######################数据库访问配置#########################</span>
+<span class="token comment" spellcheck="true"># 数据库链接</span>
+<span class="token attr-name">spring.datasource.url</span><span class="token punctuation">=</span><span class="token attr-value">jdbc:mysql://localhost:3306/coder4j?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</span>
+<span class="token comment" spellcheck="true"># 数据库用户名</span>
+<span class="token attr-name">spring.datasource.username</span><span class="token punctuation">=</span><span class="token attr-value">root</span>
+<span class="token comment" spellcheck="true"># 数据库用户密码</span>
+<span class="token attr-name">spring.datasource.password</span><span class="token punctuation">=</span><span class="token attr-value">root</span>
+<span class="token comment" spellcheck="true"># 数据库驱动类</span>
+<span class="token comment" spellcheck="true"># spring.datasource.driver-class-name=com.mysql.jdbc.Driver</span>
+<span class="token comment" spellcheck="true"># mysql driver 6.0以后要使用下面的类</span>
+<span class="token attr-name">spring.datasource.driver-class-name</span><span class="token punctuation">=</span><span class="token attr-value">com.mysql.cj.jdbc.Driver</span>
+<span class="token comment" spellcheck="true"># 主数据源(这里使用的druid),如果是通过代码注入，这里没什么用</span>
+<span class="token comment" spellcheck="true">#spring.datasource.type=com.alibaba.druid.pool.DruidDataSource</span>
+<span class="token comment" spellcheck="true">######################数据库连接池配置#########################</span>
+<span class="token comment" spellcheck="true"># sb1.3以前这样配置是可以直接注入的，1.4之后只支持几种内置的，所以我们要通过</span>
+<span class="token comment" spellcheck="true"># 代码手动注入，代码配置优先级比配置文件的高</span>
+<span class="token comment" spellcheck="true"># 初始化大小，最小，最大</span>
+<span class="token attr-name">spring.datasource.initialSize</span><span class="token punctuation">=</span><span class="token attr-value">5</span>
+<span class="token attr-name">spring.datasource.minIdle</span><span class="token punctuation">=</span><span class="token attr-value">5</span>
+<span class="token attr-name">spring.datasource.maxActive</span><span class="token punctuation">=</span><span class="token attr-value">20</span>
+<span class="token comment" spellcheck="true"># 配置获取连接等待超时的时间</span>
+<span class="token attr-name">spring.datasource.maxWait</span><span class="token punctuation">=</span><span class="token attr-value">60000</span>
+<span class="token comment" spellcheck="true"># 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒</span>
+<span class="token attr-name">spring.datasource.timeBetweenEvictionRunsMillis</span><span class="token punctuation">=</span><span class="token attr-value">60000</span>
+<span class="token comment" spellcheck="true"># 配置一个连接在池中最小生存的时间，单位是毫秒</span>
+<span class="token attr-name">spring.datasource.minEvictableIdleTimeMillis</span><span class="token punctuation">=</span><span class="token attr-value">300000</span>
+<span class="token attr-name">spring.datasource.validationQuery</span><span class="token punctuation">=</span><span class="token attr-value">SELECT 1 FROM DUAL</span>
+<span class="token attr-name">spring.datasource.testWhileIdle</span><span class="token punctuation">=</span><span class="token attr-value">true</span>
+<span class="token attr-name">spring.datasource.testOnBorrow</span><span class="token punctuation">=</span><span class="token attr-value">false</span>
+<span class="token attr-name">spring.datasource.testOnReturn</span><span class="token punctuation">=</span><span class="token attr-value">false</span>
+<span class="token comment" spellcheck="true"># 打开PSCache，并且指定每个连接上PSCache的大小</span>
+<span class="token attr-name">spring.datasource.poolPreparedStatements</span><span class="token punctuation">=</span><span class="token attr-value">true</span>
+<span class="token attr-name">spring.datasource.maxPoolPreparedStatementPerConnectionSize</span><span class="token punctuation">=</span><span class="token attr-value">20</span>
+<span class="token comment" spellcheck="true"># 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙</span>
+<span class="token attr-name">spring.datasource.filters</span><span class="token punctuation">=</span><span class="token attr-value">stat,wall,log4j</span>
+<span class="token comment" spellcheck="true"># 通过connectProperties属性来打开mergeSql功能；慢SQL记录</span>
+<span class="token attr-name">spring.datasource.connectionProperties</span><span class="token punctuation">=</span><span class="token attr-value">druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000</span>
+<span class="token comment" spellcheck="true"># 合并多个DruidDataSource的监控数据</span>
+<span class="token comment" spellcheck="true">#spring.datasource.useGlobalDataSourceStat=true</span>
+</code></pre>
+<p><strong>注意：spring boot 1.4以前版本，这些配置已经够了，spring boot会自动注入，但是之后的版本，只有几种内置的数据源可以通过配置注入，druid暂时没有内置，所以要通过代码注入</strong></p>
+<p><strong>DruidConfig.java</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * Copyright (c) 2017, 791650277@qq.com(Mr.kiwi) All Rights Reserved.
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>druid<span class="token punctuation">.</span>pool<span class="token punctuation">.</span>DruidDataSource<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>druid<span class="token punctuation">.</span>support<span class="token punctuation">.</span>http<span class="token punctuation">.</span>StatViewServlet<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>druid<span class="token punctuation">.</span>support<span class="token punctuation">.</span>http<span class="token punctuation">.</span>WebStatFilter<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>context<span class="token punctuation">.</span>properties<span class="token punctuation">.</span>ConfigurationProperties<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>FilterRegistrationBean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>ServletRegistrationBean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Bean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Configuration<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Primary<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>DataSource<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 项目：jalfred
+ * 包名：cn.coder4j
+ * 功能：数据源druid的配置
+ * 时间：2017-02-17 23:30
+ * 作者：Mr.Kiwi
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token comment" spellcheck="true">// Primary同名bean，会以些为准</span>
+<span class="token annotation punctuation">@Primary</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DataSourceConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token comment" spellcheck="true">// ConfigurationProperties会注入同名属性</span>
+    <span class="token annotation punctuation">@ConfigurationProperties</span><span class="token punctuation">(</span><span class="token string">"spring.datasource"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> DataSource <span class="token function">druidDataSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+        DruidDataSource druidDataSource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DruidDataSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> druidDataSource<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment" spellcheck="true">/**
+     * 注册一个StatViewServlet
+     * durid统计页面相关的servlet
+     * @return
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> ServletRegistrationBean <span class="token function">druidStatViewServle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        ServletRegistrationBean servletRegistrationBean <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ServletRegistrationBean</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">StatViewServlet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"/druid2/*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token operator">/</span><span class="token operator">/</span>添加初始化参数：initParams
+
+        <span class="token operator">/</span><span class="token operator">/</span>白名单：
+        servletRegistrationBean<span class="token punctuation">.</span><span class="token function">addInitParameter</span><span class="token punctuation">(</span><span class="token string">"allow"</span><span class="token punctuation">,</span><span class="token string">"127.0.0.1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">/</span><span class="token operator">/</span>IP黑名单 <span class="token punctuation">(</span>存在共同时，deny优先于allow<span class="token punctuation">)</span> <span class="token operator">:</span> 如果满足deny的话提示<span class="token operator">:</span>Sorry<span class="token punctuation">,</span> you are not permitted to view <span class="token keyword">this</span> page<span class="token punctuation">.</span>
+        servletRegistrationBean<span class="token punctuation">.</span><span class="token function">addInitParameter</span><span class="token punctuation">(</span><span class="token string">"deny"</span><span class="token punctuation">,</span><span class="token string">"192.168.1.73"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">/</span><span class="token operator">/</span>登录查看信息的账号密码<span class="token punctuation">.</span>
+        servletRegistrationBean<span class="token punctuation">.</span><span class="token function">addInitParameter</span><span class="token punctuation">(</span><span class="token string">"loginUsername"</span><span class="token punctuation">,</span><span class="token string">"admin2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        servletRegistrationBean<span class="token punctuation">.</span><span class="token function">addInitParameter</span><span class="token punctuation">(</span><span class="token string">"loginPassword"</span><span class="token punctuation">,</span><span class="token string">"123456"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">/</span><span class="token operator">/</span>是否能够重置数据<span class="token punctuation">.</span>
+        servletRegistrationBean<span class="token punctuation">.</span><span class="token function">addInitParameter</span><span class="token punctuation">(</span><span class="token string">"resetEnable"</span><span class="token punctuation">,</span><span class="token string">"false"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> servletRegistrationBean<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token operator">/</span><span class="token operator">*</span><span class="token operator">*</span>
+     <span class="token operator">*</span> 注册一个：filterRegistrationBean
+     <span class="token operator">*</span> 拦截要被druid统计的页面
+     <span class="token operator">*</span> @<span class="token keyword">return</span>
+     <span class="token operator">*</span><span class="token operator">/</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> FilterRegistrationBean <span class="token function">druidStatFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+        FilterRegistrationBean filterRegistrationBean <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FilterRegistrationBean</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">WebStatFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//添加过滤规则.</span>
+        filterRegistrationBean<span class="token punctuation">.</span><span class="token function">addUrlPatterns</span><span class="token punctuation">(</span><span class="token string">"/*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//添加不需要忽略的格式信息.</span>
+        filterRegistrationBean<span class="token punctuation">.</span><span class="token function">addInitParameter</span><span class="token punctuation">(</span><span class="token string">"exclusions"</span><span class="token punctuation">,</span><span class="token string">"*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> filterRegistrationBean<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<p>本文地址 <a href="https://blog.coder4j.cn/2017/02/17/spring-集成druid/">https://blog.coder4j.cn/2017/02/17/spring-集成druid/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> spring boot </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> spring boot </tag>
+            
+            <tag> druid </tag>
             
         </tags>
         

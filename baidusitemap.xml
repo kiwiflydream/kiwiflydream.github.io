@@ -4,6 +4,94 @@
 
     
   <url>
+    <loc>https://blog.coder4j.cn/2017/02/17/spring-%E9%9B%86%E6%88%90druid/</loc>
+    <lastmod>2018-01-13T07:34:16.000Z</lastmod>
+    <data>
+        <display>
+        <title>spring 集成druid</title>
+        <pubTime>2017-02-16T16:00:00.000Z</pubTime>
+        
+        <tag>spring boot</tag>
+         
+        <tag>druid</tag>
+         
+         
+           
+             
+              <breadCrumb title="spring boot" url="https://blog.coder4j.cn/categories/spring-boot/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90%E7%9B%91%E6%8E%A7/</loc>
+    <lastmod>2018-01-13T07:28:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>spring boot 集成监控</title>
+        <pubTime>2018-01-13T07:27:00.000Z</pubTime>
+        
+        <tag>spring boot</tag>
+         
+        <tag>监控</tag>
+         
+         
+           
+             
+              <breadCrumb title="spring boot" url="https://blog.coder4j.cn/categories/spring-boot/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90-redis/</loc>
+    <lastmod>2018-01-13T07:26:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>spring boot 集成 redis</title>
+        <pubTime>2018-01-13T07:25:00.000Z</pubTime>
+        
+        <tag>spring boot</tag>
+         
+        <tag>redis</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://blog.coder4j.cn/2018/01/13/spring-%E5%BE%AA%E7%8E%AF%E5%BC%95%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-01-13T07:02:21.000Z</lastmod>
+    <data>
+        <display>
+        <title>[转]spring 循环依赖</title>
+        <pubTime>2018-01-13T06:30:00.000Z</pubTime>
+        
+        <tag>spring</tag>
+         
+        <tag>exception</tag>
+         
+         
+           
+             
+              <breadCrumb title="exception" url="https://blog.coder4j.cn/categories/exception/"/>
+          
+             
+              <breadCrumb title="spring" url="https://blog.coder4j.cn/categories/exception/spring/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.coder4j.cn/2018/01/06/%E4%BA%BA%E7%9A%84%E4%B8%80%E5%88%87%E7%97%9B%E8%8B%A6%EF%BC%8C%E6%9C%AC%E8%B4%A8%E4%B8%8A%E9%83%BD%E6%98%AF%E5%AF%B9%E8%87%AA%E5%B7%B1%E6%97%A0%E8%83%BD%E7%9A%84%E6%84%A4%E6%80%92/</loc>
     <lastmod>2018-01-06T14:51:00.000Z</lastmod>
     <data>
@@ -100,9 +188,9 @@
         <title>使用 docker 光速安装 gitlab</title>
         <pubTime>2018-01-01T15:46:00.000Z</pubTime>
         
-        <tag>docker</tag>
-         
         <tag>gitlab</tag>
+         
+        <tag>docker</tag>
          
          
            
