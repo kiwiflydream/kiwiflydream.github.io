@@ -163,29 +163,29 @@
     </url>
 
     <url>
-        <loc>https://blog.coder4j.cn/tags/redis/</loc>
-        <lastmod>2018-01-13T07:26:05.000Z</lastmod>
+        <loc>https://blog.coder4j.cn/tags/druid/</loc>
+        <lastmod>2018-01-13T07:34:16.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.coder4j.cn/tags/%E7%9B%91%E6%8E%A7/</loc>
-        <lastmod>2018-01-13T07:28:17.000Z</lastmod>
+        <lastmod>2018-01-14T15:16:30.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.coder4j.cn/tags/spring-boot/</loc>
-        <lastmod>2018-01-13T07:34:16.000Z</lastmod>
+        <lastmod>2018-01-14T15:16:55.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://blog.coder4j.cn/tags/druid/</loc>
-        <lastmod>2018-01-13T07:34:16.000Z</lastmod>
+        <loc>https://blog.coder4j.cn/tags/redis/</loc>
+        <lastmod>2018-01-14T15:16:55.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

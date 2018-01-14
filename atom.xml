@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2018-01-13T07:28:17.000Z</updated>
+  <updated>2018-01-13T07:02:21.000Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -14,50 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>spring boot 集成监控</title>
-    <link href="https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90%E7%9B%91%E6%8E%A7/"/>
-    <id>https://blog.coder4j.cn/2018/01/13/spring-boot-集成监控/</id>
-    <published>2018-01-13T07:27:00.000Z</published>
-    <updated>2018-01-13T07:28:17.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;pre class=&quot; language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;  &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--spring boot 系统监控--&gt;&lt;/span&gt;
-    
-    
-    </summary>
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/categories/spring-boot/"/>
-    
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
-    
-      <category term="监控" scheme="https://blog.coder4j.cn/tags/%E7%9B%91%E6%8E%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>spring boot 集成 redis</title>
-    <link href="https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90-redis/"/>
-    <id>https://blog.coder4j.cn/2018/01/13/spring-boot-集成-redis/</id>
-    <published>2018-01-13T07:25:00.000Z</published>
-    <updated>2018-01-13T07:26:05.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;pre class=&quot; language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;&lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--集成redis--&gt;&lt;/span&gt;
-&lt;span class=&quot;to
-    
-    </summary>
-    
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
-    
-      <category term="redis" scheme="https://blog.coder4j.cn/tags/redis/"/>
-    
-  </entry>
   
   <entry>
     <title>[转]spring 循环依赖</title>
@@ -380,6 +336,50 @@ docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
       <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
     
       <category term="druid" scheme="https://blog.coder4j.cn/tags/druid/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>spring boot 集成 redis</title>
+    <link href="https://blog.coder4j.cn/2016/11/14/spring-boot-%E9%9B%86%E6%88%90-redis/"/>
+    <id>https://blog.coder4j.cn/2016/11/14/spring-boot-集成-redis/</id>
+    <published>2016-11-13T16:00:00.000Z</published>
+    <updated>2018-01-14T15:16:55.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;pre class=&quot; language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;&lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--集成redis--&gt;&lt;/span&gt;
+&lt;span class=&quot;to
+    
+    </summary>
+    
+    
+      <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
+    
+      <category term="redis" scheme="https://blog.coder4j.cn/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>spring boot 集成监控</title>
+    <link href="https://blog.coder4j.cn/2016/10/12/spring-boot-%E9%9B%86%E6%88%90%E7%9B%91%E6%8E%A7/"/>
+    <id>https://blog.coder4j.cn/2016/10/12/spring-boot-集成监控/</id>
+    <published>2016-10-11T16:00:00.000Z</published>
+    <updated>2018-01-14T15:16:30.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;pre class=&quot; language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;  &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--spring boot 系统监控--&gt;&lt;/span&gt;
+    
+    
+    </summary>
+    
+      <category term="spring boot" scheme="https://blog.coder4j.cn/categories/spring-boot/"/>
+    
+    
+      <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
+    
+      <category term="监控" scheme="https://blog.coder4j.cn/tags/%E7%9B%91%E6%8E%A7/"/>
     
   </entry>
   

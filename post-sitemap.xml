@@ -7,24 +7,24 @@
     </url>
 
     <url>
+        <loc>https://blog.coder4j.cn/2016/11/14/spring-boot-%E9%9B%86%E6%88%90-redis/</loc>
+        <lastmod>2018-01-14T15:16:55.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/2016/10/12/spring-boot-%E9%9B%86%E6%88%90%E7%9B%91%E6%8E%A7/</loc>
+        <lastmod>2018-01-14T15:16:30.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://blog.coder4j.cn/2017/02/17/spring-%E9%9B%86%E6%88%90druid/</loc>
         <lastmod>2018-01-13T07:34:16.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90%E7%9B%91%E6%8E%A7/</loc>
-        <lastmod>2018-01-13T07:28:17.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90-redis/</loc>
-        <lastmod>2018-01-13T07:26:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

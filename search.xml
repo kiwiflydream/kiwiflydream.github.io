@@ -4,110 +4,6 @@
   
     
     <entry>
-      <title><![CDATA[spring boot 集成监控]]></title>
-      <url>https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90%E7%9B%91%E6%8E%A7/</url>
-      <content type="html"><![CDATA[<pre class=" language-xml"><code class="language-xml">  <span class="token comment" spellcheck="true">&lt;!--spring boot 系统监控--></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-actuator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-security<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-</code></pre>
-<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true"># 对外开放监控</span>
-<span class="token comment" spellcheck="true"># 将其它健康接口也暴露出去</span>
-<span class="token attr-name">endpoints.health.sensitive</span> <span class="token punctuation">=</span> <span class="token attr-value">false</span>
-<span class="token attr-name">management.security.enabled</span> <span class="token punctuation">=</span> <span class="token attr-value">false</span>
-<span class="token comment" spellcheck="true"># 设置健康监控的应用名</span>
-<span class="token comment" spellcheck="true">#management.context-path=/manage/api/</span>
-<span class="token comment" spellcheck="true"># 开启基础鉴权</span>
-<span class="token comment" spellcheck="true">#security.basic.enabled=true</span>
-<span class="token comment" spellcheck="true"># 要鉴权路径</span>
-<span class="token comment" spellcheck="true">#security.basic.path=/manage/api/*</span>
-<span class="token comment" spellcheck="true">#security.user.name=admin</span>
-<span class="token comment" spellcheck="true">#security.user.password=123456</span>
-</code></pre>
-<p><em>不加security也可以使用，但是会报权限不足</em></p>
-<blockquote>
-<p>有两种方法解决这个问题，一个是加上security，做拦截，并且配置相应的账号密码。另一个配置上面所示的属性，对监控页面关闭默认权限验证，然后我们自己去实现</p>
-</blockquote>
-<p>本文地址 <a href="https://blog.coder4j.cn/2018/01/13/spring-boot-集成监控/">https://blog.coder4j.cn/2018/01/13/spring-boot-集成监控/</a> </p>
-]]></content>
-      
-        <categories>
-            
-            <category> spring boot </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> spring boot </tag>
-            
-            <tag> 监控 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[spring boot 集成 redis]]></title>
-      <url>https://blog.coder4j.cn/2018/01/13/spring-boot-%E9%9B%86%E6%88%90-redis/</url>
-      <content type="html"><![CDATA[<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--集成redis--></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-data-redis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-</code></pre>
-<pre class=" language-propreties"><code class="language-propreties">######################redis配置#########################
-# REDIS (RedisProperties)
-# Redis数据库索引（默认为0）
-spring.redis.database=0
-# Redis服务器地址
-spring.redis.host=localhost
-# Redis服务器连接端口
-spring.redis.port=6379
-# Redis服务器连接密码（默认为空）
-spring.redis.password=
-# 连接池最大连接数（使用负值表示没有限制）
-spring.redis.pool.max-active=8
-# 连接池最大阻塞等待时间（使用负值表示没有限制）
-spring.redis.pool.max-wait=-1
-# 连接池中的最大空闲连接
-spring.redis.pool.max-idle=8
-# 连接池中的最小空闲连接
-spring.redis.pool.min-idle=0
-# 连接超时时间（毫秒）
-spring.redis.timeout=0
-</code></pre>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Autowired</span>  
-<span class="token keyword">private</span> StringRedisTemplate stringRedisTemplate<span class="token punctuation">;</span>  
-<span class="token annotation punctuation">@Resource</span>  
-<span class="token keyword">private</span> RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Users<span class="token operator">></span> redisTemplate<span class="token punctuation">;</span>
-</code></pre>
-<blockquote>
-<p>然后就可以在类里使用了，使用泛型的时候如果用@Autowired按类型注入会报错，要用@Resource    </p>
-</blockquote>
-<p><em>如果方法想用缓存，要在配置类上加上@EnableCaching打开缓存，并且要在方法上加上@Cacheable(value = “getByUsername”)</em></p>
-<p>本文地址 <a href="https://blog.coder4j.cn/2018/01/13/spring-boot-集成-redis/">https://blog.coder4j.cn/2018/01/13/spring-boot-集成-redis/</a> </p>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> spring boot </tag>
-            
-            <tag> redis </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[[转]spring 循环依赖]]></title>
       <url>https://blog.coder4j.cn/2018/01/13/spring-%E5%BE%AA%E7%8E%AF%E5%BC%95%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98/</url>
       <content type="html"><![CDATA[<blockquote>
@@ -1370,6 +1266,110 @@ eg. mvn clean install -Pdev  --打包开发环境的配置文件
             <tag> spring boot </tag>
             
             <tag> druid </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[spring boot 集成 redis]]></title>
+      <url>https://blog.coder4j.cn/2016/11/14/spring-boot-%E9%9B%86%E6%88%90-redis/</url>
+      <content type="html"><![CDATA[<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--集成redis--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-data-redis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-propreties"><code class="language-propreties">######################redis配置#########################
+# REDIS (RedisProperties)
+# Redis数据库索引（默认为0）
+spring.redis.database=0
+# Redis服务器地址
+spring.redis.host=localhost
+# Redis服务器连接端口
+spring.redis.port=6379
+# Redis服务器连接密码（默认为空）
+spring.redis.password=
+# 连接池最大连接数（使用负值表示没有限制）
+spring.redis.pool.max-active=8
+# 连接池最大阻塞等待时间（使用负值表示没有限制）
+spring.redis.pool.max-wait=-1
+# 连接池中的最大空闲连接
+spring.redis.pool.max-idle=8
+# 连接池中的最小空闲连接
+spring.redis.pool.min-idle=0
+# 连接超时时间（毫秒）
+spring.redis.timeout=0
+</code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Autowired</span>  
+<span class="token keyword">private</span> StringRedisTemplate stringRedisTemplate<span class="token punctuation">;</span>  
+<span class="token annotation punctuation">@Resource</span>  
+<span class="token keyword">private</span> RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Users<span class="token operator">></span> redisTemplate<span class="token punctuation">;</span>
+</code></pre>
+<blockquote>
+<p>然后就可以在类里使用了，使用泛型的时候如果用@Autowired按类型注入会报错，要用@Resource    </p>
+</blockquote>
+<p><em>如果方法想用缓存，要在配置类上加上@EnableCaching打开缓存，并且要在方法上加上@Cacheable(value = “getByUsername”)</em></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2016/11/14/spring-boot-集成-redis/">https://blog.coder4j.cn/2016/11/14/spring-boot-集成-redis/</a> </p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> spring boot </tag>
+            
+            <tag> redis </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[spring boot 集成监控]]></title>
+      <url>https://blog.coder4j.cn/2016/10/12/spring-boot-%E9%9B%86%E6%88%90%E7%9B%91%E6%8E%A7/</url>
+      <content type="html"><![CDATA[<pre class=" language-xml"><code class="language-xml">  <span class="token comment" spellcheck="true">&lt;!--spring boot 系统监控--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-actuator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-security<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true"># 对外开放监控</span>
+<span class="token comment" spellcheck="true"># 将其它健康接口也暴露出去</span>
+<span class="token attr-name">endpoints.health.sensitive</span> <span class="token punctuation">=</span> <span class="token attr-value">false</span>
+<span class="token attr-name">management.security.enabled</span> <span class="token punctuation">=</span> <span class="token attr-value">false</span>
+<span class="token comment" spellcheck="true"># 设置健康监控的应用名</span>
+<span class="token comment" spellcheck="true">#management.context-path=/manage/api/</span>
+<span class="token comment" spellcheck="true"># 开启基础鉴权</span>
+<span class="token comment" spellcheck="true">#security.basic.enabled=true</span>
+<span class="token comment" spellcheck="true"># 要鉴权路径</span>
+<span class="token comment" spellcheck="true">#security.basic.path=/manage/api/*</span>
+<span class="token comment" spellcheck="true">#security.user.name=admin</span>
+<span class="token comment" spellcheck="true">#security.user.password=123456</span>
+</code></pre>
+<p><em>不加security也可以使用，但是会报权限不足</em></p>
+<blockquote>
+<p>有两种方法解决这个问题，一个是加上security，做拦截，并且配置相应的账号密码。另一个配置上面所示的属性，对监控页面关闭默认权限验证，然后我们自己去实现</p>
+</blockquote>
+<p>本文地址 <a href="https://blog.coder4j.cn/2016/10/12/spring-boot-集成监控/">https://blog.coder4j.cn/2016/10/12/spring-boot-集成监控/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> spring boot </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> spring boot </tag>
+            
+            <tag> 监控 </tag>
             
         </tags>
         
