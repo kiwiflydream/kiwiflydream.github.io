@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>https://blog.coder4j.cn/2018/01/19/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2018-01-18T16:48:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>docker 常用命令</title>
+        <pubTime>2018-01-18T16:44:00.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://blog.coder4j.cn/2016/11/14/spring-boot-%E9%9B%86%E6%88%90-redis/</loc>
     <lastmod>2018-01-14T15:16:55.000Z</lastmod>
     <data>
@@ -188,9 +205,9 @@
         <title>使用 docker 光速安装 gitlab</title>
         <pubTime>2018-01-01T15:46:00.000Z</pubTime>
         
-        <tag>gitlab</tag>
-         
         <tag>docker</tag>
+         
+        <tag>gitlab</tag>
          
          
            
