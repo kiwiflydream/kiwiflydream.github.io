@@ -4,6 +4,106 @@
   
     
     <entry>
+      <title><![CDATA[[转] 小明历险记：规则引擎drools教程一]]></title>
+      <url>https://blog.coder4j.cn/2018/02/10/%E8%BD%AC-%E5%B0%8F%E6%98%8E%E5%8E%86%E9%99%A9%E8%AE%B0%EF%BC%9A%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8Edrools%E6%95%99%E7%A8%8B%E4%B8%80/</url>
+      <content type="html"><![CDATA[<p>转自 <a href="http://www.ityouknow.com/drools/2017/08/07/drools-started.html" target="_blank" rel="external">小明历险记：规则引擎drools教程一</a><br><img src="http://ww1.sinaimg.cn/large/68f7efe0gy1fobrwwkdg4j21hc6jpe82.jpg" alt=""></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/02/10/转-小明历险记：规则引擎drools教程一/">https://blog.coder4j.cn/2018/02/10/转-小明历险记：规则引擎drools教程一/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 规则引擎 </category>
+            
+            <category> java </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> drools </tag>
+            
+            <tag> 规则引擎 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[mysql 中 between and 的边界问题]]></title>
+      <url>https://blog.coder4j.cn/2018/02/10/mysql-%E4%B8%AD-between-and-%E7%9A%84%E8%BE%B9%E7%95%8C%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>mysql 中的 between … and … 语法，相信大家都会，但是在边界这个细节上一不留神就可能会出错。下面就以一个简单的例子去理解边界性的问题。</p>
+</blockquote>
+<ol>
+<li><p>首先我们建一个简单的用户表，简单到只有一个 age 和 name 字段（其实可以没有），下面是建表语句</p>
+<pre><code>create table t_user
+(
+   age int null,
+   name varchar(30) null
+)
+engine=InnoDB
+;
+</code></pre></li>
+<li><p>插入几条测试语句</p>
+<pre><code>INSERT INTO mytest.t_user (age, name) VALUES (15, &#39;kiwi&#39;);
+INSERT INTO mytest.t_user (age, name) VALUES (17, &#39;kimi&#39;);
+INSERT INTO mytest.t_user (age, name) VALUES (18, &#39;tony&#39;);
+INSERT INTO mytest.t_user (age, name) VALUES (23, &#39;kim&#39;);
+INSERT INTO mytest.t_user (age, name) VALUES (25, &#39;tom&#39;);
+</code></pre></li>
+<li><p>执行完插入语句后，表应该是如下这样<br><img src="http://ww1.sinaimg.cn/large/68f7efe0gy1fobqkynwtbj20b005mjrk.jpg" alt=""></p>
+</li>
+<li><p>准备工作已经做完了，我们先执行一下 between and 语句</p>
+<pre><code>SELECT * FROM t_user WHERE age BETWEEN 17 AND 23;
+</code></pre><ul>
+<li>执行结果如下<br><img src="http://ww1.sinaimg.cn/large/68f7efe0gy1fobqo084drj20am03qq2y.jpg" alt=""></li>
+<li>分析<blockquote>
+<p>可见结果是包含边界的，在这里也就是包含 17 与 23，相当于如下 sql ，<br><code>SELECT * FROM t_user WHERE age &gt;= 17 AND age &lt;= 23;</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>我们接着执行 not between and 语句</p>
+<pre><code> SELECT * FROM t_user WHERE age NOT BETWEEN 17 AND 23;
+</code></pre><ul>
+<li>执行结果如下<br><img src="http://ww1.sinaimg.cn/large/68f7efe0gy1fobqv3ybjxj20am02u3yg.jpg" alt=""><ul>
+<li>分析<blockquote>
+<p>可见结果是不包含边界的，在这里也就是 17 与 23 不在检索条件内，相当于如下 sql ,<br><code>SELECT * FROM t_user WHERE age &lt; 17 OR age &gt; 23;</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>最终结论</p>
+<ol>
+<li>between … and … 是包含边界的，相当于 … &gt;= AND &lt;= … ，很容易以为是大于并且小于边界的</li>
+<li>not between … and … 是不包含边界的，相当于 … &gt; OR &lt; …，这里可以理解为是 between  … and 的否命题</li>
+</ol>
+</li>
+</ol>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/02/10/mysql-中-between-and-的边界问题/">https://blog.coder4j.cn/2018/02/10/mysql-中-between-and-的边界问题/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> mysql </tag>
+            
+            <tag> between and </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[docker 常用命令]]></title>
       <url>https://blog.coder4j.cn/2018/01/19/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
       <content type="html"><![CDATA[<h5 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h5><pre class=" language-shell"><code class="language-shell">  # 命令格式
