@@ -44,7 +44,7 @@
     <link href="https://blog.coder4j.cn/2018/02/10/mysql-%E4%B8%AD-between-and-%E7%9A%84%E8%BE%B9%E7%95%8C%E9%97%AE%E9%A2%98/"/>
     <id>https://blog.coder4j.cn/2018/02/10/mysql-中-between-and-的边界问题/</id>
     <published>2018-02-10T14:35:00.000Z</published>
-    <updated>2018-02-10T15:34:17.000Z</updated>
+    <updated>2018-02-11T01:52:11.000Z</updated>
     
     <summary type="html">
     
@@ -74,7 +74,7 @@
     
     <summary type="html">
     
-      &lt;h5 id=&quot;基础命令&quot;&gt;&lt;a href=&quot;#基础命令&quot; class=&quot;headerlink&quot; title=&quot;基础命令&quot;&gt;&lt;/a&gt;基础命令&lt;/h5&gt;&lt;pre class=&quot; language-shell&quot;&gt;&lt;code class=&quot;language-shell&quot;&gt;  # 命令格
+      &lt;h5 id=&quot;基础命令&quot;&gt;&lt;a href=&quot;#基础命令&quot; class=&quot;headerlink&quot; title=&quot;基础命令&quot;&gt;&lt;/a&gt;基础命令&lt;/h5&gt;&lt;pre class=&quot;line-numbers language-shell&quot;&gt;&lt;code class=&quot;language-sh
     
     </summary>
     
@@ -394,7 +394,7 @@ docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
     <summary type="html">
     
       &lt;p&gt;&lt;strong&gt;application.properties&lt;/strong&gt;&lt;/p&gt;
-&lt;pre class=&quot; language-properties&quot;&gt;&lt;code class=&quot;language-properties&quot;&gt;&lt;span class=&quot;token commen
+&lt;pre class=&quot;line-numbers language-properties&quot;&gt;&lt;code class=&quot;language-properties&quot;&gt;&lt;span class=&quot;
     
     </summary>
     
@@ -416,8 +416,8 @@ docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
     
     <summary type="html">
     
-      &lt;pre class=&quot; language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;&lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--集成redis--&gt;&lt;/span&gt;
-&lt;span class=&quot;to
+      &lt;pre class=&quot;line-numbers language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;&lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--集成redis--&gt;&lt;/span&gt;
+&lt;sp
     
     </summary>
     
@@ -437,8 +437,7 @@ docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
     
     <summary type="html">
     
-      &lt;pre class=&quot; language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;  &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--spring boot 系统监控--&gt;&lt;/span&gt;
-    
+      &lt;pre class=&quot;line-numbers language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;  &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--spring boot 系统监控--&gt;
     
     </summary>
     

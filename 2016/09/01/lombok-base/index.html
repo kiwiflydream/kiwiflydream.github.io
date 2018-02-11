@@ -1,14 +1,15 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><title>lombok使用教程 · 求索之路</title><meta name="description" content="Lombok作用：帮使用者提高编码效率，减少重复与冗余的代码原理：ASM  动态修改class文件
 配置maven依赖     &amp;lt;dependency&gt;
         &amp;lt;groupId&gt;org.projectlombok&amp;lt;/groupId&gt;
-        &amp;lt;artifac"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-xonokai.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>lombok使用教程</a></h3></div><div class="post-content"><h1 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h1><h4 id="作用：帮使用者提高编码效率，减少重复与冗余的代码"><a href="#作用：帮使用者提高编码效率，减少重复与冗余的代码" class="headerlink" title="作用：帮使用者提高编码效率，减少重复与冗余的代码"></a>作用：帮使用者提高编码效率，减少重复与冗余的代码</h4><h4 id="原理：ASM-动态修改class文件"><a href="#原理：ASM-动态修改class文件" class="headerlink" title="原理：ASM  动态修改class文件"></a>原理：ASM  动态修改class文件</h4><hr>
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><pre class=" language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        &amp;lt;artifac"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>lombok使用教程</a></h3></div><div class="post-content"><h1 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h1><h4 id="作用：帮使用者提高编码效率，减少重复与冗余的代码"><a href="#作用：帮使用者提高编码效率，减少重复与冗余的代码" class="headerlink" title="作用：帮使用者提高编码效率，减少重复与冗余的代码"></a>作用：帮使用者提高编码效率，减少重复与冗余的代码</h4><h4 id="原理：ASM-动态修改class文件"><a href="#原理：ASM-动态修改class文件" class="headerlink" title="原理：ASM  动态修改class文件"></a>原理：ASM  动态修改class文件</h4><hr>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><pre class="line-numbers language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.16.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
-</code></pre>
-<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><pre class=" language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><pre class="line-numbers language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugins</span><span class="token punctuation">></span></span>
           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span><span class="token punctuation">></span></span>
               <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
@@ -17,7 +18,7 @@
           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugin</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugins</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build</span><span class="token punctuation">></span></span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h3><ul>
 <li>安装插件<br><img src="http://ww2.sinaimg.cn/large/68f7efe0gw1fb0hl2gmyzj20su0kagqg.jpg" alt=""></li>
 </ul>
@@ -31,17 +32,17 @@
 </ul>
 <ul>
 <li><p><code>源码</code>     </p>
-<pre class=" language-java"><code class="language-java">  <span class="token annotation punctuation">@Setter</span>
+<pre class="line-numbers language-java"><code class="language-java">  <span class="token annotation punctuation">@Setter</span>
       <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
           <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
           <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><code>编译后</code></li>
 </ul>
-<pre class=" language-java"><code class="language-java">
+<pre class="line-numbers language-java"><code class="language-java">
   <span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
   <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
@@ -59,7 +60,7 @@
           <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="Getter"><a href="#Getter" class="headerlink" title="@Getter"></a>@Getter</h3><ul>
 <li><p><code>功能</code></p>
 <blockquote>
@@ -69,17 +70,17 @@
 </ul>
 <ul>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Getter</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Getter</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
 <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
 <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><code>编译后</code></li>
 </ul>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
@@ -96,7 +97,7 @@
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 <h3 id="ToString"><a href="#ToString" class="headerlink" title="@ToString"></a>@ToString</h3><ul>
 <li><p><code>功能</code></p>
@@ -107,16 +108,16 @@
 </ul>
 <ul>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@ToString</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@ToString</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
@@ -129,7 +130,7 @@
         <span class="token keyword">return</span> <span class="token string">"LombokDemo(id="</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">+</span> <span class="token string">", name="</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">")"</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -147,15 +148,15 @@
 </blockquote>
 </li>
 <li><p><code>编码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token annotation punctuation">@Getter</span><span class="token punctuation">(</span>lazy <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token keyword">private</span> <span class="token keyword">final</span> List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> ids <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
@@ -185,7 +186,7 @@
         <span class="token keyword">return</span> <span class="token punctuation">(</span>List<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span>List<span class="token punctuation">)</span><span class="token punctuation">(</span>value <span class="token operator">==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>ids<span class="token operator">?</span>null<span class="token operator">:</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -199,17 +200,17 @@
 <ul>
 <li><code>源码</code></li>
 </ul>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@EqualsAndHashCode</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@EqualsAndHashCode</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><code>编译后</code></li>
 </ul>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
@@ -267,7 +268,7 @@
         <span class="token keyword">return</span> result1<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 <h3 id="NoAragsConstructor"><a href="#NoAragsConstructor" class="headerlink" title="@NoAragsConstructor"></a>@NoAragsConstructor</h3><ul>
 <li><p><code>功能</code></p>
@@ -289,7 +290,7 @@ public class LombokDemo {
 }
 </code></pre></li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
@@ -298,7 +299,7 @@ public class LombokDemo {
     <span class="token keyword">public</span> <span class="token function">LombokDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -311,16 +312,16 @@ public class LombokDemo {
 </ul>
 <ul>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@AllArgsConstructor</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@AllArgsConstructor</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>ConstructorProperties<span class="token punctuation">;</span>
 
@@ -334,7 +335,7 @@ public class LombokDemo {
         <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -350,16 +351,16 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码</code></p>
-<pre class=" language-jav"><code class="language-jav">@RequiredArgsConstructor
+<pre class="line-numbers language-jav"><code class="language-jav">@RequiredArgsConstructor
 public class LombokDemo {
 
     @NonNull private Integer id;
     private String name;
 }
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>ConstructorProperties<span class="token punctuation">;</span>
 <span class="token keyword">import</span> lombok<span class="token punctuation">.</span>NonNull<span class="token punctuation">;</span>
@@ -378,7 +379,7 @@ public class LombokDemo {
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -390,16 +391,16 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token annotation punctuation">@NonNull</span> <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
@@ -477,7 +478,7 @@ public class LombokDemo {
         <span class="token keyword">return</span> <span class="token string">"LombokDemo(id="</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">", name="</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">")"</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -488,16 +489,16 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Value</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Value</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>ConstructorProperties<span class="token punctuation">;</span>
 
@@ -564,7 +565,7 @@ public class LombokDemo {
         <span class="token keyword">return</span> <span class="token string">"LombokDemo(id="</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">", name="</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">")"</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -585,7 +586,7 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码 chain = true</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Accessors</span><span class="token punctuation">(</span>chain <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Accessors</span><span class="token punctuation">(</span>chain <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@Setter</span>
 <span class="token annotation punctuation">@Getter</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
@@ -593,10 +594,10 @@ public class LombokDemo {
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后 chain = true</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
@@ -623,10 +624,10 @@ public class LombokDemo {
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>源码 fluent = true</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Accessors</span><span class="token punctuation">(</span>fluent <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Accessors</span><span class="token punctuation">(</span>fluent <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@Setter</span>
 <span class="token annotation punctuation">@Getter</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
@@ -634,10 +635,10 @@ public class LombokDemo {
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后 fluent = true</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
@@ -664,10 +665,10 @@ public class LombokDemo {
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>源码 prefix = &quot;xxx&quot;</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Accessors</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"xxx"</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Accessors</span><span class="token punctuation">(</span>prefix <span class="token operator">=</span> <span class="token string">"xxx"</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@Setter</span>
 <span class="token annotation punctuation">@Getter</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
@@ -675,10 +676,10 @@ public class LombokDemo {
     <span class="token keyword">private</span> Integer xxxId<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后 prefix = &quot;xxx&quot;</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer xxxId<span class="token punctuation">;</span>
@@ -695,23 +696,23 @@ public class LombokDemo {
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>xxxId<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
 <hr>
 <h1 id="其它注解："><a href="#其它注解：" class="headerlink" title="其它注解："></a>其它注解：</h1><h2 id="日志相关"><a href="#日志相关" class="headerlink" title="日志相关"></a>日志相关</h2><h3 id="Log4j"><a href="#Log4j" class="headerlink" title="@Log4j"></a>@Log4j</h3><ul>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Log4j</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Log4j</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer xxxId<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>log4j<span class="token punctuation">.</span>Logger<span class="token punctuation">;</span>
 
@@ -723,21 +724,21 @@ public class LombokDemo {
     <span class="token keyword">public</span> <span class="token function">LombokDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h3 id="CommonsLog"><a href="#CommonsLog" class="headerlink" title="@CommonsLog"></a>@CommonsLog</h3><ul>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@CommonsLog</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@CommonsLog</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer xxxId<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>commons<span class="token punctuation">.</span>logging<span class="token punctuation">.</span>Log<span class="token punctuation">;</span>
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>commons<span class="token punctuation">.</span>logging<span class="token punctuation">.</span>LogFactory<span class="token punctuation">;</span>
@@ -750,21 +751,21 @@ public class LombokDemo {
     <span class="token keyword">public</span> <span class="token function">LombokDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h3 id="Log"><a href="#Log" class="headerlink" title="@Log"></a>@Log</h3><ul>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Log</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Log</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer xxxId<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>logging<span class="token punctuation">.</span>Logger<span class="token punctuation">;</span>
 
@@ -776,21 +777,21 @@ public class LombokDemo {
     <span class="token keyword">public</span> <span class="token function">LombokDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h3 id="Log4j2"><a href="#Log4j2" class="headerlink" title="@Log4j2"></a>@Log4j2</h3><ul>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Log4j2</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Log4j2</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer xxxId<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>logging<span class="token punctuation">.</span>log4j<span class="token punctuation">.</span>LogManager<span class="token punctuation">;</span>
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>logging<span class="token punctuation">.</span>log4j<span class="token punctuation">.</span>Logger<span class="token punctuation">;</span>
@@ -803,21 +804,21 @@ public class LombokDemo {
     <span class="token keyword">public</span> <span class="token function">LombokDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h3 id="Slf4j"><a href="#Slf4j" class="headerlink" title="@Slf4j"></a>@Slf4j</h3><ul>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer xxxId<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Logger<span class="token punctuation">;</span>
 <span class="token keyword">import</span> org<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>LoggerFactory<span class="token punctuation">;</span>
@@ -830,7 +831,7 @@ public class LombokDemo {
     <span class="token keyword">public</span> <span class="token function">LombokDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h2 id="设计模式相关"><a href="#设计模式相关" class="headerlink" title="设计模式相关"></a>设计模式相关</h2><h3 id="Builder"><a href="#Builder" class="headerlink" title="@Builder"></a>@Builder</h3><ul>
@@ -842,16 +843,16 @@ public class LombokDemo {
 </ul>
 <ul>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Builder</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Builder</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
@@ -892,7 +893,7 @@ public class LombokDemo {
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -908,16 +909,16 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token annotation punctuation">@Delegate</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
     <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
@@ -954,7 +955,7 @@ public class LombokDemo {
         <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>id<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>arg0<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h2 id="工具相关"><a href="#工具相关" class="headerlink" title="工具相关"></a>工具相关</h2><h3 id="Cleanup"><a href="#Cleanup" class="headerlink" title="@Cleanup"></a>@Cleanup</h3><ul>
@@ -969,7 +970,7 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
 
@@ -978,10 +979,10 @@ public class LombokDemo {
     <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>FileInputStream<span class="token punctuation">;</span>
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
@@ -999,7 +1000,7 @@ public class LombokDemo {
 
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -1010,7 +1011,7 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token annotation punctuation">@Synchronized</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
@@ -1020,10 +1021,10 @@ public class LombokDemo {
     <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
 
@@ -1040,7 +1041,7 @@ public class LombokDemo {
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
@@ -1051,7 +1052,7 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token annotation punctuation">@SneakyThrows</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -1061,10 +1062,10 @@ public class LombokDemo {
     <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
 
@@ -1081,7 +1082,7 @@ public class LombokDemo {
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 <h3 id="NonNull"><a href="#NonNull" class="headerlink" title="@NonNull"></a>@NonNull</h3><ul>
@@ -1091,16 +1092,16 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token annotation punctuation">@NonNull</span> String val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java">  <span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
   <span class="token keyword">import</span> lombok<span class="token punctuation">.</span>NonNull<span class="token punctuation">;</span>
 
@@ -1114,7 +1115,7 @@ public class LombokDemo {
           <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="UtilityClass"><a href="#UtilityClass" class="headerlink" title="@UtilityClass"></a>@UtilityClass</h3></li>
 <li><p><code>功能</code></p>
 <blockquote>
@@ -1122,7 +1123,7 @@ public class LombokDemo {
 </blockquote>
 </li>
 <li><p><code>源码</code></p>
-<pre class=" language-java"><code class="language-java">    <span class="token annotation punctuation">@UtilityClass</span>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@UtilityClass</span>
     <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
 
         <span class="token keyword">private</span> Integer id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
@@ -1133,10 +1134,10 @@ public class LombokDemo {
             System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"xxx"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><code>编译后</code></p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
     <span class="token keyword">private</span> <span class="token keyword">static</span> Integer id <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1150,7 +1151,7 @@ public class LombokDemo {
         <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UnsupportedOperationException</span><span class="token punctuation">(</span><span class="token string">"This is a utility class and cannot be instantiated"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>​</p>
 </li>
 </ul>
