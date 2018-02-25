@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2018-02-10T15:39:03.000Z</updated>
+  <updated>2018-02-25T04:56:00.000Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -14,6 +14,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[转] 正则表达式简明参考</title>
+    <link href="https://blog.coder4j.cn/2018/02/11/test/"/>
+    <id>https://blog.coder4j.cn/2018/02/11/test/</id>
+    <published>2018-02-11T02:45:00.000Z</published>
+    <updated>2018-02-25T04:56:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;http://xiaoleilu.c
+    
+    </summary>
+    
+    
+      <category term="正则" scheme="https://blog.coder4j.cn/tags/%E6%AD%A3%E5%88%99/"/>
+    
+  </entry>
   
   <entry>
     <title>[转] 小明历险记：规则引擎drools教程一</title>
@@ -472,24 +491,6 @@ docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
       <category term="tomcat" scheme="https://blog.coder4j.cn/tags/tomcat/"/>
     
       <category term="https" scheme="https://blog.coder4j.cn/tags/https/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>lombok使用教程</title>
-    <link href="https://blog.coder4j.cn/2016/09/01/lombok-base/"/>
-    <id>https://blog.coder4j.cn/2016/09/01/lombok-base/</id>
-    <published>2016-08-31T16:31:00.000Z</published>
-    <updated>2017-03-11T15:28:56.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Lombok&quot;&gt;&lt;a href=&quot;#Lombok&quot; class=&quot;headerlink&quot; title=&quot;Lombok&quot;&gt;&lt;/a&gt;Lombok&lt;/h1&gt;&lt;h4 id=&quot;作用：帮使用者提高编码效率，减少重复与冗余的代码&quot;&gt;&lt;a href=&quot;#作用：帮使用者提高编码效率
-    
-    </summary>
-    
-    
-      <category term="lombok" scheme="https://blog.coder4j.cn/tags/lombok/"/>
     
   </entry>
   

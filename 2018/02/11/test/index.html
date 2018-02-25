@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><title>[转] 正则表达式简明参考 · 求索之路</title><meta name="description" content="本文由 简悦 SimpRead 转码， 原文地址 http://xiaoleilu.com/regex-guide
+
+正则表达式简明参考2014-09-11
+前言我想在网上最出名的正则相关的一篇文章就是《正则表达式30分钟入门教程》了，说实话这篇文章确实是我的正则入门，但是随着使用熟练，冗长的文章已"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/about">Sobre</a></li><li><a href="/archives">Arquivo</a></li><li><a href="/links">Links</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>[转] 正则表达式简明参考</a></h3></div><div class="post-content"><blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/" target="_blank" rel="external">简悦 SimpRead</a> 转码， 原文地址 <a href="http://xiaoleilu.com/regex-guide" target="_blank" rel="external">http://xiaoleilu.com/regex-guide</a></p>
+</blockquote>
+<h1 id="正则表达式简明参考"><a href="#正则表达式简明参考" class="headerlink" title="正则表达式简明参考"></a><a href="/regex-guide" title="正则表达式简明参考">正则表达式简明参考</a></h1><p>2014-09-11</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我想在网上最出名的正则相关的一篇文章就是《正则表达式30分钟入门教程》了，说实话这篇文章确实是我的正则入门，但是随着使用熟练，冗长的文章已经不能满足我了，在此做个归纳总结，用于快速查阅。</p>
+<p>以下语法在<strong>Java</strong>中有效，大部分应该是通用的。</p>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>元字符，又叫字符集，就是用一些特殊符号表示特定种类的字符或位置。</p>
+<p><strong>匹配字符</strong></p>
+<ul>
+<li><code>.</code> 匹配除换行符以外的任意字符</li>
+<li><code>\w</code> 匹配字母或数字或下划线或汉字</li>
+<li><code>\s</code> 匹配任意的空白符</li>
+<li><code>\d</code> 匹配数字</li>
+</ul>
+<p><strong>匹配位置</strong></p>
+<ul>
+<li><code>\b</code> 匹配单词的开始或结束</li>
+<li><code>^</code> 匹配字符串的开始</li>
+<li><code>$</code> 匹配字符串的结束</li>
+<li><code>\G</code> 上一个匹配的结尾（本次匹配开始）</li>
+<li><code>\A</code> 字符串开头(类似<code>^</code>，但不受处理多行选项的影响)</li>
+<li><code>\Z</code> 字符串结尾或行尾(不受处理多行选项的影响)</li>
+<li><code>\z</code> 字符串结尾(类似<code>$</code>，但不受处理多行选项的影响)</li>
+</ul>
+<p><strong>重复</strong></p>
+<ul>
+<li><code>*</code> 重复零次或更多次</li>
+<li><code>+</code> 重复一次或更多次</li>
+<li><code>?</code> 重复零次或一次</li>
+<li><code>{n}</code> 重复n次</li>
+<li><code>{n,}</code> 重复n次或更多次</li>
+<li><code>{n,m}</code> 重复n到m次</li>
+</ul>
+<h2 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h2><p>如果想匹配元字符本身或者正则中的一些特殊字符，使用<code>\</code>转义。例如匹配<code>*</code>这个字符则使用<code>\*</code>，匹配<code>\</code>这个字符，使用<code>\\</code>。</p>
+<p>需要转义的字符：<code>$</code>, <code>(</code>, <code>)</code>, <code>*</code>, <code>+</code>, <code>.</code>, <code>[</code>, <code>]</code>, <code>?</code>, <code>\</code>, <code>^</code>, <code>{</code>, <code>}</code>, <code>|</code></p>
+<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><p>当需要匹配明确的字符或字符集合时候，就用到字符类。</p>
+<p><strong>特殊字符</strong></p>
+<ul>
+<li><code>\0hh</code> 8进制值hh所表示的字符</li>
+<li><code>\xhh</code> 16进制值hh所表示的字符</li>
+<li><code>\uhhhh</code> 16进制值hhhh所表示的Unicode字符</li>
+<li><code>\t</code> Tab</li>
+<li><code>\n</code> 换行符</li>
+<li><code>\r</code> 回车符</li>
+<li><code>\f</code> 换页符</li>
+<li><code>\e</code> Escape</li>
+<li><code>\cN</code> ASCII控制字符。比如<code>\cC</code>代表<code>Ctrl+C</code></li>
+<li><code>\p{name}</code> Unicode中命名为name的字符类，例如<code>\p{IsGreek}</code></li>
+</ul>
+<p><strong>陈列</strong></p>
+<ul>
+<li><code>[aeiou]</code> 匹配一个元音字符</li>
+<li><code>[.?!]</code> 匹配给定的一个标点</li>
+</ul>
+<p><strong>范围</strong></p>
+<ul>
+<li><code>[0-9]</code> 匹配0~9的数字，同<code>\d</code></li>
+<li><code>[a-z]</code> 匹配所有小写字母</li>
+<li><code>[a-zA-Z]</code> 匹配所有字母</li>
+<li><code>[a-z0-9A-Z_\u4E00-\u9FFF]</code> 等同于<code>\w</code></li>
+</ul>
+<h2 id="反义"><a href="#反义" class="headerlink" title="反义"></a>反义</h2><p>表示不属于元字符或者字符类的字符</p>
+<p><strong>反义元字符</strong></p>
+<ul>
+<li><code>\W</code> 匹配任意不是字母，数字，下划线，汉字的字符</li>
+<li><code>\S</code> 匹配任意不是空白符的字符</li>
+<li><code>\D</code> 匹配任意非数字的字符</li>
+<li><code>\B</code> 匹配不是单词开头或结束的位置</li>
+</ul>
+<p><strong>反义字符类</strong></p>
+<ul>
+<li><code>[^x]</code> 匹配除了x以外的任意字符</li>
+<li><code>[^aeiou]</code> 匹配除了aeiou这几个字母以外的任意字符</li>
+</ul>
+<h2 id="分枝条件"><a href="#分枝条件" class="headerlink" title="分枝条件"></a>分枝条件</h2><p>又叫逻辑运算符，在此<code>X</code>和<code>Y</code>表示两个<strong>表达式</strong></p>
+<ul>
+<li><code>XY</code> X紧跟Y</li>
+<li><code>X|Y</code> 表示X或Y，从左到右，满足第一个条件就不会继续匹配了。</li>
+</ul>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>在这里我把<strong>表达式</strong>统一以<code>\w</code>为例：</p>
+<ul>
+<li><code>(\w)</code> 被一个括号包围起来是一个整体，表示一个分组</li>
+<li><code>(\w)(\w)</code> 自动命名分组，第一个小括号是分组1，第二个小括号是分组2</li>
+<li><code>(?&#39;Word&#39;\w+))</code> 表示定义了一个叫做<code>Word</code>的分组</li>
+<li><code>(?&lt;Word&gt;\w+))</code> 表示定义了一个叫做<code>Word</code>的分组</li>
+<li><code>(?:\w+)</code> 匹配exp,不捕获匹配的文本，也不给此分组分配组号</li>
+</ul>
+<h2 id="后向引用"><a href="#后向引用" class="headerlink" title="后向引用"></a>后向引用</h2><p>后面的表达式可以引用前面的某个分组，用<code>\1</code>表示，就好像分组1的值赋值给了<code>\1</code>这个变量，这个变量可以在后面任意位置引用。</p>
+<ul>
+<li><code>\1</code> 表示分组1匹配的文本</li>
+<li><code>\k&lt;Word&gt;</code> 表示分组<code>Word</code>匹配的文本</li>
+</ul>
+<p>匹配重复两个的英文，例如匹配<code>Hello Hello</code>、<code>lei123 lei123</code>：</p>
+<ol>
+<li><code>(\w+)\s+\1</code></li>
+<li><code>(?&lt;Word&gt;\w+)\s+\k&lt;Word&gt;</code></li>
+</ol>
+<h2 id="零宽断言（正向和负向）"><a href="#零宽断言（正向和负向）" class="headerlink" title="零宽断言（正向和负向）"></a>零宽断言（正向和负向）</h2><p>零宽断言表示匹配字符的时候再添加一些定位条件，使匹配更精准。</p>
+<ul>
+<li><code>\w+(?=ing)</code> 匹配以<code>ing</code>结尾的多个字符（不包括ing）</li>
+<li><code>\w+(?!ing)</code> 匹配<strong>不是</strong>以<code>ing</code>结尾的多个字符</li>
+</ul>
+<hr>
+<ul>
+<li><code>(?&lt;=re)\w+</code> 匹配以<code>re</code>开头的多个字符（不包括re）</li>
+<li><code>(?&lt;!re)\w+</code> 匹配<strong>不是</strong>以<code>re</code>开头的多个字符</li>
+</ul>
+<hr>
+<ul>
+<li><code>(?&lt;=\s)\d+(?=\s)</code> 匹配两边是空白符的数字，不包括空白符</li>
+</ul>
+<h2 id="贪婪与懒惰"><a href="#贪婪与懒惰" class="headerlink" title="贪婪与懒惰"></a>贪婪与懒惰</h2><p><strong>贪婪</strong>：匹配尽可能长的字符串</p>
+<p><strong>懒惰</strong>：匹配尽可能短的字符串</p>
+<p>懒惰模式的启用只需在<strong>重复元字符</strong>之后加<code>?</code>既可。</p>
+<ul>
+<li><code>*?</code> 重复任意次，但尽可能少重复</li>
+<li><code>+?</code> 重复1次或更多次，但尽可能少重复</li>
+<li><code>??</code> 重复0次或1次，但尽可能少重复</li>
+<li><code>{n,m}?</code> 重复n到m次，但尽可能少重复</li>
+<li><code>{n,}?</code> 重复n次以上，但尽可能少重复</li>
+</ul>
+<h2 id="处理选项"><a href="#处理选项" class="headerlink" title="处理选项"></a>处理选项</h2><p>在表达式里插记号的方式来启用绝大多数的模式，在正则的哪里插入，就从哪里启用。</p>
+<ol>
+<li><code>(?i)</code>：忽略大小写(CASE_INSENSITIVE)</li>
+<li><code>(?x)</code>：忽略空格字符(COMMENTS)</li>
+<li><code>(?s)</code>：<code>.</code>匹配任意字符，包括换行符（DOTALL）</li>
+<li><code>(?m)</code>：多行模式（MULTILINE）</li>
+<li><code>(?u)</code>：对Unicode符大小写不敏感（UNICODE_CASE），必须启用<strong>CASE_INSENSITIVE</strong></li>
+<li><code>(?d)</code>：只有’\n’才被认作一行的中止（UNIX_LINES）</li>
+</ol>
+<h2 id="平衡组-递归匹配"><a href="#平衡组-递归匹配" class="headerlink" title="平衡组/递归匹配"></a>平衡组/递归匹配</h2><p>平衡组用于匹配嵌套层次结构，常用于匹配HTML标签（当HTML内容不规范，起始标签和结束标签数量不同时，匹配出正确配对的标签），在此把表达式统一以<code>\w</code>为例。</p>
+<ul>
+<li><code>(?&#39;group&#39;\w)</code> 捕获的分组（<code>\w</code>匹配到的内容）命名为<code>group</code>，并压入堆栈</li>
+<li><code>(?&#39;-group&#39;\w)</code> 捕获分组（<code>\w</code>匹配到的内容）后，弹出<code>group</code>分组栈的栈顶内容（最后压入的捕获内容），堆栈本来为空，则本分组的匹配失败</li>
+<li><code>(?(group)yes|no)</code> 如果<code>group</code>栈非空匹配表达式<code>yes</code>，否则匹配表达式<code>no</code></li>
+<li><code>(?!)</code> 零宽负向先行断言，由于没有后缀表达式，试图匹配总是失败</li>
+</ul>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>注释语法：<code>(?#comment)</code>，这个语法的内容会被正则忽略，用于注释含义。可以放在正则表达式的任意位置。</p>
+<hr>
+<p>参考：</p>
+<p><a href="http://www.jb51.net/tools/zhengze.html" target="_blank" rel="external">正则表达式30分钟入门教程</a></p>
+<p><a href="http://www.java3z.com/cwbwebhome/article/article2/2311.html?id=877" target="_blank" rel="external">正则表达式</a></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/02/11/test/">https://blog.coder4j.cn/2018/02/11/test/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-02-11</span><i class="fa fa-tag"></i><a class="tag" href="/tags/正则/" title="正则">正则 </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2018/02/11/test/,求索之路,[转] 正则表达式简明参考,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/02/10/转-小明历险记：规则引擎drools教程一/" title="[转] 小明历险记：规则引擎drools教程一">Próximo post</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
