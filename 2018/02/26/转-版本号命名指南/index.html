@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><title>[转] 版本号命名指南 · 求索之路</title><meta name="description" content="本文由 简悦 SimpRead 转码， 原文地址 http://www.importnew.com/28063.html 原文出处： koala bear
+
+首先看看某些常见软件的版本号：
+
+Linux Kernel： 0.0.1，1.0.0，2.6.32，3.0.18…，若用 X.Y.Z 表示，则"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/about">Sobre</a></li><li><a href="/archives">Arquivo</a></li><li><a href="/links">Links</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>[转] 版本号命名指南</a></h3></div><div class="post-content"><blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/" target="_blank" rel="external">简悦 SimpRead</a> 转码， 原文地址 <a href="http://www.importnew.com/28063.html" target="_blank" rel="external">http://www.importnew.com/28063.html</a> 原文出处： <a href="http://wsfdl.com/devops/2016/09/27/%E7%89%88%E6%9C%AC%E5%8F%B7.html" target="_blank" rel="external">koala bear</a></p>
+</blockquote>
+<p>首先看看某些常见软件的版本号：</p>
+<ul>
+<li>Linux Kernel： 0.0.1，1.0.0，2.6.32，3.0.18…，若用 X.Y.Z 表示，则偶数 Y 表示稳定版本，奇数 Y 表示开发版本。</li>
+<li>Windows：windows 98，windows 2000，windows xp，windows 7…，最大的特点是杂乱无章，毫无规律。</li>
+<li>SSH Client：0.9.8。</li>
+<li>OpenStack：2014.1.3，2015.1.1.dev8。</li>
+</ul>
+<p>从上可以看出，不同的软件版本号风格各异，随着系统的规模越大，依赖的软件越多，如果这些软件没有遵循一套规范的命名风格，容易造成 <a href="https://en.wikipedia.org/wiki/Dependency_hell" target="_blank" rel="external">Dependency Hell</a>。所以当我们发布版本时，版本号的命名需要遵循某种规则，其中 <a href="http://semver.org/" target="_blank" rel="external">Semantic Versioning 2.0.0</a> 定义了一套简单的规则及条件来约束版本号的配置和增长。本文根据 <a href="http://semver.org/" target="_blank" rel="external">Semantic Versionning 2.0.0</a> 和 <a href="http://docs.openstack.org/developer/pbr/semver.html" target="_blank" rel="external">Semantic Versioning 3.0.0</a> 选择性的整理出版本号命名规则指南。</p>
+<hr>
+<h1 id="版本号命名规则指南"><a href="#版本号命名规则指南" class="headerlink" title="版本号命名规则指南"></a>版本号命名规则指南</h1><p>版本号的格式为 X.Y.Z(又称 Major.Minor.Patch)，递增的规则为：</p>
+<ul>
+<li>X 表示主版本号，当 API 的兼容性变化时，X 需递增。</li>
+<li>Y 表示次版本号，当增加功能时 (不影响 API 的兼容性)，Y 需递增。</li>
+<li>Z 表示修订号，当做 Bug 修复时 (不影响 API 的兼容性)，Z 需递增。</li>
+</ul>
+<p>详细的规则如下：</p>
+<ol>
+<li>X, Y, Z 必须为非负整数，且不得包含前导零，必须按数值递增，如 1.9.0 -&gt; 1.10.0 -&gt; 1.11.0</li>
+<li>0.Y.Z 的版本号表明软件处于初始开发阶段，意味着 API 可能不稳定；1.0.0 表明版本已有稳定的 API。</li>
+<li>当 API 的兼容性变化时，X 必须递增，Y 和 Z 同时设置为 0；当新增功能 (不影响 API 的兼容性) 或者 API 被标记为 Deprecated 时，Y 必须递增，同时 Z 设置为 0；当进行 bug fix 时，Z 必须递增。</li>
+<li>先行版本号 (Pre-release) 意味该版本不稳定，可能存在兼容性问题，其格式为：X.Y.Z.[a-c][正整数]，如 1.0.0.a1，1.0.0.b99，1.0.0.c1000。</li>
+<li>开发版本号常用于 CI-CD，格式为 X.Y.Z.dev[正整数]，如 1.0.1.dev4。</li>
+<li>版本号的排序规则为依次比较主版本号、次版本号和修订号的数值，如 1.0.0 &lt; 1.0.1 &lt; 1.1.1 &lt; 2.0.0；对于先行版本号和开发版本号，有：1.0.0.a100 &lt; 1.0.0，2.1.0.dev3 &lt; 2.1.0；当存在字母时，以 ASCII 的排序来比较，如 1.0.0.a1 &lt; 1.0.0.b1。</li>
+<li>注意：版本一经发布，不得修改其内容，任何修改必须在新版本发布！</li>
+</ol>
+<hr>
+<h1 id="一些修饰的词"><a href="#一些修饰的词" class="headerlink" title="一些修饰的词"></a>一些修饰的词</h1><ul>
+<li>alpha：内部版本</li>
+<li>beta：测试版</li>
+<li>demo：演示版</li>
+<li>enhance：增强版</li>
+<li>free：自由版</li>
+<li>full version：完整版，即正式版</li>
+<li>lts：长期维护版本</li>
+<li>release：发行版</li>
+<li>rc：即将作为正式版发布</li>
+<li>standard：标准版</li>
+<li>ultimate：旗舰版</li>
+<li>upgrade：升级版</li>
+</ul>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/02/26/转-版本号命名指南/">https://blog.coder4j.cn/2018/02/26/转-版本号命名指南/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-02-26</span><i class="fa fa-tag"></i><a class="tag" href="/categories/程序员的自我修养/" title="程序员的自我修养">程序员的自我修养 </a><a class="tag" href="/tags/程序员的自我修养/" title="程序员的自我修养">程序员的自我修养 </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2018/02/26/转-版本号命名指南/,求索之路,[转] 版本号命名指南,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2018/02/26/转-使用-Java8-Optional-的正确姿势/" title="[转] 使用 Java8 Optional 的正确姿势">Post Anterior</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/02/11/正则表达式简单教程/" title="[转] 正则表达式简明参考">Próximo post</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

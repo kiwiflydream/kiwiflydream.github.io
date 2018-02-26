@@ -4,6 +4,174 @@
   
     
     <entry>
+      <title><![CDATA[[转] Java 8 开发的 4 大顶级技巧]]></title>
+      <url>https://blog.coder4j.cn/2018/02/26/%E8%BD%AC-Java-8-%E5%BC%80%E5%8F%91%E7%9A%84-4-%E5%A4%A7%E9%A1%B6%E7%BA%A7%E6%8A%80%E5%B7%A7/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/" target="_blank" rel="external">简悦 SimpRead</a> 转码， 原文地址 <a href="http://www.importnew.com/22417.html" target="_blank" rel="external">http://www.importnew.com/22417.html</a> 译文出处： <a href="https://www.evget.com/article/2016/8/10/24674.html" target="_blank" rel="external">Elyn</a>   原文出处：<a href="https://dzone.com/articles/java-8-top-tips" target="_blank" rel="external">Java 8 Top Tips</a></p>
+</blockquote>
+<p>我使用 Java 8 编码已经有些年头，既用于新的应用程序，也用来迁移现有的应用，感觉是时候写一些我发现的非常有用的 “最佳实践”。我个人并不喜欢“最佳实践” 这个说法，因为它意味着 “一刀切” 的解决方案，而编码不可能是这样的工作方式——我们需要亲自去发现什么样的解决方案才是有效的。但是我发现了一些 Java 8 代码中可以帮助我们的一些选择，让我们一起来看看吧。</p>
+<h3 id="1-Optional"><a href="#1-Optional" class="headerlink" title="1.Optional"></a><strong>1.Optional</strong></h3><p>Optional 是一个严重被低估的功能，并且有潜力删除很多困扰我们的 NullPointerExceptions。这在代码边界中（要么是正在使用的 API，要么是正在暴露的 API）特别有用，因为它允许你和你的调用代码来推理所期待的东西。</p>
+<p>然而，不加思考和设计就应用 Optional 可能会导致影响大量的类，并可能导致可读性更差。下面是一些关于如何高效使用 Optional 的技巧。</p>
+<h4 id="Optional-应该只用于返回类型"><a href="#Optional-应该只用于返回类型" class="headerlink" title="Optional 应该只用于返回类型"></a><strong>Optional 应该只用于返回类型</strong></h4><p>…… 不是参数，也不是字段。幸运的是，IntelliJ IDEA 的让你打开检查来查看是是否遵循这些建议。</p>
+<p><img src="http://image.evget.com/images/article/2016/java81.png" alt=""></p>
+<p>Optional 值应在遇到它们的地方中处理。IntelliJ IDEA 的建议会防止代码 Optional 泄漏，所以请记得在你发现 Optional 的地方处理它，迅速采取行动。</p>
+<p><img src="http://image.evget.com/images/article/2016/java82.png" alt=""></p>
+<h4 id="不应该简单调用-get"><a href="#不应该简单调用-get" class="headerlink" title="不应该简单调用 get()"></a><strong>不应该简单调用 get()</strong></h4><p>Optional 的功能是表达这个值可能是空的，并让你应对这种情况。因此，在对它做任何事情之前一定要检查是否有一个值。只是简单得调用 get() 而不先检查 isPresent() 在某些时候可能会导致空指针。幸运的是，IntelliJ IDEA 也有检查可以提醒你这一点。</p>
+<p><img src="http://image.evget.com/images/article/2016/java83.png" alt=""></p>
+<h4 id="可能有更优雅的方式"><a href="#可能有更优雅的方式" class="headerlink" title="可能有更优雅的方式"></a><strong>可能有更优雅的方式</strong></h4><p>结合了 get() 的 isPresent() 当然会很赞…</p>
+<p><img src="http://image.evget.com/images/article/2016/java84.png" alt=""></p>
+<p>…… 但也有更优雅的解决方案。你可以使用 orElse 在万一是空值的情况下给一个替代方案。</p>
+<p><img src="http://image.evget.com/images/article/2016/java85.png" alt=""></p>
+<p>…… 或者你可以使用 orElseGet 说明在值为空的情况下调用哪个方法。这似乎与上面的例子相同，但 supplier 方法将只在需要的时候调用，因此，如果这是一种昂贵的方法，那么使用 lambda 会有更佳性能。</p>
+<p><img src="http://image.evget.com/images/article/2016/java86.png" alt=""></p>
+<h3 id="2-使用-Lambda-表达式"><a href="#2-使用-Lambda-表达式" class="headerlink" title="2. 使用 Lambda 表达式"></a><strong>2. 使用 Lambda 表达式</strong></h3><p>Lambda 表达式是 Java 8 的主要特点之一。即使你还没有使用 Java 8，你现在可能已经对它们有了基本的了解。它们是用 Java 编程的一种新的方式，并且什么是 “最佳实践” 还不明显。下面是我喜欢遵循的一些指引。</p>
+<h4 id="保持简短"><a href="#保持简短" class="headerlink" title="保持简短"></a><strong>保持简短</strong></h4><p>函数式程序员与较长的 lambda 表达式相处会更愉快，但那些淫浸于 Java 多年的人会发现保持 lambda 表达式为区区几行代码更容易。你甚至可能更愿意将其限制到一行代码，并且你可以轻松<a href="http://www.amazon.cn/gp/product/B003BY6PLK/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;tag=importnew-23&amp;linkCode=as2&amp;camp=536&amp;creative=3200&amp;creativeASIN=B003BY6PLK" title="重构" target="_blank" rel="external">重构</a>较长的表达式为一个方法。</p>
+<p><img src="http://image.evget.com/images/article/2016/java87.png" alt=""></p>
+<p>这些甚至可能会成为方法引用。方法引用一开始会觉得有点陌生，但实际上坚持方法引用是有价值的，因为它们在某些情况下有助于可读性，后面我会讨论到这一点。</p>
+<p><img src="http://image.evget.com/images/article/2016/java88.png" alt=""></p>
+<h4 id="明确"><a href="#明确" class="headerlink" title="明确"></a><strong>明确</strong></h4><p>类型信息缺少 lambda 表达式，所以你可能会觉得包含类型信息用于参数会很有用。</p>
+<p><img src="http://image.evget.com/images/article/2016/java899.png" alt=""></p>
+<p>正如你所见，这回变得相当笨拙。所以我更喜欢给参数取一个有用的名字。当然，不管你有没有这么做，IntelliJ IDEA 可以让你看到参数得类型信息。</p>
+<p><img src="http://image.evget.com/images/article/2016/java89.png" alt=""></p>
+<p>甚至是 lambda 所代表的函数式接口：</p>
+<p><img src="http://image.evget.com/images/article/2016/java810.png" alt=""></p>
+<h3 id="3-针对-Lambda-表达式设计"><a href="#3-针对-Lambda-表达式设计" class="headerlink" title="3. 针对 Lambda 表达式设计"></a><strong>3. 针对 Lambda 表达式设计</strong></h3><p>我认为 lambda 表达式有点像泛型——和泛型一起，我们经常使用它们（例如，添加类型信息到 List&lt;&gt;），但最好我们可以设计一种方法或一个具有泛型类型（例如 Person&lt; T&gt;）的类。同样的，当使用类似于 Streams API 的东西时，我们会传递 lambda 表达式，但更好的是创造一个需要 lambda 参数的方法。</p>
+<p>但是，如果你发现自己处于这类情况下，下面有一些超棒的技巧。</p>
+<h4 id="IntelliJ-IDEA-可以帮你引进函数式参数"><a href="#IntelliJ-IDEA-可以帮你引进函数式参数" class="headerlink" title="IntelliJ IDEA 可以帮你引进函数式参数"></a><strong>IntelliJ IDEA 可以帮你引进函数式参数</strong></h4><p>这让你可以在有人将传递一个 lambda 而非 Object 的地方创建一个参数。此功能的好处是，它表明，现有函数式接口匹配规格说明。</p>
+<p><img src="http://image.evget.com/images/article/2016/java811.png" alt=""></p>
+<p>这会导致…</p>
+<h4 id="使用现有的函数式接口"><a href="#使用现有的函数式接口" class="headerlink" title="使用现有的函数式接口"></a><strong>使用现有的函数式接口</strong></h4><p>随着开发人员越来越熟悉 Java 8 代码，我们就能知道当使用如 Supplier 和 Consumer 的接口时，会发生什么，以及创建一个本地的 ErrorMessageCreator（举个例子）可能会造成混乱，而且浪费。看看这个函数包了解一下哪些已经是可用的。</p>
+<h4 id="添加-FunctionalInterface-到函数式接口"><a href="#添加-FunctionalInterface-到函数式接口" class="headerlink" title="添加 @FunctionalInterface 到函数式接口"></a><strong>添加 @FunctionalInterface 到函数式接口</strong></h4><p>如果你确实需要创建自己的函数式接口，那么就这样用此注释标记。这似乎没有太大的作用，但 IntelliJ IDEA 会告诉你，在你的接口不能匹配用于函数式接口的异常的时候。当你没有指定要覆盖的方法时，它会标志：</p>
+<p><img src="http://image.evget.com/images/article/2016/java812.png" alt=""></p>
+<p>当你指定了太多方法的时候，它会标志：</p>
+<p><img src="http://image.evget.com/images/article/2016/java813.png" alt=""></p>
+<p>并且如果你应用它到一个类而不是接口时，它会警告你：</p>
+<p><img src="http://image.evget.com/images/article/2016/java814.png" alt=""></p>
+<p>lambda 表达式可用于带有一个单一抽象方法的任何接口，但它们不能用于符合相同标准的抽象类。似乎不合逻辑，但就是这样。</p>
+<h3 id="4-Stream"><a href="#4-Stream" class="headerlink" title="4.Stream"></a><strong>4.Stream</strong></h3><p>Stream API 是 Java 8 另一个大特点，并且我认为我们还真的不知道这对我们的编码方式会产生多大的改变。下面是我发现的一些有用的东西</p>
+<h4 id="排队点操作符"><a href="#排队点操作符" class="headerlink" title="排队点操作符"></a><strong>排队点操作符</strong></h4><p>我个人更喜欢排队我的流操作。当然，你没有必要这样，当我发现这样做对我有帮助：</p>
+<ul>
+<li>一目了然地看到我有哪些操作</li>
+<li>调试更容易（虽然 IntelliJ IDEA 确实提供了对一行中的任意多个 lambda 表达式设置断点的能力，但是拆分到不同的行会变得更简单）</li>
+<li>当我测试东西的时候注释操作</li>
+<li>轻松插入 peek() 用于调试或测试</li>
+</ul>
+<p><img src="http://image.evget.com/images/article/2016/java815.png" alt=""></p>
+<p>此外，在我看来，它更整洁。如果我们按照这个模式，在减少代码行数方面我们并没有增加很多。</p>
+<p>你可能需要调整格式设置以排列点操作符。</p>
+<p><img src="http://image.evget.com/images/article/2016/java816.png" alt=""></p>
+<h4 id="使用方法引用"><a href="#使用方法引用" class="headerlink" title="使用方法引用"></a><strong>使用方法引用</strong></h4><p>是的，确实需要一段时间来适应这个奇怪的语法。但是，如果使用得当，它确实可以增加可读性。请看：</p>
+<p><img src="http://image.evget.com/images/article/2016/java817.png" alt=""></p>
+<p>与（相对）新的 Objects 类上的辅助方法相比较：</p>
+<p><img src="http://image.evget.com/images/article/2016/java818.png" alt=""></p>
+<p>后者的代码对于哪些值是要保存的更加明确。当 lambda 可以被折叠到方法参考的时候，IntelliJ IDEA 通常会让你知道。</p>
+<p><img src="http://image.evget.com/images/article/2016/java819.png" alt=""></p>
+<h4 id="当遍历一个集合时，在可行的情况下使用-Streams-API"><a href="#当遍历一个集合时，在可行的情况下使用-Streams-API" class="headerlink" title="当遍历一个集合时，在可行的情况下使用 Streams API"></a><strong>当遍历一个集合时，在可行的情况下使用 Streams API</strong></h4><p>… 或者新的集合方法，如 forEach。IntelliJ IDEA 给你建议是：</p>
+<p><img src="http://image.evget.com/images/article/2016/java820.png" alt=""></p>
+<p>一般使用 Streams API 比循环和 if 语句的组合更加明确。例如：</p>
+<p><img src="http://image.evget.com/images/article/2016/java821.png" alt=""></p>
+<p>IntelliJ IDEA 建议这可重构为：</p>
+<p><img src="http://image.evget.com/images/article/2016/java822.png" alt=""></p>
+<p>我所做的性能测试表明这种重构令人惊讶——并不总是可预测性能是保持不变，改善还是变得更糟。与往常一样，如果性能在应用程序中是关键，那么在交付一种风格到另一种之前衡量它。</p>
+<h4 id="遍历数组时使用循环"><a href="#遍历数组时使用循环" class="headerlink" title="遍历数组时使用循环"></a><strong>遍历数组时使用循环</strong></h4><p>但是，使用 Java 8 并不一定意味着你必须到处使用流和新的集合方法。IntelliJ IDEA 会建议转换成流，但是，这并不意味着你必须回答 “yes”（记得检查是可以抑制或关闭的）。</p>
+<p>特别是，遍历原始类型的小型数组几乎肯定会用，以获得更好的性能循环，很可能（至少对于 Java 开发人员是新的流）更具可读性。</p>
+<p><img src="http://image.evget.com/images/article/2016/java823.png" alt=""></p>
+<p>与任何技巧一样，规则并不是一成不变的，但你应该决定是尽可能地使用 Streams API，还是依然对一些操作使用循环。总之，要一致。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a><strong>最后</strong></h3><p>每天都在发现新的东西，并且有时候我的偏好会发生变化——例如，方法引用，我曾经深恶痛绝并且避免在我的代码中使用。现在我很想听听你的秘诀！</p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/02/26/转-Java-8-开发的-4-大顶级技巧/">https://blog.coder4j.cn/2018/02/26/转-Java-8-开发的-4-大顶级技巧/</a> </p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> jdk8 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[[转] 使用 Java8 Optional 的正确姿势]]></title>
+      <url>https://blog.coder4j.cn/2018/02/26/%E8%BD%AC-%E4%BD%BF%E7%94%A8-Java8-Optional-%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/</url>
+      <content type="html"><![CDATA[<p><a href="http://www.importnew.com/22060.html" target="_blank" rel="external">原文链接</a></p>
+<p><img src="http://ww1.sinaimg.cn/large/68f7efe0gy1fou0ynetdcj21hc3847rl.jpg" alt=""></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/02/26/转-使用-Java8-Optional-的正确姿势/">https://blog.coder4j.cn/2018/02/26/转-使用-Java8-Optional-的正确姿势/</a> </p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> jdk8 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[[转] 版本号命名指南]]></title>
+      <url>https://blog.coder4j.cn/2018/02/26/%E8%BD%AC-%E7%89%88%E6%9C%AC%E5%8F%B7%E5%91%BD%E5%90%8D%E6%8C%87%E5%8D%97/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>本文由 <a href="http://ksria.com/simpread/" target="_blank" rel="external">简悦 SimpRead</a> 转码， 原文地址 <a href="http://www.importnew.com/28063.html" target="_blank" rel="external">http://www.importnew.com/28063.html</a> 原文出处： <a href="http://wsfdl.com/devops/2016/09/27/%E7%89%88%E6%9C%AC%E5%8F%B7.html" target="_blank" rel="external">koala bear</a></p>
+</blockquote>
+<p>首先看看某些常见软件的版本号：</p>
+<ul>
+<li>Linux Kernel： 0.0.1，1.0.0，2.6.32，3.0.18…，若用 X.Y.Z 表示，则偶数 Y 表示稳定版本，奇数 Y 表示开发版本。</li>
+<li>Windows：windows 98，windows 2000，windows xp，windows 7…，最大的特点是杂乱无章，毫无规律。</li>
+<li>SSH Client：0.9.8。</li>
+<li>OpenStack：2014.1.3，2015.1.1.dev8。</li>
+</ul>
+<p>从上可以看出，不同的软件版本号风格各异，随着系统的规模越大，依赖的软件越多，如果这些软件没有遵循一套规范的命名风格，容易造成 <a href="https://en.wikipedia.org/wiki/Dependency_hell" target="_blank" rel="external">Dependency Hell</a>。所以当我们发布版本时，版本号的命名需要遵循某种规则，其中 <a href="http://semver.org/" target="_blank" rel="external">Semantic Versioning 2.0.0</a> 定义了一套简单的规则及条件来约束版本号的配置和增长。本文根据 <a href="http://semver.org/" target="_blank" rel="external">Semantic Versionning 2.0.0</a> 和 <a href="http://docs.openstack.org/developer/pbr/semver.html" target="_blank" rel="external">Semantic Versioning 3.0.0</a> 选择性的整理出版本号命名规则指南。</p>
+<hr>
+<h1 id="版本号命名规则指南"><a href="#版本号命名规则指南" class="headerlink" title="版本号命名规则指南"></a>版本号命名规则指南</h1><p>版本号的格式为 X.Y.Z(又称 Major.Minor.Patch)，递增的规则为：</p>
+<ul>
+<li>X 表示主版本号，当 API 的兼容性变化时，X 需递增。</li>
+<li>Y 表示次版本号，当增加功能时 (不影响 API 的兼容性)，Y 需递增。</li>
+<li>Z 表示修订号，当做 Bug 修复时 (不影响 API 的兼容性)，Z 需递增。</li>
+</ul>
+<p>详细的规则如下：</p>
+<ol>
+<li>X, Y, Z 必须为非负整数，且不得包含前导零，必须按数值递增，如 1.9.0 -&gt; 1.10.0 -&gt; 1.11.0</li>
+<li>0.Y.Z 的版本号表明软件处于初始开发阶段，意味着 API 可能不稳定；1.0.0 表明版本已有稳定的 API。</li>
+<li>当 API 的兼容性变化时，X 必须递增，Y 和 Z 同时设置为 0；当新增功能 (不影响 API 的兼容性) 或者 API 被标记为 Deprecated 时，Y 必须递增，同时 Z 设置为 0；当进行 bug fix 时，Z 必须递增。</li>
+<li>先行版本号 (Pre-release) 意味该版本不稳定，可能存在兼容性问题，其格式为：X.Y.Z.[a-c][正整数]，如 1.0.0.a1，1.0.0.b99，1.0.0.c1000。</li>
+<li>开发版本号常用于 CI-CD，格式为 X.Y.Z.dev[正整数]，如 1.0.1.dev4。</li>
+<li>版本号的排序规则为依次比较主版本号、次版本号和修订号的数值，如 1.0.0 &lt; 1.0.1 &lt; 1.1.1 &lt; 2.0.0；对于先行版本号和开发版本号，有：1.0.0.a100 &lt; 1.0.0，2.1.0.dev3 &lt; 2.1.0；当存在字母时，以 ASCII 的排序来比较，如 1.0.0.a1 &lt; 1.0.0.b1。</li>
+<li>注意：版本一经发布，不得修改其内容，任何修改必须在新版本发布！</li>
+</ol>
+<hr>
+<h1 id="一些修饰的词"><a href="#一些修饰的词" class="headerlink" title="一些修饰的词"></a>一些修饰的词</h1><ul>
+<li>alpha：内部版本</li>
+<li>beta：测试版</li>
+<li>demo：演示版</li>
+<li>enhance：增强版</li>
+<li>free：自由版</li>
+<li>full version：完整版，即正式版</li>
+<li>lts：长期维护版本</li>
+<li>release：发行版</li>
+<li>rc：即将作为正式版发布</li>
+<li>standard：标准版</li>
+<li>ultimate：旗舰版</li>
+<li>upgrade：升级版</li>
+</ul>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/02/26/转-版本号命名指南/">https://blog.coder4j.cn/2018/02/26/转-版本号命名指南/</a> </p>
+]]></content>
+      
+        <categories>
+            
+            <category> 程序员的自我修养 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 程序员的自我修养 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[[转] 正则表达式简明参考]]></title>
       <url>https://blog.coder4j.cn/2018/02/11/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B/</url>
       <content type="html"><![CDATA[<blockquote>

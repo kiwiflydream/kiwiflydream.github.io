@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2018-02-25T04:56:00.000Z</updated>
+  <updated>2018-02-26T11:16:51.000Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -14,6 +14,65 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[转] Java 8 开发的 4 大顶级技巧</title>
+    <link href="https://blog.coder4j.cn/2018/02/26/%E8%BD%AC-Java-8-%E5%BC%80%E5%8F%91%E7%9A%84-4-%E5%A4%A7%E9%A1%B6%E7%BA%A7%E6%8A%80%E5%B7%A7/"/>
+    <id>https://blog.coder4j.cn/2018/02/26/转-Java-8-开发的-4-大顶级技巧/</id>
+    <published>2018-02-26T11:15:00.000Z</published>
+    <updated>2018-02-26T11:16:51.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;http://www.importn
+    
+    </summary>
+    
+    
+      <category term="jdk8" scheme="https://blog.coder4j.cn/tags/jdk8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[转] 使用 Java8 Optional 的正确姿势</title>
+    <link href="https://blog.coder4j.cn/2018/02/26/%E8%BD%AC-%E4%BD%BF%E7%94%A8-Java8-Optional-%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/"/>
+    <id>https://blog.coder4j.cn/2018/02/26/转-使用-Java8-Optional-的正确姿势/</id>
+    <published>2018-02-26T10:25:00.000Z</published>
+    <updated>2018-02-26T10:30:06.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://www.importnew.com/22060.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/68f7ef
+    
+    </summary>
+    
+    
+      <category term="jdk8" scheme="https://blog.coder4j.cn/tags/jdk8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[转] 版本号命名指南</title>
+    <link href="https://blog.coder4j.cn/2018/02/26/%E8%BD%AC-%E7%89%88%E6%9C%AC%E5%8F%B7%E5%91%BD%E5%90%8D%E6%8C%87%E5%8D%97/"/>
+    <id>https://blog.coder4j.cn/2018/02/26/转-版本号命名指南/</id>
+    <published>2018-02-26T09:55:00.000Z</published>
+    <updated>2018-02-26T09:56:31.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;http://www.importn
+    
+    </summary>
+    
+      <category term="程序员的自我修养" scheme="https://blog.coder4j.cn/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/"/>
+    
+    
+      <category term="程序员的自我修养" scheme="https://blog.coder4j.cn/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>[转] 正则表达式简明参考</title>
@@ -423,74 +482,6 @@ docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
       <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
     
       <category term="druid" scheme="https://blog.coder4j.cn/tags/druid/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>spring boot 集成 redis</title>
-    <link href="https://blog.coder4j.cn/2016/11/14/spring-boot-%E9%9B%86%E6%88%90-redis/"/>
-    <id>https://blog.coder4j.cn/2016/11/14/spring-boot-集成-redis/</id>
-    <published>2016-11-13T16:00:00.000Z</published>
-    <updated>2018-01-14T15:16:55.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;pre class=&quot;line-numbers language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;&lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--集成redis--&gt;&lt;/span&gt;
-&lt;sp
-    
-    </summary>
-    
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
-    
-      <category term="redis" scheme="https://blog.coder4j.cn/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>spring boot 集成监控</title>
-    <link href="https://blog.coder4j.cn/2016/10/12/spring-boot-%E9%9B%86%E6%88%90%E7%9B%91%E6%8E%A7/"/>
-    <id>https://blog.coder4j.cn/2016/10/12/spring-boot-集成监控/</id>
-    <published>2016-10-11T16:00:00.000Z</published>
-    <updated>2018-01-14T15:16:30.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;pre class=&quot;line-numbers language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;  &lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;&amp;lt;!--spring boot 系统监控--&gt;
-    
-    </summary>
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/categories/spring-boot/"/>
-    
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
-    
-      <category term="监控" scheme="https://blog.coder4j.cn/tags/%E7%9B%91%E6%8E%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tomcat配置https证书</title>
-    <link href="https://blog.coder4j.cn/2016/09/10/tomcat-https/"/>
-    <id>https://blog.coder4j.cn/2016/09/10/tomcat-https/</id>
-    <published>2016-09-09T16:23:00.000Z</published>
-    <updated>2017-03-11T15:27:48.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Tomcat配置https证书&quot;&gt;&lt;a href=&quot;#Tomcat配置https证书&quot; class=&quot;headerlink&quot; title=&quot;Tomcat配置https证书&quot;&gt;&lt;/a&gt;Tomcat配置https证书&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;网上搜索出
-    
-    </summary>
-    
-      <category term="tomcat" scheme="https://blog.coder4j.cn/categories/tomcat/"/>
-    
-      <category term="https" scheme="https://blog.coder4j.cn/categories/tomcat/https/"/>
-    
-    
-      <category term="tomcat" scheme="https://blog.coder4j.cn/tags/tomcat/"/>
-    
-      <category term="https" scheme="https://blog.coder4j.cn/tags/https/"/>
     
   </entry>
   
