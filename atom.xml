@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2018-04-02T11:43:29.000Z</updated>
+  <updated>2018-05-15T15:24:11.000Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -14,6 +14,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[问题集] mysql 数据库存储表情</title>
+    <link href="https://blog.coder4j.cn/2018/05/15/%E9%97%AE%E9%A2%98%E9%9B%86-mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E8%A1%A8%E6%83%85/"/>
+    <id>https://blog.coder4j.cn/2018/05/15/问题集-mysql-数据库存储表情/</id>
+    <published>2018-05-15T10:57:00.000Z</published>
+    <updated>2018-05-15T15:24:11.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;问题出现原因&quot;&gt;&lt;a href=&quot;#问题出现原因&quot; class=&quot;headerlink&quot; title=&quot;问题出现原因&quot;&gt;&lt;/a&gt;问题出现原因&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;Emoji表情符号为4个字节的字符，而 utf8 字符集只支持1-3个字节的字符，
+    
+    </summary>
+    
+      <category term="问题" scheme="https://blog.coder4j.cn/categories/%E9%97%AE%E9%A2%98/"/>
+    
+    
+      <category term="问题" scheme="https://blog.coder4j.cn/tags/%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
   
   <entry>
     <title>[转] 有没有安全的工作？</title>
@@ -452,36 +473,6 @@ docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
     
     
       <category term="hexo" scheme="https://blog.coder4j.cn/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring Aop注解教程</title>
-    <link href="https://blog.coder4j.cn/2017/03/10/Spring-Aop%E6%B3%A8%E8%A7%A3%E6%95%99%E7%A8%8B/"/>
-    <id>https://blog.coder4j.cn/2017/03/10/Spring-Aop注解教程/</id>
-    <published>2017-03-10T14:16:00.000Z</published>
-    <updated>2017-03-11T15:44:53.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;spring aop常用的有以下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;通知类型：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;前置通知（Before advice）：在某连接点之前执行的通知，但这个通知不能阻止连接点之前的执行流程（除非它抛出一个异常）。&lt;/li&gt;
-&lt;
-    
-    </summary>
-    
-      <category term="spring" scheme="https://blog.coder4j.cn/categories/spring/"/>
-    
-      <category term="aop" scheme="https://blog.coder4j.cn/categories/spring/aop/"/>
-    
-    
-      <category term="spring" scheme="https://blog.coder4j.cn/tags/spring/"/>
-    
-      <category term="aop" scheme="https://blog.coder4j.cn/tags/aop/"/>
     
   </entry>
   
