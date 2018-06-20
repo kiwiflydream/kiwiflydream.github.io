@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2018-05-15T15:24:11.000Z</updated>
+  <updated>2018-06-20T14:24:39.000Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[Linux] Linux用户管理</title>
+    <link href="https://blog.coder4j.cn/2018/06/20/Linux-Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"/>
+    <id>https://blog.coder4j.cn/2018/06/20/Linux-Linux用户管理/</id>
+    <published>2018-06-20T14:24:00.000Z</published>
+    <updated>2018-06-20T14:24:39.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;添加用户&quot;&gt;&lt;a href=&quot;#添加用户&quot; class=&quot;headerlink&quot; title=&quot;添加用户&quot;&gt;&lt;/a&gt;添加用户&lt;/h4&gt;&lt;pre class=&quot;line-numbers language-shell&quot;&gt;&lt;code class=&quot;language-sh
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://blog.coder4j.cn/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>[问题集] mysql 数据库存储表情</title>
@@ -453,26 +471,6 @@ docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
       <category term="maven" scheme="https://blog.coder4j.cn/tags/maven/"/>
     
       <category term="profile" scheme="https://blog.coder4j.cn/tags/profile/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo搭建整理</title>
-    <link href="https://blog.coder4j.cn/2017/03/11/hexo-%E6%95%99%E7%A8%8B/"/>
-    <id>https://blog.coder4j.cn/2017/03/11/hexo-教程/</id>
-    <published>2017-03-11T02:55:00.000Z</published>
-    <updated>2017-03-11T06:58:33.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本博客搭建参考的教程&lt;br&gt;
-    
-    </summary>
-    
-      <category term="hexo" scheme="https://blog.coder4j.cn/categories/hexo/"/>
-    
-    
-      <category term="hexo" scheme="https://blog.coder4j.cn/tags/hexo/"/>
     
   </entry>
   

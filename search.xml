@@ -4,6 +4,34 @@
   
     
     <entry>
+      <title><![CDATA[[Linux] Linux用户管理]]></title>
+      <url>https://blog.coder4j.cn/2018/06/20/Linux-Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</url>
+      <content type="html"><![CDATA[<h4 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h4><pre class="line-numbers language-shell"><code class="language-shell">useradd 用户名称
+adduser 用户名称
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><a href="https://my.oschina.net/lyp82nlf/blog/477319" target="_blank" rel="external">Linux添加新用户命令：useradd 与adduser的区别</a></p>
+<h4 id="设置用户密码"><a href="#设置用户密码" class="headerlink" title="设置用户密码"></a>设置用户密码</h4><pre class="line-numbers language-shell"><code class="language-shell">passwd 用户名称
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h4><pre class="line-numbers language-shell"><code class="language-shell">userdel 用户名称
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h4><h5 id="添加后并设置密码仍无法登录"><a href="#添加后并设置密码仍无法登录" class="headerlink" title="添加后并设置密码仍无法登录?"></a>添加后并设置密码仍无法登录?</h5><blockquote>
+<p>查看 /etc/ssh/sshd_config 文件中是否允许登录，更多无法登录问题 <a href="http://lakemoonstar.iteye.com/blog/1471532" target="_blank" rel="external">root 帐户无法登陆解决办法</a></p>
+<h5 id="修改了-etc-ssh-sshd-config仍然无效"><a href="#修改了-etc-ssh-sshd-config仍然无效" class="headerlink" title="修改了/etc/ssh/sshd_config仍然无效?"></a>修改了/etc/ssh/sshd_config仍然无效?</h5><p>要更新配置，不能直接使用source xxx,要重启ssh服务，使用<code>service sshd restart</code></p>
+</blockquote>
+<h4 id="相关博客"><a href="#相关博客" class="headerlink" title="相关博客"></a>相关博客</h4><p><a href="https://blog.csdn.net/beitiandijun/article/details/41678251" target="_blank" rel="external">linux用户管理（1）—-创建用户（adduser和useradd）和删除用户（userdel）</a></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/06/20/Linux-Linux用户管理/">https://blog.coder4j.cn/2018/06/20/Linux-Linux用户管理/</a> </p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[[问题集] mysql 数据库存储表情]]></title>
       <url>https://blog.coder4j.cn/2018/05/15/%E9%97%AE%E9%A2%98%E9%9B%86-mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E8%A1%A8%E6%83%85/</url>
       <content type="html"><![CDATA[<h4 id="问题出现原因"><a href="#问题出现原因" class="headerlink" title="问题出现原因"></a>问题出现原因</h4><blockquote>
