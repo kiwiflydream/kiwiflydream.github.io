@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+
     <sitemap>
         <loc>https://blog.coder4j.cn/post-sitemap.xml</loc>
         <lastmod>2020-08-27T03:34:08.004Z</lastmod>
@@ -13,12 +14,12 @@
 
     <sitemap>
         <loc>https://blog.coder4j.cn/category-sitemap.xml</loc>
-        <lastmod>2017-03-11T06:58:33.000Z</lastmod>
+        <lastmod>2018-05-15T15:24:11.000Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>https://blog.coder4j.cn/tag-sitemap.xml</loc>
-        <lastmod>2017-03-11T06:58:33.000Z</lastmod>
+        <lastmod>2018-06-20T14:24:39.000Z</lastmod>
     </sitemap>
 
 </sitemapindex>
