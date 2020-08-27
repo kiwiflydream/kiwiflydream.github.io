@@ -1,0 +1,620 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>【qdox】Java 代码解析利器 QDox · 求索之路</title><meta name="description" content="前言最近在写 maven 插件，涉及到了 java 代码解析这块内容。需要解析 java 源码，然后对于类中的不同部分进行处理。发现手写还是很难的，找了一圈发现了两个不错的工具可以使用，一个是  javaparser，另一个是  qdox 。个人感觉 javaparser 强大一些，更新与维护也比较"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>【qdox】Java 代码解析利器 QDox</a></h3></div><div class="post-content"><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1584882725192-78d7799b-f010-48a2-b59a-0a16cf76ea10.png#align=left&amp;display=inline&amp;height=383&amp;name=image.png&amp;originHeight=383&amp;originWidth=900&amp;size=300248&amp;status=done&amp;style=none&amp;width=900" alt="image.png"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在写 maven 插件，涉及到了 java 代码解析这块内容。需要解析 java 源码，然后对于类中的不同部分进行处理。发现手写还是很难的，找了一圈发现了两个不错的工具可以使用，一个是  <a href="https://github.com/javaparser/javaparser" target="_blank" rel="noopener">javaparser</a>，另一个是  <a href="https://github.com/paul-hammant/qdox" target="_blank" rel="noopener">qdox</a> 。个人感觉 javaparser 强大一些，更新与维护也比较勤，但是相对来说上手难一点，从他的使用文档独立成书在买，可见一斑，而 qdox 比较小巧，上手很快，功能也满足大部分需求，最终还是选择了 qdox。</p>
+<h2 id="什么是-QDox"><a href="#什么是-QDox" class="headerlink" title="什么是 QDox"></a>什么是 QDox</h2><p>官方的介绍是:</p>
+<blockquote>
+<p>QDox - full extractor of Java class/interface/method definitions (including annotations, parameters, param names)</p>
+</blockquote>
+<p>大概意思是一款完整的 java 类、接口、方法定义的提取器，包括了注释、参数及参数名称。其实核心功能就是我输入一个 java 类的源码，他可以把这个 java 类解析成一个对象，我们通过这个对象可以获取很方便的获取解析的类的不同组成，比如我可以获得这个类有哪些方法，这个方法的参数是什么，返回值又是什么，他们的类型又分别是什么？还有这个方法上有哪些注释、哪些 tag。也能获取类中有哪些的 field。。。总之把这个类庖丁解牛般解析好，使得调用者很方便的获取到自己感兴趣的信息。</p>
+<h2 id="为什么使用-QDox"><a href="#为什么使用-QDox" class="headerlink" title="为什么使用 QDox"></a>为什么使用 QDox</h2><p>除了上面说的 QDox 上手比较快外，他的运行速度及占用空间都十分优秀。</p>
+<p>另外不得不说的是这个项目可以说是一个上古时期的项目了，看了 github 上的提交记录，最早的一条提交记录是 2002 年的时候，因为这个项目之前使用的是 svn，所以具体时间可能更早。一个开源项目维护了快 20 年也是一件挺令人钦佩的事。不过到目前为止，这个项目在 github 上只有 151 个 star，如果这个项目对你有所帮助，希望大家可以给作者一个 star。github 上有太多类似的项目默默无闻的出现，又默默无闻的消逝。</p>
+<p>扯远了，虽然项目关注的人比较少，但是使用它的项目还是比较多的。maven 的官方 javadoc 插件  maven-javadoc-plugin 就是使用它来解析代码中的 doc tags 的。所以可能你没有直接使用它，但是它其中已经在你本地的 maven 仓库内躺着了。有官方背书，对于它的使用就比较放心了。</p>
+<h2 id="什么情况下适合使用-QDox"><a href="#什么情况下适合使用-QDox" class="headerlink" title="什么情况下适合使用 QDox"></a>什么情况下适合使用 QDox</h2><p>这个就比较多了，通常只要我们需要解析源码的内容就可以使用，比如我想获得指定类文件中的全部方法。就可以使用。可能有些人感到不解了，为什么不通过反射拿到这些内容，这样不是更方便吗？首先，反射的前提是你能拿到这个类的实例，或者你项目中就有这个类。即使这些条件都满足，但是一个很常见的需求反射没法满足，比如说拿到方法的注释及 tags 等，这类在编译时就被抹除了。这种情况就不得不用源码解析的方法了。</p>
+<p>另外它不只是能解析，他同时可以生成 java 类文件，所以你可以动态的生成一些 java 类。</p>
+<p>无论是解析还是生成，在写插件的时候肯定需要会有这样的场景，比如我想通过代码里的 javadoc 这些 tags 生成一个接口文档给前端，这样就不用我一个一个手写了。再比如我想通过数据表的信息，自动生成 model 类，service 类。。。使用场景的限制主要是个人的想象力。</p>
+<h2 id="如何使用-QDox"><a href="#如何使用-QDox" class="headerlink" title="如何使用 QDox"></a>如何使用 QDox</h2><h3 id="创建-java-项目-builder-对象"><a href="#创建-java-项目-builder-对象" class="headerlink" title="创建 java 项目 builder 对象"></a>创建 java 项目 builder 对象</h3><pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 创建 java 项目 builder 对象</span>
+        JavaProjectBuilder javaProjectBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JavaProjectBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="添加-java-源文件"><a href="#添加-java-源文件" class="headerlink" title="添加 java 源文件"></a>添加 java 源文件</h3><pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 添加 java 源文件</span>
+        javaProjectBuilder<span class="token punctuation">.</span><span class="token function">addSource</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">"/Users/kiwi/study/code/study-example/study-qdox-example/src/main/java/cn/coder4j/study/example/qdox/Demo.java"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<blockquote>
+<p>demo 示例是通过文件添加的，其实支持很多种类型，比如 URL、Reader 甚至直接添加一个目录，框架会自己扫描目录下的所有 java 文件</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1584875079407-bec0607d-34a3-413d-be2a-1787fa13f162.png#align=left&amp;display=inline&amp;height=197&amp;name=image.png&amp;originHeight=394&amp;originWidth=1538&amp;size=114763&amp;status=done&amp;style=none&amp;width=769" alt="image.png"></p>
+<h3 id="获得解析后的-JavaClass-对象"><a href="#获得解析后的-JavaClass-对象" class="headerlink" title="获得解析后的 JavaClass 对象"></a>获得解析后的 JavaClass 对象</h3><blockquote>
+<p>经过上面两步，准备工作就已经结束了，可以直接获得解析后的 JavaClass 对象了，有两种方式获取，一种是直接获得解析后的类集合，为什么是集合呢？因为上面也说了是可以添加目录的，而且 addSource 可以多次调用，添加多个文件。另一种是在知道类名称的情况下直接使用 getClassByName 获得</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1584880098195-0ea64ff6-f3d0-47f8-95b2-dd54217c0d32.png#align=left&amp;display=inline&amp;height=107&amp;name=image.png&amp;originHeight=214&amp;originWidth=1554&amp;size=75807&amp;status=done&amp;style=none&amp;width=777" alt="image.png"></p>
+<pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 获得解析后的类</span>
+        Collection<span class="token operator">&lt;</span>JavaClass<span class="token operator">></span> classes <span class="token operator">=</span> javaProjectBuilder<span class="token punctuation">.</span><span class="token function">getClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>JavaClass javaClass <span class="token operator">:</span> classes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="JavaClass-接口定义"><a href="#JavaClass-接口定义" class="headerlink" title="JavaClass 接口定义"></a>JavaClass 接口定义</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>thoughtworks<span class="token punctuation">.</span>qdox<span class="token punctuation">.</span>model<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>thoughtworks<span class="token punctuation">.</span>qdox<span class="token punctuation">.</span>library<span class="token punctuation">.</span>ClassLibrary<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * Equivalent of {@link java.lang.Class}, providing the most important methods.
+ * Where the original Class is using an Array, this model is using a List.
+ *
+ * @author Robert Scholte
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">JavaClass</span> <span class="token keyword">extends</span> <span class="token class-name">JavaModel</span><span class="token punctuation">,</span> JavaType<span class="token punctuation">,</span> JavaAnnotatedElement<span class="token punctuation">,</span> JavaGenericDeclaration
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * The compilation unit, which includes the imports, the public and anonymous classes
+     *
+     * @return the {@link JavaSource} of this element
+     */</span>
+    JavaSource <span class="token function">getSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.Class#isInterface()})
+     * &lt;p>
+     * Determines if the specified &lt;code>Class&lt;/code> object represents an interface type.
+     * &lt;/p>
+     *
+     * @return &lt;code>true&lt;/code> if this object represents an interface, otherwise &lt;code>false&lt;/code>
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.Class#isEnum()})
+     * &lt;p>
+     * Returns &lt;code>true&lt;/code> if and only if this class was declared as an enum in the source code.
+     * &lt;/p>
+     *
+     * @return &lt;code>true&lt;/code> if this object represents an enum, otherwise &lt;code>false&lt;/code>
+
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isEnum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.Class#isAnnotation()})
+     * &lt;p>Returns true if this &lt;code>Class&lt;/code> object represents an annotation type.
+     *    Note that if this method returns true, {@link #isInterface()} would also return true, as all annotation types are also interfaces.
+     * &lt;/p>
+     *
+     * @return &lt;code>true&lt;/code> if this object represents an annotation, otherwise &lt;code>false&lt;/code>
+     * @since 2.0
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isAnnotation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    JavaClass <span class="token function">getDeclaringClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    JavaType <span class="token function">getSuperClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Shorthand for getSuperClass().getJavaClass() with null checking.
+     * @return the super class as {@link JavaClass}
+     */</span>
+    JavaClass <span class="token function">getSuperJavaClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    List<span class="token operator">&lt;</span>JavaType<span class="token operator">></span> <span class="token function">getImplements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link java.lang.Class#getInterfaces()}
+     *  Determines the interfaces implemented by the class or interface represented by this object.
+     *
+     * @return a list of interfaces, never &lt;code>null&lt;/code>
+     * @since 2.0
+     */</span>
+    List<span class="token operator">&lt;</span>JavaClass<span class="token operator">></span> <span class="token function">getInterfaces</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    String <span class="token function">getCodeBlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    JavaSource <span class="token function">getParentSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link java.lang.Class#getPackage()}
+     * @return the package
+     */</span>
+    JavaPackage <span class="token function">getPackage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * If this class has a package, the packagename will be returned.
+     * Otherwise an empty String.
+     *
+     * @return the name of the package, otherwise an empty String
+     */</span>
+    String <span class="token function">getPackageName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * @since 1.3
+     * @return &lt;code>true&lt;/code> if this class is an inner class, otherwise &lt;code>false&lt;/code>
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isInner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link java.lang.Class#getMethods()}
+     *
+     * @return the methods declared or overridden in this class
+     */</span>
+    List<span class="token operator">&lt;</span>JavaMethod<span class="token operator">></span> <span class="token function">getMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link java.lang.Class#getConstructors()}
+     *
+     * @return the list of constructors
+     * @since 2.0
+     */</span>
+    List<span class="token operator">&lt;</span>JavaConstructor<span class="token operator">></span> <span class="token function">getConstructors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param parameterTypes the parameter types of the constructor, can be &lt;code>null&lt;/code>
+     * @return the matching constructor, otherwise &lt;code>null&lt;/code>
+     * @since 2.0
+     */</span>
+    JavaConstructor <span class="token function">getConstructor</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>JavaType<span class="token operator">></span> parameterTypes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param parameterTypes the parameter types of the constructor, can be &lt;code>null&lt;/code>
+     * @param varArg define is the constructor has varArgs
+     * @return the matching constructor, otherwise &lt;code>null&lt;/code>
+     * @since 2.0
+     */</span>
+    JavaConstructor <span class="token function">getConstructor</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>JavaType<span class="token operator">></span> parameterTypes<span class="token punctuation">,</span> <span class="token keyword">boolean</span> varArg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+    <span class="token comment" spellcheck="true">/**
+     * Return declared methods and optionally the inherited methods
+     *
+     * @param superclasses {@code true} if inherited methods should be returned as well
+     * @return all methods
+     * @since 1.3
+     */</span>
+    List<span class="token operator">&lt;</span>JavaMethod<span class="token operator">></span> <span class="token function">getMethods</span><span class="token punctuation">(</span> <span class="token keyword">boolean</span> superclasses <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param name the name of the method
+     * @param parameterTypes the parameter types of the method, can be &lt;code>null&lt;/code>.
+     * @return the matching method, otherwise &lt;code>null&lt;/code>
+     */</span>
+    JavaMethod <span class="token function">getMethodBySignature</span><span class="token punctuation">(</span> String name<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>JavaType<span class="token operator">></span> parameterTypes <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * This should be the signature for getMethodBySignature.
+     *
+     * @param name the name of the method
+     * @param parameterTypes the parameter types of the method, can be {@code null}
+     * @param varArgs define if the method has varArgs
+     * @return the matching method, otherwise  {@code null}
+     */</span>
+    JavaMethod <span class="token function">getMethod</span><span class="token punctuation">(</span> String name<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>JavaType<span class="token operator">></span> parameterTypes<span class="token punctuation">,</span> <span class="token keyword">boolean</span> varArgs <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param name the name of the method
+     * @param parameterTypes the parameter types of the method, can be  {@code null}
+     * @param superclasses to define if superclasses should be included as well
+     * @return the matching method, otherwise  {@code null}
+     */</span>
+    JavaMethod <span class="token function">getMethodBySignature</span><span class="token punctuation">(</span> String name<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>JavaType<span class="token operator">></span> parameterTypes<span class="token punctuation">,</span> <span class="token keyword">boolean</span> superclasses <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param name the name of the method
+     * @param parameterTypes the parameter types of the method, can be  {@code null}
+     * @param superclasses {@code true} if inherited methods should be matched as well
+     * @param varArg define if the method has varArgs
+     * @return the matching method, otherwise  {@code null}
+     */</span>
+    JavaMethod <span class="token function">getMethodBySignature</span><span class="token punctuation">(</span> String name<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>JavaType<span class="token operator">></span> parameterTypes<span class="token punctuation">,</span> <span class="token keyword">boolean</span> superclasses<span class="token punctuation">,</span> <span class="token keyword">boolean</span> varArg <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param name the name of the method
+     * @param parameterTypes the parameter types of the method, can be  {@code null}
+     * @param superclasses {@code true} if inherited methods should be matched as well
+     * @return the matching methods, otherwise  {@code null}
+     */</span>
+    List<span class="token operator">&lt;</span>JavaMethod<span class="token operator">></span> <span class="token function">getMethodsBySignature</span><span class="token punctuation">(</span> String name<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>JavaType<span class="token operator">></span> parameterTypes<span class="token punctuation">,</span> <span class="token keyword">boolean</span> superclasses <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param name the name of the method
+     * @param parameterTypes the parameter types of the method, can be  {@code null}
+     * @param superclasses {@code true} if inherited methods should be matched as well
+     * @param varArg define if the method has varArgs
+     * @return the matching methods, otherwise  {@code null}
+     */</span>
+    List<span class="token operator">&lt;</span>JavaMethod<span class="token operator">></span> <span class="token function">getMethodsBySignature</span><span class="token punctuation">(</span> String name<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>JavaType<span class="token operator">></span> parameterTypes<span class="token punctuation">,</span> <span class="token keyword">boolean</span> superclasses<span class="token punctuation">,</span>
+                                                   <span class="token keyword">boolean</span> varArg <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link java.lang.Class#getFields()}
+     *
+     * @return a list of fiels, never  {@code null}
+     */</span>
+    List<span class="token operator">&lt;</span>JavaField<span class="token operator">></span> <span class="token function">getFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link java.lang.Class#getField(String)}, where this method can resolve every field
+     *
+     * @param name the name of the field
+     * @return the field
+     */</span>
+    JavaField <span class="token function">getFieldByName</span><span class="token punctuation">(</span> String name <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Based on {@link java.lang.Class#getEnumConstants()}.
+     *
+     *
+     * @return a List of enum constants if this class is an &lt;code>enum&lt;/code>, otherwise  {@code null}
+     */</span>
+    List<span class="token operator">&lt;</span>JavaField<span class="token operator">></span> <span class="token function">getEnumConstants</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param name the name of the enum constant
+     * @return the enumConstant matching the {@code name}, otherwise &lt;code>null&lt;/code>
+     */</span>
+    JavaField <span class="token function">getEnumConstantByName</span><span class="token punctuation">(</span> String name <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link Class#getDeclaredClasses()}
+     *
+     * @return a list of declared classes, never &lt;code>null&lt;/code>
+     * @since 1.3
+     */</span>
+    List<span class="token operator">&lt;</span>JavaClass<span class="token operator">></span> <span class="token function">getNestedClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    JavaClass <span class="token function">getNestedClassByName</span><span class="token punctuation">(</span> String name <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * @param fullyQualifiedName the FQN to match with
+     * @return {@code true} if this is of type FQN, otherwise {@code false}
+     * @since 1.3
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isA</span><span class="token punctuation">(</span> String fullyQualifiedName <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * @param javaClass the JavaClass to match with
+     * @return {@code true} if this is of type {@literal javaClass}, otherwise {@code false}
+     * @since 1.3
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isA</span><span class="token punctuation">(</span> JavaClass javaClass <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Returns the depth of this array, 0 if it's not an array
+     *
+     * @return The depth of this array, at least &lt;code>0&lt;/code>
+     * @since 2.0
+     */</span>
+    <span class="token keyword">int</span> <span class="token function">getDimensions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @return &lt;code>true&lt;/code> if this JavaClass is an array, otherwise &lt;code>false&lt;/code>
+     * @since 2.0
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @return &lt;code>true&lt;/code> if this JavaClass is a void, otherwise &lt;code>false&lt;/code>
+     * @since 2.0 (was part of Type since 1.6)
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isVoid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link Class#getComponentType()}
+     * If this type is an array, return its component type
+     *
+     * @return the type of array if it's one, otherwise &lt;code>null&lt;/code>
+     */</span>
+    JavaClass <span class="token function">getComponentType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Gets bean properties without looking in superclasses or interfaces.
+     *
+     * @return the bean properties
+     * @since 1.3
+     */</span>
+    List<span class="token operator">&lt;</span>BeanProperty<span class="token operator">></span> <span class="token function">getBeanProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *
+     * @param superclasses to define if superclasses should be included as well
+     * @return the bean properties
+     * @since 1.3
+     */</span>
+    List<span class="token operator">&lt;</span>BeanProperty<span class="token operator">></span> <span class="token function">getBeanProperties</span><span class="token punctuation">(</span> <span class="token keyword">boolean</span> superclasses <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Gets bean property without looking in superclasses or interfaces.
+     *
+     * @param propertyName the name of the property
+     * @return the bean property
+     * @since 1.3
+     */</span>
+    BeanProperty <span class="token function">getBeanProperty</span><span class="token punctuation">(</span> String propertyName <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * @param propertyName the name of the property
+     * @param superclasses to define if superclasses should be included as well
+     * @return the bean property
+     * @since 1.3
+     */</span>
+    BeanProperty <span class="token function">getBeanProperty</span><span class="token punctuation">(</span> String propertyName<span class="token punctuation">,</span> <span class="token keyword">boolean</span> superclasses <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link Class#getClasses()}
+     * Gets the known derived classes. That is, subclasses or implementing classes.
+     * @return the derived classes
+     */</span>
+    List<span class="token operator">&lt;</span>JavaClass<span class="token operator">></span> <span class="token function">getDerivedClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    List<span class="token operator">&lt;</span>DocletTag<span class="token operator">></span> <span class="token function">getTagsByName</span><span class="token punctuation">(</span> String name<span class="token punctuation">,</span> <span class="token keyword">boolean</span> superclasses <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    ClassLibrary <span class="token function">getJavaClassLibrary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * A list if {@link JavaInitializer}, either static or instance initializers.
+     *
+     * @return a List of initializers
+     */</span>
+    List<span class="token operator">&lt;</span>JavaInitializer<span class="token operator">></span> <span class="token function">getInitializers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link java.lang.Class#getName()}.
+     *
+     * @return the name of the entity (class, interface, array class, primitive type, or void) represented by this Class object, as a String.
+     */</span>
+    String <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link java.lang.Class#getSimpleName()}.
+     *
+     * @return the simple name of the underlying class as given in the source code.
+     * @since 2.0
+     */</span>
+    String <span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Equivalent of {@link Class#getModifiers()}
+     *
+     * &lt;strong>This does not follow the java-api&lt;/strong>
+     * The Class.getModifiers() returns an &lt;code>int&lt;/code>, which should be decoded with the {@link java.lang.reflect.Modifier}.
+     * This method will return a list of strings representing the modifiers.
+     * If this member was extracted from a source, it will keep its order.
+     * Otherwise if will be in the preferred order of the java-api.
+     *
+     * @return all modifiers is this member
+     */</span>
+    List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">getModifiers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.reflect.Modifier#isPublic(int)})
+     * &lt;p>
+     * Return &lt;code>true&lt;/code> if the class includes the public modifier, &lt;code>false&lt;/code> otherwise.
+     * &lt;p>
+     *
+     * @return &lt;code>true&lt;/code> if class has the public modifier, otherwise &lt;code>false&lt;/code>
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isPublic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.reflect.Modifier#isProtected(int)})
+     * &lt;p>
+     * Return &lt;code>true&lt;/code> if the class includes the protected modifier, &lt;code>false&lt;/code> otherwise.
+     * &lt;/p>
+     *
+     * @return &lt;code>true&lt;/code> if class has the protected modifier, otherwise &lt;code>false&lt;/code>
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isProtected</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.reflect.Modifier#isPrivate(int)})
+     * &lt;p>
+     * Return &lt;code>true&lt;/code> if the class includes the private modifier, &lt;code>false&lt;/code> otherwise.
+     * &lt;/p>
+     *
+     * @return &lt;code>true&lt;/code> if class has the private modifier, otherwise &lt;code>false&lt;/code>
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isPrivate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.reflect.Modifier#isFinal(int)})
+     * &lt;p>
+     * Return &lt;code>true&lt;/code> if the class includes the final modifier, &lt;code>false&lt;/code> otherwise.
+     * &lt;/p>
+     *
+     * @return &lt;code>true&lt;/code> if class has the final modifier, otherwise &lt;code>false&lt;/code>
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isFinal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.reflect.Modifier#isStatic(int)})
+     * &lt;p>
+     * Return &lt;code>true&lt;/code> if the class includes the static modifier, &lt;code>false&lt;/code> otherwise.
+     * &lt;/p>
+     *
+     * @return &lt;code>true&lt;/code> if class the static modifier, otherwise &lt;code>false&lt;/code>
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isStatic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.reflect.Modifier#isAbstract(int)})
+     *
+     * Return &lt;code>true&lt;/code> if the class includes the abstract modifier, &lt;code>false&lt;/code> otherwise.
+     *
+     * @return &lt;code>true&lt;/code> if class has the abstract modifier, otherwise &lt;code>false&lt;/code>
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isAbstract</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     *  Equivalent of  {@link java.lang.Class#isPrimitive()}
+     *
+     * @return &lt;code>true&lt;/code> if this class represents a primitive, otherwise &lt;code>false&lt;/code>
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">isPrimitive</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * (API description of {@link java.lang.Class#toString()})
+     *
+     * Converts the object to a string.
+     * The string representation is the string "class" or "interface", followed by a space, and then by the fully qualified name of the class in the format returned by &lt;code>getName&lt;/code>.
+     * If this &lt;code>Class&lt;/code> object represents a primitive type, this method returns the name of the primitive type.
+     * If this &lt;code>Class&lt;/code> object represents void this method returns "void".
+     *
+     * @return a string representation of this class object.
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到 JavaClass 提供的方法还是很多的，主要有如下这些，大概可以分成两类:</p>
+<p>一类是 getXXX 这个是通过获得类中不同的组成部分的，比较常用有 getFields ，可以获得类所有的 Field 变量的对象，通过 Field 又可以获得 Field 上的注解以及注释，类型。。。所有关于 field 的信息。又比如 getTags、getMethods 顾名思义是获得 javadoc 的注释及方法列表。</p>
+<p>另一类是 isXXX ，这个是用来判断类的一定特性的，比如 isEnum 判断类是否是枚举，isInterface 判断是否是接口。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 这些方法名，其实也是用 QDox 打印出来的</span>
+getBeanProperties
+getBeanProperty
+getCodeBlock
+getComponentType
+getConstructor
+getConstructors
+getDeclaringClass
+getDerivedClasses
+getDimensions
+getEnumConstantByName
+getEnumConstants
+getFieldByName
+getFields
+getImplements
+getInitializers
+getInterfaces
+getJavaClassLibrary
+getMethod
+getMethodBySignature
+getMethods
+getMethodsBySignature
+getModifiers
+getName
+getNestedClassByName
+getNestedClasses
+getPackage
+getPackageName
+getParentSource
+getSimpleName
+getSource
+getSuperClass
+getSuperJavaClass
+getTagsByName
+isA
+isAbstract
+isAnnotation
+isArray
+isEnum
+isFinal
+isInner
+isInterface
+isPrimitive
+isPrivate
+isProtected
+isPublic
+isStatic
+isVoid
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="完整-Demo"><a href="#完整-Demo" class="headerlink" title="完整 Demo"></a>完整 Demo</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ *
+ *  * *
+ *  *  * blog.coder4j.cn
+ *  *  * Copyright (C) 2016-2020 All Rights Reserved.
+ *  *
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>qdox<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>thoughtworks<span class="token punctuation">.</span>qdox<span class="token punctuation">.</span>JavaProjectBuilder<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>thoughtworks<span class="token punctuation">.</span>qdox<span class="token punctuation">.</span>model<span class="token punctuation">.</span>JavaClass<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>thoughtworks<span class="token punctuation">.</span>qdox<span class="token punctuation">.</span>model<span class="token punctuation">.</span>JavaMethod<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>File<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Collection<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>stream<span class="token punctuation">.</span>Collectors<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version DemoParser.java, v 0.1 2020-03-22 19:03 buhao
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DemoParser</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 创建 java 项目 builder 对象</span>
+        JavaProjectBuilder javaProjectBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JavaProjectBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 添加 java 源文件</span>
+        javaProjectBuilder<span class="token punctuation">.</span><span class="token function">addSource</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">"/Users/kiwi/study/code/study-example/study-qdox-example/src/main/java/cn/coder4j/study/example/qdox/Demo.java"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 获得解析后的类</span>
+        Collection<span class="token operator">&lt;</span>JavaClass<span class="token operator">></span> classes <span class="token operator">=</span> javaProjectBuilder<span class="token punctuation">.</span><span class="token function">getClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>JavaClass javaClass <span class="token operator">:</span> classes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 打印类相关信息</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"类名:"</span> <span class="token operator">+</span> javaClass<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"实现了哪些类："</span> <span class="token operator">+</span> javaClass<span class="token punctuation">.</span><span class="token function">getImplements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"继承哪个类："</span> <span class="token operator">+</span> javaClass<span class="token punctuation">.</span><span class="token function">getSuperJavaClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"注释："</span> <span class="token operator">+</span> javaClass<span class="token punctuation">.</span><span class="token function">getComment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 获得方法列表</span>
+            List<span class="token operator">&lt;</span>JavaMethod<span class="token operator">></span> methods <span class="token operator">=</span> javaClass<span class="token punctuation">.</span><span class="token function">getMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>JavaMethod method <span class="token operator">:</span> methods<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"方法名是："</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"方法的 Tags 有哪些："</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getTags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>it <span class="token operator">-</span><span class="token operator">></span> it<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"->"</span><span class="token operator">+</span> it<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span>Collectors<span class="token punctuation">.</span><span class="token function">joining</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"方法的参数有哪些："</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getParameters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"方法的返回值有哪些："</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getReturns</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行结果</p>
+<pre class="line-numbers language-java"><code class="language-java">类名<span class="token operator">:</span>Demo
+实现了哪些类：<span class="token punctuation">[</span>java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>Serializable<span class="token punctuation">]</span>
+继承哪个类：<span class="token keyword">class</span> <span class="token class-name">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Object</span>
+注释：这是一个 demo 类
+方法名是：hello
+方法的 Tags 有哪些：param<span class="token operator">-</span><span class="token operator">></span>name 姓名
+<span class="token keyword">return</span><span class="token operator">-</span><span class="token operator">></span>hello <span class="token punctuation">{</span>name<span class="token punctuation">}</span>
+方法的参数有哪些：<span class="token punctuation">[</span>String name<span class="token punctuation">]</span>
+方法的返回值有哪些：java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>String
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="项目代码"><a href="#项目代码" class="headerlink" title="项目代码"></a>项目代码</h3><p>因为篇幅有限，无法贴完所有代码，如遇到问题可到  <a href="https://github.com/kiwiflydream/study-example/tree/master/study-qdox-example" target="_blank" rel="noopener">github</a> 上查看源码。</p>
+<h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1584883444778-7ccbdded-8a8a-4281-b645-0ac585337440.png#align=left&amp;display=inline&amp;height=500&amp;name=image.png&amp;originHeight=500&amp;originWidth=900&amp;size=292275&amp;status=done&amp;style=none&amp;width=900" alt="image.png"></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2020/03/22/yuque-【qdox】Java-代码解析利器-QDox/">https://blog.coder4j.cn/2020/03/22/yuque-【qdox】Java-代码解析利器-QDox/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-03-22</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2020/03/22/yuque-【qdox】Java-代码解析利器-QDox/,求索之路,【qdox】Java 代码解析利器 QDox,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2020/03/30/yuque-【Maven】maven-插件开发实战/" title="【Maven】maven 插件开发实战">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2020/02/06/yuque-【并发那些事】线程有序化神器CompletionService/" title="【并发那些事】线程有序化神器CompletionService">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

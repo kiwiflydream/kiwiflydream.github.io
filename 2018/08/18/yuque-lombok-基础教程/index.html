@@ -1,0 +1,1129 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>lombok 基础教程 · 求索之路</title><meta name="description" content="Lombok作用：帮使用者提高编码效率，减少重复与冗余的代码原理：ASM   动态修改 class 文件
+配置maven依赖     &amp;lt;dependency&gt;
+        &amp;lt;groupId&gt;org.projectlombok&amp;lt;/groupId&gt;
+        &amp;lt;arti"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>lombok 基础教程</a></h3></div><div class="post-content"><h1 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h1><h4 id="作用：帮使用者提高编码效率，减少重复与冗余的代码"><a href="#作用：帮使用者提高编码效率，减少重复与冗余的代码" class="headerlink" title="作用：帮使用者提高编码效率，减少重复与冗余的代码"></a>作用：帮使用者提高编码效率，减少重复与冗余的代码</h4><h4 id="原理：ASM-动态修改-class-文件"><a href="#原理：ASM-动态修改-class-文件" class="headerlink" title="原理：ASM   动态修改 class 文件"></a>原理：ASM   动态修改 class 文件</h4><hr>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><pre class="line-numbers language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.16.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><pre class="line-numbers language-xml"><code class="language-xml">     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugins</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>lombok-maven-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.16.6.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugin</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugins</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h3><ul>
+<li>安装插件<br><img src="http://ww2.sinaimg.cn/large/68f7efe0gw1fb0hl2gmyzj20su0kagqg.jpg#align=left&amp;display=inline&amp;height=730&amp;margin=%5Bobject%20Object%5D&amp;originHeight=730&amp;originWidth=1038&amp;status=done&amp;style=none&amp;width=1038" alt></li>
+</ul>
+<hr>
+<h1 id="常用注解："><a href="#常用注解：" class="headerlink" title="常用注解："></a>常用注解：</h1><h2 id="java-bean-相关"><a href="#java-bean-相关" class="headerlink" title="java bean 相关"></a>java bean 相关</h2><h3 id="Setter"><a href="#Setter" class="headerlink" title="@Setter"></a>@Setter</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>生成 setter 方法</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Setter</span>
+        <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
+
+            <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
+            <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><code>编译后</code></li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java">
+  <span class="token keyword">package</span> xyz<span class="token punctuation">.</span>mrwood<span class="token punctuation">.</span>study<span class="token punctuation">.</span>lombok<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
+      <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
+      <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+
+      <span class="token keyword">public</span> <span class="token function">LombokDemo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setId</span><span class="token punctuation">(</span>Integer id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>id <span class="token operator">=</span> id<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Getter"><a href="#Getter" class="headerlink" title="@Getter"></a>@Getter</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>生成 getter 方法</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Getter</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LombokDemo</span> <span class="token punctuation">{</span>
+
+  <span class="token keyword">private</span> Integer id<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    public LombokDemo() {
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+}
+</code></pre><h3 id="ToString"><a href="#ToString" class="headerlink" title="@ToString"></a>@ToString</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>生成 toString 方法</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@ToString
+public class LombokDemo {
+
+    private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    public LombokDemo() {
+    }
+
+    public String toString() {
+        return &quot;LombokDemo(id=&quot; + this.id + &quot;, name=&quot; + this.name + &quot;)&quot;;
+    }
+}
+</code></pre><h3 id="Getter-lazy-true"><a href="#Getter-lazy-true" class="headerlink" title="@Getter(lazy = true)"></a>@Getter(lazy = true)</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>懒加载属性</p>
+</blockquote>
+<ul>
+<li><code>注意:</code></li>
+</ul>
+<blockquote>
+<p>这个与上面@Getter 不同，那个是修饰在类上的，也可以修饰在属性上。如果有 lazy=true 只能修饰在属性，并且还要是 private final 修饰，限制很大</p>
+</blockquote>
+<ul>
+<li><code>编码</code></li>
+</ul>
+<pre><code>public class LombokDemo {
+
+    @Getter(lazy = true) private final List&lt;Integer&gt; ids = Arrays.asList(1, 2, 3, 4);
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
+public class LombokDemo {
+    private final AtomicReference&lt;Object&gt; ids = new AtomicReference();
+    private String name;
+
+    public LombokDemo() {
+    }
+
+    public List&lt;Integer&gt; getIds() {
+        Object value = this.ids.get();
+        if(value == null) {
+            AtomicReference var2 = this.ids;
+            synchronized(this.ids) {
+                value = this.ids.get();
+                if(value == null) {
+                    List actualValue = Arrays.asList(new Integer[]{Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(4)});
+                    value = actualValue == null?this.ids:actualValue;
+                    this.ids.set(value);
+                }
+            }
+        }
+
+        return (List)((List)(value == this.ids?null:value));
+    }
+}
+</code></pre><h3 id="EqualsAndHashCode"><a href="#EqualsAndHashCode" class="headerlink" title="@EqualsAndHashCode"></a>@EqualsAndHashCode</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>生成 equals 方法与 hashCode 方法</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@EqualsAndHashCode
+public class LombokDemo {
+
+    private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    public LombokDemo() {
+    }
+
+    public boolean equals(Object o) {
+        if(o == this) {
+            return true;
+        } else if(!(o instanceof LombokDemo)) {
+            return false;
+        } else {
+            LombokDemo other = (LombokDemo)o;
+            if(!other.canEqual(this)) {
+                return false;
+            } else {
+                Integer this$id = this.id;
+                Integer other$id = other.id;
+                if(this$id == null) {
+                    if(other$id != null) {
+                        return false;
+                    }
+                } else if(!this$id.equals(other$id)) {
+                    return false;
+                }
+
+                String this$name = this.name;
+                String other$name = other.name;
+                if(this$name == null) {
+                    if(other$name != null) {
+                        return false;
+                    }
+                } else if(!this$name.equals(other$name)) {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+    }
+
+    protected boolean canEqual(Object other) {
+        return other instanceof LombokDemo;
+    }
+
+    public int hashCode() {
+        boolean PRIME = true;
+        byte result = 1;
+        Integer $id = this.id;
+        int result1 = result * 59 + ($id == null?43:$id.hashCode());
+        String $name = this.name;
+        result1 = result1 * 59 + ($name == null?43:$name.hashCode());
+        return result1;
+    }
+}
+</code></pre><h3 id="NoAragsConstructor"><a href="#NoAragsConstructor" class="headerlink" title="@NoAragsConstructor"></a>@NoAragsConstructor</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>添加一个无参构造函数</p>
+</blockquote>
+<ul>
+<li><code>注意</code></li>
+</ul>
+<blockquote>
+<p>这个注解在没有其它有参构造函数的情况下使用意义不大，因为在这种情况下 java 默认会添加一个无参构造函数</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@NoArgsConstructor
+public class LombokDemo {
+
+    private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    public LombokDemo() {
+    }
+}
+</code></pre><h3 id="AllArgsConstructor"><a href="#AllArgsConstructor" class="headerlink" title="@AllArgsConstructor"></a>@AllArgsConstructor</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>添加一个所有参数的构造函数</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@AllArgsConstructor
+public class LombokDemo {
+
+    private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import java.beans.ConstructorProperties;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    @ConstructorProperties({&quot;id&quot;, &quot;name&quot;})
+    public LombokDemo(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+</code></pre><h3 id="RequiredArgsConstructor"><a href="#RequiredArgsConstructor" class="headerlink" title="@RequiredArgsConstructor"></a>@RequiredArgsConstructor</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>生成一个包含必填参数的构造函数</p>
+</blockquote>
+<ul>
+<li><code>注意</code></li>
+</ul>
+<blockquote>
+<p>要与@NonNull 搭配使用，该注解修饰的属性就是必填参数</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@RequiredArgsConstructor
+public class LombokDemo {
+
+    @NonNull private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import java.beans.ConstructorProperties;
+import lombok.NonNull;
+
+public class LombokDemo {
+    @NonNull
+    private Integer id;
+    private String name;
+
+    @ConstructorProperties({&quot;id&quot;})
+    public LombokDemo(@NonNull Integer id) {
+        if(id == null) {
+            throw new NullPointerException(&quot;id&quot;);
+        } else {
+            this.id = id;
+        }
+    }
+}
+</code></pre><h3 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>这是一个综合注解了，等于同时使用</p>
+<p><code>@Getter</code>, <code>@Setter</code>, <code>@ToString</code>, <code>@EqualsAndHashCode</code>,<code>@RequiredArgsConstructor</code></p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@Data
+public class LombokDemo {
+
+    @NonNull private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    public LombokDemo() {
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean equals(Object o) {
+        if(o == this) {
+            return true;
+        } else if(!(o instanceof LombokDemo)) {
+            return false;
+        } else {
+            LombokDemo other = (LombokDemo)o;
+            if(!other.canEqual(this)) {
+                return false;
+            } else {
+                Integer this$id = this.getId();
+                Integer other$id = other.getId();
+                if(this$id == null) {
+                    if(other$id != null) {
+                        return false;
+                    }
+                } else if(!this$id.equals(other$id)) {
+                    return false;
+                }
+
+                String this$name = this.getName();
+                String other$name = other.getName();
+                if(this$name == null) {
+                    if(other$name != null) {
+                        return false;
+                    }
+                } else if(!this$name.equals(other$name)) {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+    }
+
+    protected boolean canEqual(Object other) {
+        return other instanceof LombokDemo;
+    }
+
+    public int hashCode() {
+        boolean PRIME = true;
+        byte result = 1;
+        Integer $id = this.getId();
+        int result1 = result * 59 + ($id == null?43:$id.hashCode());
+        String $name = this.getName();
+        result1 = result1 * 59 + ($name == null?43:$name.hashCode());
+        return result1;
+    }
+
+    public String toString() {
+        return &quot;LombokDemo(id=&quot; + this.getId() + &quot;, name=&quot; + this.getName() + &quot;)&quot;;
+    }
+}
+</code></pre><h3 id="Value"><a href="#Value" class="headerlink" title="@Value"></a>@Value</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>不可变类的@Data, 他会默认给属性加上 final</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@Value
+public class LombokDemo {
+
+    private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import java.beans.ConstructorProperties;
+
+public final class LombokDemo {
+    private final Integer id;
+    private final String name;
+
+    @ConstructorProperties({&quot;id&quot;, &quot;name&quot;})
+    public LombokDemo(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean equals(Object o) {
+        if(o == this) {
+            return true;
+        } else if(!(o instanceof LombokDemo)) {
+            return false;
+        } else {
+            LombokDemo other = (LombokDemo)o;
+            Integer this$id = this.getId();
+            Integer other$id = other.getId();
+            if(this$id == null) {
+                if(other$id != null) {
+                    return false;
+                }
+            } else if(!this$id.equals(other$id)) {
+                return false;
+            }
+
+            String this$name = this.getName();
+            String other$name = other.getName();
+            if(this$name == null) {
+                if(other$name != null) {
+                    return false;
+                }
+            } else if(!this$name.equals(other$name)) {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    public int hashCode() {
+        boolean PRIME = true;
+        byte result = 1;
+        Integer $id = this.getId();
+        int result1 = result * 59 + ($id == null?43:$id.hashCode());
+        String $name = this.getName();
+        result1 = result1 * 59 + ($name == null?43:$name.hashCode());
+        return result1;
+    }
+
+    public String toString() {
+        return &quot;LombokDemo(id=&quot; + this.getId() + &quot;, name=&quot; + this.getName() + &quot;)&quot;;
+    }
+}
+</code></pre><h3 id="Accessors"><a href="#Accessors" class="headerlink" title="@Accessors"></a>@Accessors</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>这个注解要搭配@Getter 与@Setter 使用，用来修改默认的 setter 与 getter 方法的形式</p>
+</blockquote>
+<ul>
+<li><code>注意</code></li>
+</ul>
+<blockquote>
+<p>@Accessors 有三个参数可以使用</p>
+<ol>
+<li><p>chain   链式的形式</p>
+</li>
+<li><p>fluent   流式的形式</p>
+</li>
+<li><p>prefix   生成指定前缀的属性的 getter 与 setter 方法，并且生成的 getter 与 setter 方法时会去除前缀</p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li><code>源码 chain = true</code></li>
+</ul>
+<pre><code>@Accessors(chain = true)
+@Setter
+@Getter
+public class LombokDemo {
+
+    private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后 chain = true</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    public LombokDemo() {
+    }
+
+    public LombokDemo setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public LombokDemo setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+}
+</code></pre><ul>
+<li><code>源码 fluent = true</code></li>
+</ul>
+<pre><code>@Accessors(fluent = true)
+@Setter
+@Getter
+public class LombokDemo {
+
+    private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后 fluent = true</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    public LombokDemo() {
+    }
+
+    public LombokDemo id(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public LombokDemo name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Integer id() {
+        return this.id;
+    }
+
+    public String name() {
+        return this.name;
+    }
+}
+</code></pre><ul>
+<li><code>源码 prefix = &quot;xxx&quot;</code></li>
+</ul>
+<pre><code>@Accessors(prefix = &quot;xxx&quot;)
+@Setter
+@Getter
+public class LombokDemo {
+
+    private Integer xxxId;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后 prefix = &quot;xxx&quot;</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer xxxId;
+    private String name;
+
+    public LombokDemo() {
+    }
+
+    public void setId(Integer xxxId) {
+        this.xxxId = xxxId;
+    }
+
+    public Integer getId() {
+        return this.xxxId;
+    }
+}
+</code></pre><hr>
+<h1 id="其它注解："><a href="#其它注解：" class="headerlink" title="其它注解："></a>其它注解：</h1><h2 id="日志相关"><a href="#日志相关" class="headerlink" title="日志相关"></a>日志相关</h2><h3 id="Log4j"><a href="#Log4j" class="headerlink" title="@Log4j"></a>@Log4j</h3><ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@Log4j
+public class LombokDemo {
+
+    private Integer xxxId;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import org.apache.log4j.Logger;
+
+public class LombokDemo {
+    private static final Logger log = Logger.getLogger(LombokDemo.class);
+    private Integer xxxId;
+    private String name;
+
+    public LombokDemo() {
+    }
+}
+</code></pre><h3 id="CommonsLog"><a href="#CommonsLog" class="headerlink" title="@CommonsLog"></a>@CommonsLog</h3><ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@CommonsLog
+public class LombokDemo {
+
+    private Integer xxxId;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class LombokDemo {
+    private static final Log log = LogFactory.getLog(LombokDemo.class);
+    private Integer xxxId;
+    private String name;
+
+    public LombokDemo() {
+    }
+}
+</code></pre><h3 id="Log"><a href="#Log" class="headerlink" title="@Log"></a>@Log</h3><ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@Log
+public class LombokDemo {
+
+    private Integer xxxId;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import java.util.logging.Logger;
+
+public class LombokDemo {
+    private static final Logger log = Logger.getLogger(LombokDemo.class.getName());
+    private Integer xxxId;
+    private String name;
+
+    public LombokDemo() {
+    }
+}
+</code></pre><h3 id="Log4j2"><a href="#Log4j2" class="headerlink" title="@Log4j2"></a>@Log4j2</h3><ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@Log4j2
+public class LombokDemo {
+
+    private Integer xxxId;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class LombokDemo {
+    private static final Logger log = LogManager.getLogger(LombokDemo.class);
+    private Integer xxxId;
+    private String name;
+
+    public LombokDemo() {
+    }
+}
+</code></pre><h3 id="Slf4j"><a href="#Slf4j" class="headerlink" title="@Slf4j"></a>@Slf4j</h3><ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@Slf4j
+public class LombokDemo {
+
+    private Integer xxxId;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class LombokDemo {
+    private static final Logger log = LoggerFactory.getLogger(LombokDemo.class);
+    private Integer xxxId;
+    private String name;
+
+    public LombokDemo() {
+    }
+}
+</code></pre><h2 id="设计模式相关"><a href="#设计模式相关" class="headerlink" title="设计模式相关"></a>设计模式相关</h2><h3 id="Builder"><a href="#Builder" class="headerlink" title="@Builder"></a>@Builder</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>通过建造者模块来生成 bean</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>@Builder
+public class LombokDemo {
+
+    private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    LombokDemo(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public static LombokDemo.LombokDemoBuilder builder() {
+        return new LombokDemo.LombokDemoBuilder();
+    }
+
+    public static class LombokDemoBuilder {
+        private Integer id;
+        private String name;
+
+        LombokDemoBuilder() {
+        }
+
+        public LombokDemo.LombokDemoBuilder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public LombokDemo.LombokDemoBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public LombokDemo build() {
+            return new LombokDemo(this.id, this.name);
+        }
+
+        public String toString() {
+            return &quot;LombokDemo.LombokDemoBuilder(id=&quot; + this.id + &quot;, name=&quot; + this.name + &quot;)&quot;;
+        }
+    }
+}
+</code></pre><h3 id="Delegate"><a href="#Delegate" class="headerlink" title="@Delegate"></a>@Delegate</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>@Delegate 注释的属性，会把这个属性对象的公有非静态方法合到当前类</p>
+</blockquote>
+<ul>
+<li><code>注意</code></li>
+</ul>
+<blockquote>
+<p>公共 非静态方法</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>public class LombokDemo {
+
+    @Delegate
+    private Integer id;
+    private String name;
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public class LombokDemo {
+    private Integer id;
+    private String name;
+
+    public LombokDemo() {
+    }
+
+    public byte byteValue() {
+        return this.id.byteValue();
+    }
+
+    public short shortValue() {
+        return this.id.shortValue();
+    }
+
+    public int intValue() {
+        return this.id.intValue();
+    }
+
+    public long longValue() {
+        return this.id.longValue();
+    }
+
+    public float floatValue() {
+        return this.id.floatValue();
+    }
+
+    public double doubleValue() {
+        return this.id.doubleValue();
+    }
+
+    public int compareTo(Integer arg0) {
+        return this.id.compareTo(arg0);
+    }
+}
+</code></pre><h2 id="工具相关"><a href="#工具相关" class="headerlink" title="工具相关"></a>工具相关</h2><h3 id="Cleanup"><a href="#Cleanup" class="headerlink" title="@Cleanup"></a>@Cleanup</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>关闭流</p>
+</blockquote>
+<ul>
+<li><code>注意</code></li>
+</ul>
+<blockquote>
+<p>关闭流的方式有点怪异，而且没有在<strong>finally</strong>里面关闭，如果出现异常的就不会关闭了</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>public class LombokDemo {
+
+    public void test() throws IOException {
+
+        @Cleanup InputStream inputStream = new FileInputStream(&quot;xxx.txt&quot;);
+
+    }
+
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Collections;
+
+public class LombokDemo {
+    public LombokDemo() {
+    }
+
+    public void test() throws IOException {
+        FileInputStream inputStream = new FileInputStream(&quot;xxx.txt&quot;);
+        if(Collections.singletonList(inputStream).get(0) != null) {
+            inputStream.close();
+        }
+
+    }
+}
+</code></pre><h3 id="Synchronized"><a href="#Synchronized" class="headerlink" title="@Synchronized"></a>@Synchronized</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>给方法加一个同步块</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>public class LombokDemo {
+
+    @Synchronized
+    public void test() throws IOException {
+
+        System.out.println(&quot;test&quot;);
+
+    }
+
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import java.io.IOException;
+
+public class LombokDemo {
+    private final Object $lock = new Object[0];
+
+    public LombokDemo() {
+    }
+
+    public void test() throws IOException {
+        Object var1 = this.$lock;
+        synchronized(this.$lock) {
+            System.out.println(&quot;test&quot;);
+        }
+    }
+}
+</code></pre><h3 id="SneakyThrows"><a href="#SneakyThrows" class="headerlink" title="@SneakyThrows"></a>@SneakyThrows</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>忽略异常</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>public class LombokDemo {
+
+    @SneakyThrows
+    public void test() {
+
+        String s = new String(&quot;test&quot;.getBytes(), &quot;utf-8&quot;);
+
+    }
+
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+import java.io.IOException;
+
+public class LombokDemo {
+    private final Object $lock = new Object[0];
+
+    public LombokDemo() {
+    }
+
+    public void test() throws IOException {
+        Object var1 = this.$lock;
+        synchronized(this.$lock) {
+            System.out.println(&quot;test&quot;);
+        }
+    }
+}
+</code></pre><h3 id="NonNull"><a href="#NonNull" class="headerlink" title="@NonNull"></a>@NonNull</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>设置不能为空的参数</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>public class LombokDemo {
+
+    public void test(@NonNull String val) {
+
+    }
+}
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>  package xyz.mrwood.study.lombok;
+
+  import lombok.NonNull;
+
+  public class LombokDemo {
+      public LombokDemo() {
+      }
+
+      public void test(@NonNull String val) {
+          if(val == null) {
+              throw new NullPointerException(&quot;val&quot;);
+          }
+      }
+  }
+</code></pre><h3 id="UtilityClass"><a href="#UtilityClass" class="headerlink" title="@UtilityClass"></a>@UtilityClass</h3><ul>
+<li><code>功能</code></li>
+</ul>
+<blockquote>
+<p>把普通类转为工具类</p>
+</blockquote>
+<ul>
+<li><code>源码</code></li>
+</ul>
+<pre><code>    @UtilityClass
+    public class LombokDemo {
+
+        private Integer id = 1;
+        private String name = &quot;kiwi&quot;;
+
+        public void util(){
+
+            System.out.println(&quot;xxx&quot;);
+        }
+    }
+</code></pre><ul>
+<li><code>编译后</code></li>
+</ul>
+<pre><code>package xyz.mrwood.study.lombok;
+
+public final class LombokDemo {
+    private static Integer id = Integer.valueOf(1);
+    private static String name = &quot;kiwi&quot;;
+
+    public static void util() {
+        System.out.println(&quot;xxx&quot;);
+    }
+
+    private LombokDemo() {
+        throw new UnsupportedOperationException(&quot;This is a utility class and cannot be instantiated&quot;);
+    }
+}
+</code></pre><p>本文地址 <a href="https://blog.coder4j.cn/2018/08/18/yuque-lombok-基础教程/">https://blog.coder4j.cn/2018/08/18/yuque-lombok-基础教程/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2018/08/18/yuque-lombok-基础教程/,求索之路,lombok 基础教程,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2018/08/18/yuque-docker-常用命令/" title="docker 常用命令">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/08/18/yuque-maven-按环境加载配置文件/" title="maven 按环境加载配置文件">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

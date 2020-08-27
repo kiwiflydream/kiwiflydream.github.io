@@ -1,0 +1,691 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>【websocket】spring boot 集成 websocket 的四种方式 · 求索之路</title><meta name="description" content="集成 websocket 的四种方案1. 原生注解pom.xml&amp;lt;dependency&gt;
+  &amp;lt;groupId&gt;org.springframework.boot&amp;lt;/groupId&gt;
+  &amp;lt;artifactId&gt;spring-boot-starter-websocket&amp;lt;"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>【websocket】spring boot 集成 websocket 的四种方式</a></h3></div><div class="post-content"><p><img src="https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1571838520170-96049339-d6e2-438f-9fe5-3119d6f5ebd5.jpeg#align=left&amp;display=inline&amp;height=1080&amp;originHeight=1080&amp;originWidth=1920&amp;size=0&amp;status=done&amp;width=1920" alt></p>
+<h2 id="集成-websocket-的四种方案"><a href="#集成-websocket-的四种方案" class="headerlink" title="集成 websocket 的四种方案"></a>集成 websocket 的四种方案</h2><h3 id="1-原生注解"><a href="#1-原生注解" class="headerlink" title="1. 原生注解"></a>1. 原生注解</h3><h4 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-websocket<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="WebSocketConfig"><a href="#WebSocketConfig" class="headerlink" title="WebSocketConfig"></a>WebSocketConfig</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Bean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Configuration<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>EnableWebSocket<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>server<span class="token punctuation">.</span>standard<span class="token punctuation">.</span>ServerEndpointExporter<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version WebSocketConfig.java, v 0.1 2019-10-18 15:45 buhao
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@EnableWebSocket</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> ServerEndpointExporter <span class="token function">serverEndpoint</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ServerEndpointExporter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h5><p>这个配置类很简单，通过这个配置 spring boot 才能去扫描后面的关于 websocket 的注解</p>
+<h4 id="WsServerEndpoint"><a href="#WsServerEndpoint" class="headerlink" title="WsServerEndpoint"></a>WsServerEndpoint</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>ws<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>OnClose<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>OnMessage<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>OnOpen<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>Session<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>server<span class="token punctuation">.</span>ServerEndpoint<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashMap<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version WsServerEndpoint.java, v 0.1 2019-10-18 16:06 buhao
+ */</span>
+<span class="token annotation punctuation">@ServerEndpoint</span><span class="token punctuation">(</span><span class="token string">"/myWs"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WsServerEndpoint</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 连接成功
+     *
+     * @param session
+     */</span>
+    <span class="token annotation punctuation">@OnOpen</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onOpen</span><span class="token punctuation">(</span>Session session<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"连接成功"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 连接关闭
+     *
+     * @param session
+     */</span>
+    <span class="token annotation punctuation">@OnClose</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onClose</span><span class="token punctuation">(</span>Session session<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"连接关闭"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 接收到消息
+     *
+     * @param text
+     */</span>
+    <span class="token annotation punctuation">@OnMessage</span>
+    <span class="token keyword">public</span> String <span class="token function">onMsg</span><span class="token punctuation">(</span>String text<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"servet 发送："</span> <span class="token operator">+</span> text<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h5><p>这里有几个注解需要注意一下，首先是他们的包都在 <strong>javax.websocket </strong>下。并不是 spring 提供的，而 jdk 自带的，下面是他们的具体作用。</p>
+<ol>
+<li><strong>@ServerEndpoint</strong><ol>
+<li>通过这个 spring boot 就可以知道你暴露出去的 ws 应用的路径，有点类似我们经常用的@RequestMapping。比如你的启动端口是 8080，而这个注解的值是 ws，那我们就可以通过 ws://127.0.0.1:8080/ws 来连接你的应用</li>
+</ol>
+</li>
+<li><strong>@OnOpen</strong><ol>
+<li>当 websocket 建立连接成功后会触发这个注解修饰的方法，注意它有一个  Session 参数</li>
+</ol>
+</li>
+<li><strong>@OnClose</strong><ol>
+<li>当 websocket 建立的连接断开后会触发这个注解修饰的方法，注意它有一个  Session 参数</li>
+</ol>
+</li>
+<li><strong>@OnMessage</strong><ol>
+<li>当客户端发送消息到服务端时，会触发这个注解修改的方法，它有一个 String 入参表明客户端传入的值</li>
+</ol>
+</li>
+<li><strong>@OnError</strong><ol>
+<li>当 websocket 建立连接时出现异常会触发这个注解修饰的方法，注意它有一个  Session 参数</li>
+</ol>
+</li>
+</ol>
+<p>另外一点就是服务端如何发送消息给客户端，服务端发送消息必须通过上面说的 Session 类，通常是在@OnOpen 方法中，当连接成功后把 session 存入 Map 的 value，key 是与 session 对应的用户标识，当要发送的时候通过 key 获得 session 再发送，这里可以通过  <strong>session.getBasicRemote<em>()</em>.sendText<em>(</em>)</strong> 来对客户端发送消息。</p>
+<h3 id="2-Spring-封装"><a href="#2-Spring-封装" class="headerlink" title="2. Spring 封装"></a>2. Spring 封装</h3><h4 id="pom-xml-1"><a href="#pom-xml-1" class="headerlink" title="pom.xml"></a>pom.xml</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-websocket<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="HttpAuthHandler"><a href="#HttpAuthHandler" class="headerlink" title="HttpAuthHandler"></a>HttpAuthHandler</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>handler<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>WsSessionManager<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>CloseStatus<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>TextMessage<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>WebSocketSession<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>handler<span class="token punctuation">.</span>TextWebSocketHandler<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>time<span class="token punctuation">.</span>LocalDateTime<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version MyWSHandler.java, v 0.1 2019-10-17 17:10 buhao
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HttpAuthHandler</span> <span class="token keyword">extends</span> <span class="token class-name">TextWebSocketHandler</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * socket 建立成功事件
+     *
+     * @param session
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterConnectionEstablished</span><span class="token punctuation">(</span>WebSocketSession session<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        Object token <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>token <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 用户连接成功，放入在线用户缓存</span>
+            WsSessionManager<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>token<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"用户登录已经失效!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 接收消息事件
+     *
+     * @param session
+     * @param message
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">handleTextMessage</span><span class="token punctuation">(</span>WebSocketSession session<span class="token punctuation">,</span> TextMessage message<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 获得客户端传来的消息</span>
+        String payload <span class="token operator">=</span> message<span class="token punctuation">.</span><span class="token function">getPayload</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Object token <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"server 接收到 "</span> <span class="token operator">+</span> token <span class="token operator">+</span> <span class="token string">" 发送的 "</span> <span class="token operator">+</span> payload<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        session<span class="token punctuation">.</span><span class="token function">sendMessage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TextMessage</span><span class="token punctuation">(</span><span class="token string">"server 发送给 "</span> <span class="token operator">+</span> token <span class="token operator">+</span> <span class="token string">" 消息 "</span> <span class="token operator">+</span> payload <span class="token operator">+</span> <span class="token string">" "</span> <span class="token operator">+</span> LocalDateTime<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * socket 断开连接时
+     *
+     * @param session
+     * @param status
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterConnectionClosed</span><span class="token punctuation">(</span>WebSocketSession session<span class="token punctuation">,</span> CloseStatus status<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        Object token <span class="token operator">=</span> session<span class="token punctuation">.</span><span class="token function">getAttributes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>token <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 用户退出，移除缓存</span>
+            WsSessionManager<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>token<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h5><p>通过继承  <strong>TextWebSocketHandler</strong> 类并覆盖相应方法，可以对 websocket 的事件进行处理，这里可以同原生注解的那几个注解连起来看</p>
+<ol>
+<li><strong>afterConnectionEstablished</strong>  方法是在 socket 连接成功后被触发，同原生注解里的 @OnOpen 功能</li>
+<li><strong>afterConnectionClosed  </strong>方法是在 socket 连接关闭后被触发，同原生注解里的 @OnClose 功能</li>
+<li><strong>handleTextMessage </strong>方法是在客户端发送信息时触发，同原生注解里的  @OnMessage 功能</li>
+</ol>
+<h4 id="WsSessionManager"><a href="#WsSessionManager" class="headerlink" title="WsSessionManager"></a>WsSessionManager</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>extern<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Slf4j<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>WebSocketSession<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ConcurrentHashMap<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version WsSessionManager.java, v 0.1 2019-10-22 10:24 buhao
+ */</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WsSessionManager</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * 保存连接 session 的地方
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> ConcurrentHashMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> WebSocketSession<span class="token operator">></span> SESSION_POOL <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ConcurrentHashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 添加 session
+     *
+     * @param key
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span>String key<span class="token punctuation">,</span> WebSocketSession session<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 添加 session</span>
+        SESSION_POOL<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 删除 session,会返回删除的 session
+     *
+     * @param key
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> WebSocketSession <span class="token function">remove</span><span class="token punctuation">(</span>String key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 删除 session</span>
+        <span class="token keyword">return</span> SESSION_POOL<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 删除并同步关闭连接
+     *
+     * @param key
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">removeAndClose</span><span class="token punctuation">(</span>String key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        WebSocketSession session <span class="token operator">=</span> <span class="token function">remove</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>session <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 关闭连接</span>
+                session<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// todo: 关闭出现异常处理</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 获得 session
+     *
+     * @param key
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> WebSocketSession <span class="token function">get</span><span class="token punctuation">(</span>String key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 获得 session</span>
+        <span class="token keyword">return</span> SESSION_POOL<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明-2"><a href="#说明-2" class="headerlink" title="说明"></a>说明</h5><p>这里简单通过  <strong>ConcurrentHashMap </strong>来实现了一个 session 池，用来保存已经登录的 web socket 的   session。前文提过，服务端发送消息给客户端必须要通过这个 session。</p>
+<h4 id="MyInterceptor"><a href="#MyInterceptor" class="headerlink" title="MyInterceptor"></a>MyInterceptor</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>interceptor<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>util<span class="token punctuation">.</span>StrUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HttpUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>http<span class="token punctuation">.</span>server<span class="token punctuation">.</span>ServerHttpRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>http<span class="token punctuation">.</span>server<span class="token punctuation">.</span>ServerHttpResponse<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>WebSocketHandler<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>server<span class="token punctuation">.</span>HandshakeInterceptor<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashMap<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version MyInterceptor.java, v 0.1 2019-10-17 19:21 buhao
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">HandshakeInterceptor</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 握手前
+     *
+     * @param request
+     * @param response
+     * @param wsHandler
+     * @param attributes
+     * @return
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">beforeHandshake</span><span class="token punctuation">(</span>ServerHttpRequest request<span class="token punctuation">,</span> ServerHttpResponse response<span class="token punctuation">,</span> WebSocketHandler wsHandler<span class="token punctuation">,</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> attributes<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"握手开始"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 获得请求参数</span>
+        HashMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">></span> paramMap <span class="token operator">=</span> HttpUtil<span class="token punctuation">.</span><span class="token function">decodeParamMap</span><span class="token punctuation">(</span>request<span class="token punctuation">.</span><span class="token function">getURI</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String uid <span class="token operator">=</span> paramMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>StrUtil<span class="token punctuation">.</span><span class="token function">isNotBlank</span><span class="token punctuation">(</span>uid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 放入属性域</span>
+            attributes<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">,</span> uid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"用户 token "</span> <span class="token operator">+</span> uid <span class="token operator">+</span> <span class="token string">" 握手成功！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"用户登录已失效"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 握手后
+     *
+     * @param request
+     * @param response
+     * @param wsHandler
+     * @param exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterHandshake</span><span class="token punctuation">(</span>ServerHttpRequest request<span class="token punctuation">,</span> ServerHttpResponse response<span class="token punctuation">,</span> WebSocketHandler wsHandler<span class="token punctuation">,</span> Exception exception<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"握手完成"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明-3"><a href="#说明-3" class="headerlink" title="说明"></a>说明</h5><p>通过实现 <strong>HandshakeInterceptor</strong> 接口来定义握手拦截器，注意这里与上面 <strong>Handler</strong> 的事件是不同的，这里是建立握手时的事件，分为握手前与握手后，而   <strong>Handler</strong> 的事件是在握手成功后的基础上建立 socket 的连接。所以在如果把认证放在这个步骤相对来说最节省服务器资源。它主要有两个方法  <strong>beforeHandshake</strong> 与  <strong>afterHandshake </strong>，顾名思义一个在握手前触发，一个在握手后触发。</p>
+<h4 id="WebSocketConfig-1"><a href="#WebSocketConfig-1" class="headerlink" title="WebSocketConfig"></a>WebSocketConfig</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>handler<span class="token punctuation">.</span>HttpAuthHandler<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>interceptor<span class="token punctuation">.</span>MyInterceptor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Configuration<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>EnableWebSocket<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>WebSocketConfigurer<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>WebSocketHandlerRegistry<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version WebSocketConfig.java, v 0.1 2019-10-17 15:43 buhao
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@EnableWebSocket</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebSocketConfigurer</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> HttpAuthHandler httpAuthHandler<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> MyInterceptor myInterceptor<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerWebSocketHandlers</span><span class="token punctuation">(</span>WebSocketHandlerRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        registry
+                <span class="token punctuation">.</span><span class="token function">addHandler</span><span class="token punctuation">(</span>httpAuthHandler<span class="token punctuation">,</span> <span class="token string">"myWS"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">addInterceptors</span><span class="token punctuation">(</span>myInterceptor<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">setAllowedOrigins</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明-4"><a href="#说明-4" class="headerlink" title="说明"></a>说明</h5><p>通过实现  <strong>WebSocketConfigurer</strong> 类并覆盖相应的方法进行 <strong>websocket</strong> 的配置。我们主要覆盖  <strong>registerWebSocketHandlers</strong> 这个方法。通过向  <strong>WebSocketHandlerRegistry</strong> 设置不同参数来进行配置。其中 <strong>addHandler </strong>方法添加我们上面的写的 ws 的   handler 处理类，第二个参数是你暴露出的 ws 路径。<strong>addInterceptors </strong>添加我们写的握手过滤器。<strong>setAllowedOrigins(“*“) </strong>这个是关闭跨域校验，方便本地调试，线上推荐打开。</p>
+<h3 id="3-TIO"><a href="#3-TIO" class="headerlink" title="3. TIO"></a>3. TIO</h3><h4 id="pom-xml-2"><a href="#pom-xml-2" class="headerlink" title="pom.xml"></a>pom.xml</h4><pre class="line-numbers language-xml"><code class="language-xml"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.t-io<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>tio-websocket-spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.5.5.v20191010-RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="application-xml"><a href="#application-xml" class="headerlink" title="application.xml"></a>application.xml</h4><pre class="line-numbers language-xml"><code class="language-xml">tio:
+  websocket:
+    server:
+      port: 8989
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明-5"><a href="#说明-5" class="headerlink" title="说明"></a>说明</h5><p>这里只配置了 ws 的启动端口，还有很多配置，可以通过结尾给的链接去寻找</p>
+<h4 id="MyHandler"><a href="#MyHandler" class="headerlink" title="MyHandler"></a>MyHandler</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>handler<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>tio<span class="token punctuation">.</span>core<span class="token punctuation">.</span>ChannelContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>tio<span class="token punctuation">.</span>http<span class="token punctuation">.</span>common<span class="token punctuation">.</span>HttpRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>tio<span class="token punctuation">.</span>http<span class="token punctuation">.</span>common<span class="token punctuation">.</span>HttpResponse<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>tio<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>common<span class="token punctuation">.</span>WsRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>tio<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>server<span class="token punctuation">.</span>handler<span class="token punctuation">.</span>IWsMsgHandler<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version MyHandler.java, v 0.1 2019-10-21 14:39 buhao
+ */</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyHandler</span> <span class="token keyword">implements</span> <span class="token class-name">IWsMsgHandler</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * 握手
+     *
+     * @param httpRequest
+     * @param httpResponse
+     * @param channelContext
+     * @return
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> HttpResponse <span class="token function">handshake</span><span class="token punctuation">(</span>HttpRequest httpRequest<span class="token punctuation">,</span> HttpResponse httpResponse<span class="token punctuation">,</span> ChannelContext channelContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> httpResponse<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 握手成功
+     *
+     * @param httpRequest
+     * @param httpResponse
+     * @param channelContext
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onAfterHandshaked</span><span class="token punctuation">(</span>HttpRequest httpRequest<span class="token punctuation">,</span> HttpResponse httpResponse<span class="token punctuation">,</span> ChannelContext channelContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"握手成功"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 接收二进制文件
+     *
+     * @param wsRequest
+     * @param bytes
+     * @param channelContext
+     * @return
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Object <span class="token function">onBytes</span><span class="token punctuation">(</span>WsRequest wsRequest<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes<span class="token punctuation">,</span> ChannelContext channelContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 断开连接
+     *
+     * @param wsRequest
+     * @param bytes
+     * @param channelContext
+     * @return
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Object <span class="token function">onClose</span><span class="token punctuation">(</span>WsRequest wsRequest<span class="token punctuation">,</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes<span class="token punctuation">,</span> ChannelContext channelContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"关闭连接"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 接收消息
+     *
+     * @param wsRequest
+     * @param s
+     * @param channelContext
+     * @return
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Object <span class="token function">onText</span><span class="token punctuation">(</span>WsRequest wsRequest<span class="token punctuation">,</span> String s<span class="token punctuation">,</span> ChannelContext channelContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"接收文本消息:"</span> <span class="token operator">+</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明-6"><a href="#说明-6" class="headerlink" title="说明"></a>说明</h5><p>这个同上个例子中的 handler 很像，也是通过实现接口覆盖方法来进行事件处理，实现的接口是<strong>IWsMsgHandler</strong>，它的方法功能如下</p>
+<ol>
+<li>handshake<ol>
+<li>在握手的时候触发</li>
+</ol>
+</li>
+<li>onAfterHandshaked<ol>
+<li>在握手成功后触发</li>
+</ol>
+</li>
+<li>onBytes<ol>
+<li>客户端发送二进制消息触发</li>
+</ol>
+</li>
+<li>onClose<ol>
+<li>客户端关闭连接时触发</li>
+</ol>
+</li>
+<li>onText<ol>
+<li>客户端发送文本消息触发</li>
+</ol>
+</li>
+</ol>
+<h4 id="StudyWebsocketExampleApplication"><a href="#StudyWebsocketExampleApplication" class="headerlink" title="StudyWebsocketExampleApplication"></a>StudyWebsocketExampleApplication</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>SpringApplication<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>boot<span class="token punctuation">.</span>autoconfigure<span class="token punctuation">.</span>SpringBootApplication<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>tio<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>starter<span class="token punctuation">.</span>EnableTioWebSocketServer<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token annotation punctuation">@EnableTioWebSocketServer</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StudyWebsocketExampleApplication</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SpringApplication<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>StudyWebsocketExampleApplication<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明-7"><a href="#说明-7" class="headerlink" title="说明"></a>说明</h5><p>这个类的名称不重要，它其实是你的 spring boot 启动类，只要记得加上<strong>@EnableTioWebSocketServer</strong>注解就可以了</p>
+<h3 id="STOMP"><a href="#STOMP" class="headerlink" title="STOMP"></a>STOMP</h3><h4 id="pom-xml-3"><a href="#pom-xml-3" class="headerlink" title="pom.xml"></a>pom.xml</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-websocket<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="WebSocketConfig-2"><a href="#WebSocketConfig-2" class="headerlink" title="WebSocketConfig"></a>WebSocketConfig</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Configuration<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>messaging<span class="token punctuation">.</span>simp<span class="token punctuation">.</span>config<span class="token punctuation">.</span>MessageBrokerRegistry<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>EnableWebSocketMessageBroker<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>StompEndpointRegistry<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>socket<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>WebSocketMessageBrokerConfigurer<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version WebSocketConfig.java, v 0.1 2019-10-21 16:32 buhao
+ */</span>
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@EnableWebSocketMessageBroker</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSocketConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebSocketMessageBrokerConfigurer</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">registerStompEndpoints</span><span class="token punctuation">(</span>StompEndpointRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 配置客户端尝试连接地址</span>
+        registry<span class="token punctuation">.</span><span class="token function">addEndpoint</span><span class="token punctuation">(</span><span class="token string">"/ws"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setAllowedOrigins</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withSockJS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configureMessageBroker</span><span class="token punctuation">(</span>MessageBrokerRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 设置广播节点</span>
+        registry<span class="token punctuation">.</span><span class="token function">enableSimpleBroker</span><span class="token punctuation">(</span><span class="token string">"/topic"</span><span class="token punctuation">,</span> <span class="token string">"/user"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 客户端向服务端发送消息需有/app 前缀</span>
+        registry<span class="token punctuation">.</span><span class="token function">setApplicationDestinationPrefixes</span><span class="token punctuation">(</span><span class="token string">"/app"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 指定用户发送（一对一）的前缀 /user/</span>
+        registry<span class="token punctuation">.</span><span class="token function">setUserDestinationPrefix</span><span class="token punctuation">(</span><span class="token string">"/user/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明-8"><a href="#说明-8" class="headerlink" title="说明"></a>说明</h5><ol>
+<li>通过实现  <strong>WebSocketMessageBrokerConfigurer</strong> 接口和加上<strong>@EnableWebSocketMessageBroker</strong>来进行 stomp 的配置与注解扫描。</li>
+<li>其中覆盖  <strong>registerStompEndpoints</strong> 方法来设置暴露的 stomp 的路径，其它一些跨域、客户端之类的设置。</li>
+<li>覆盖  <strong>configureMessageBroker </strong>方法来进行节点的配置。<ol>
+<li>其中  <strong>enableSimpleBroker </strong>配置的广播节点，也就是服务端发送消息，客户端订阅就能接收消息的节点。</li>
+<li>覆盖<strong>setApplicationDestinationPrefixes </strong>方法，设置客户端向服务端发送消息的节点。</li>
+<li>覆盖 <strong>setUserDestinationPrefix</strong> 方法，设置一对一通信的节点。</li>
+</ol>
+</li>
+</ol>
+<h4 id="WSController"><a href="#WSController" class="headerlink" title="WSController"></a>WSController</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ * *
+ *  * blog.coder4j.cn
+ *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>controller<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>model<span class="token punctuation">.</span>RequestMessage<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>websocket<span class="token punctuation">.</span>model<span class="token punctuation">.</span>ResponseMessage<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>messaging<span class="token punctuation">.</span>handler<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>MessageMapping<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>messaging<span class="token punctuation">.</span>handler<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>SendTo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>messaging<span class="token punctuation">.</span>simp<span class="token punctuation">.</span>SimpMessagingTemplate<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Controller<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>GetMapping<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>ResponseBody<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version WSController.java, v 0.1 2019-10-21 17:22 buhao
+ */</span>
+<span class="token annotation punctuation">@Controller</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WSController</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> SimpMessagingTemplate simpMessagingTemplate<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@MessageMapping</span><span class="token punctuation">(</span><span class="token string">"/hello"</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@SendTo</span><span class="token punctuation">(</span><span class="token string">"/topic/hello"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> ResponseMessage <span class="token function">hello</span><span class="token punctuation">(</span>RequestMessage requestMessage<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"接收消息："</span> <span class="token operator">+</span> requestMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ResponseMessage</span><span class="token punctuation">(</span><span class="token string">"服务端接收到你发的："</span> <span class="token operator">+</span> requestMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/sendMsgByUser"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token annotation punctuation">@ResponseBody</span>
+    Object <span class="token function">sendMsgByUser</span><span class="token punctuation">(</span>String token<span class="token punctuation">,</span> String msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        simpMessagingTemplate<span class="token punctuation">.</span><span class="token function">convertAndSendToUser</span><span class="token punctuation">(</span>token<span class="token punctuation">,</span> <span class="token string">"/msg"</span><span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/sendMsgByAll"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token annotation punctuation">@ResponseBody</span>
+    Object <span class="token function">sendMsgByAll</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        simpMessagingTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span><span class="token string">"/topic"</span><span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"success"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"test-stomp.html"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="说明-9"><a href="#说明-9" class="headerlink" title="说明"></a>说明</h5><ol>
+<li>通过  <strong>@MessageMapping</strong> 来暴露节点路径，有点类似 <strong>@RequestMapping</strong>。注意这里虽然写的是 hello ，但是我们客户端调用的真正地址是<strong> /app/hello</strong>。 因为我们在上面的 config 里配置了<strong>registry.setApplicationDestinationPrefixes(“/app”)</strong>。</li>
+<li><strong>@SendTo</strong>这个注解会把返回值的内容发送给订阅了  <strong>/topic/hello </strong>的客户端，与之类似的还有一个<strong>@SendToUser</strong> 只不过他是发送给用户端一对一通信的。这两个注解一般是应答时响应的，如果服务端主动发送消息可以通过  <strong>simpMessagingTemplate</strong>类的<strong>convertAndSend</strong>方法。注意  <strong>simpMessagingTemplate.convertAndSendToUser(token, “/msg”, msg) </strong>，联系到我们上文配置的 <strong>registry.setUserDestinationPrefix(“/user/“),</strong>这里客户端订阅的是<strong>/user/{token}/msg</strong>,千万不要搞错。</li>
+</ol>
+<h2 id="Session-共享的问题"><a href="#Session-共享的问题" class="headerlink" title="Session 共享的问题"></a>Session 共享的问题</h2><p>上面反复提到一个问题就是，服务端如果要主动发送消息给客户端一定要用到 session。而大家都知道的是 session 这个东西是不跨 jvm 的。如果有多台服务器，在 http 请求的情况下，我们可以通过把 session 放入缓存中间件中来共享解决这个问题，通过 spring session 几条配置就解决了。但是 web socket  不可以。他的 session 是不能序列化的，当然这样设计的目的不是为了为难你，而是出于对 http 与 web socket 请求的差异导致的。<br>目前网上找到的最简单方案就是通过 redis 订阅广播的形式，主要代码跟第二种方式差不多，你要在本地放个 map 保存请求的 session。也就是说每台服务器都会保存与他连接的 session 于本地。然后发消息的地方要修改，并不是现在这样直接发送，而通过 redis 的订阅机制。服务器要发消息的时候，你通过 redis 广播这条消息，所有订阅的服务端都会收到这个消息，然后本地尝试发送。最后肯定只有有这个对应用户 session 的那台才能发送出去。</p>
+<h2 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h2><ol>
+<li>如果你在使用 tio，那推荐使用 tio 的集成。因为它已经实现了很多功能，包括上面说的通过 redis 的 session 共享，只要加几个配置就可以了。但是 tio 是半开源，文档是需要收费的。如果没有使用，那就忘了他。</li>
+<li>如果你的业务要求比较灵活多变，推荐使用前两种，更推荐第二种 Spring 封装的形式。</li>
+<li>如果只是简单的服务器双向通信，推荐 stomp 的形式，因为他更容易规范使用。</li>
+</ol>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><ol>
+<li>websocket 在线验证</li>
+</ol>
+<p>写完服务端代码后想调试，但是不会前端代码怎么办，点<a href="http://coolaf.com/tool/chattest" target="_blank" rel="noopener">这里</a>，这是一个在线的 websocket 客户端，功能完全够我们调试了。</p>
+<ol>
+<li>stomp 验证</li>
+</ol>
+<p>这个没找到在线版的，但是网上有很多 demo 可以下载到本地进行调试，也可以通过后文的连接找到。</p>
+<ol>
+<li>另外由于篇幅有限，并不能放上所有代码，但是测试代码全都上传 gitlab，保证可以正常运行，可以在  <a href="https://github.com/kiwiflydream/study-example/tree/master/study-websocket-example" target="_blank" rel="noopener">这里</a>  找到</li>
+</ol>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a href="https://www.xncoding.com/2017/07/15/spring/sb-websocket.html" target="_blank" rel="noopener">SpringBoot 系统 - 集成 WebSocket 实时通信</a></li>
+<li><a href="https://juejin.im/post/5b7071ade51d45665816f8c0" target="_blank" rel="noopener">WebSocket 的故事（二）—— Spring 中如何利用 STOMP 快速构建 WebSocket 广播式消息模式</a></li>
+<li><a href="https://blog.csdn.net/Ouyzc/article/details/79994401" target="_blank" rel="noopener">SpringBoot 集成 WebSocket【基于纯 H5】进行点对点[一对一]和广播[一对多]实时推送</a></li>
+<li><a href="https://segmentfault.com/a/1190000016718711" target="_blank" rel="noopener">Spring Framework 参考文档（WebSocket STOMP）</a></li>
+<li><a href="https://www.zifangsky.cn/1355.html" target="_blank" rel="noopener">Spring Boot 中使用 WebSocket 总结（一）：几种实现方式详解</a></li>
+<li><a href="https://www.jianshu.com/p/161df01cc8af" target="_blank" rel="noopener">Spring Boot 系列 - WebSocket 简单使用</a></li>
+<li><a href="https://my.oschina.net/panzi1/blog/3062746" target="_blank" rel="noopener">tio-websocket-spring-boot-starter</a></li>
+</ol>
+<p>本文地址 <a href="https://blog.coder4j.cn/2019/10/22/yuque-【websocket】spring-boot-集成-websocket-的四种方式/">https://blog.coder4j.cn/2019/10/22/yuque-【websocket】spring-boot-集成-websocket-的四种方式/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-10-22</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2019/10/22/yuque-【websocket】spring-boot-集成-websocket-的四种方式/,求索之路,【websocket】spring boot 集成 websocket 的四种方式,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2019/10/24/yuque-碎碎念-03/" title="碎碎念-03">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2019/10/16/yuque-【并发那些事】创建线程的三种方式/" title="【并发那些事】创建线程的三种方式">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

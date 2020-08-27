@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>【Maven】maven 插件开发实战 · 求索之路</title><meta name="description" content="前言众所周知，maven 实质上是一个插件执行框架，所有的工作都是通过插件完成的。包括我们日常使用到的类似 install、clean、deploy、compiler。。。这些命令，其实底层都是一个一个的 maven 插件。
+如何开发自己的插件1. maven 插件的命名规范在写一个项目之前，第一件"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>【Maven】maven 插件开发实战</a></h3></div><div class="post-content"><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1585583078647-c0a12206-3334-4eaf-9588-fd384bd43d3b.png#align=left&amp;display=inline&amp;height=383&amp;name=image.png&amp;originHeight=383&amp;originWidth=900&amp;size=137499&amp;status=done&amp;style=none&amp;width=900" alt="image.png"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>众所周知，maven 实质上是一个插件执行框架，所有的工作都是通过插件完成的。包括我们日常使用到的类似 install、clean、deploy、compiler。。。这些命令，其实底层都是一个一个的 maven 插件。</p>
+<h2 id="如何开发自己的插件"><a href="#如何开发自己的插件" class="headerlink" title="如何开发自己的插件"></a>如何开发自己的插件</h2><h3 id="1-maven-插件的命名规范"><a href="#1-maven-插件的命名规范" class="headerlink" title="1. maven 插件的命名规范"></a>1. maven 插件的命名规范</h3><p>在写一个项目之前，第一件事就是确定一个名称。maven 插件也不例外。它有着自己的一套命名规范。但是规范很简单，一句话就可以概括，<strong>官方插件命名的格式为 maven-xxx-plugin,非官方的插件命名为 xxx-maven-plugin 。</strong>是不是觉得很眼熟，没错，spring boot starter 的命名也有类似的规范。</p>
+<p>好的，我们的第一个 maven 插件项目就叫 demo-maven-plugin 吧。</p>
+<h3 id="2-创建项目"><a href="#2-创建项目" class="headerlink" title="2. 创建项目"></a>2. 创建项目</h3><p>名称起好了，下一步就是创建这个项目。如果你使用 idea 的话，那么创建十分的便捷，按如下步骤即可：</p>
+<h4 id="2-1-选择-org-apache-maven-archetypes-maven-archetype-mojo-为骨架创建项目"><a href="#2-1-选择-org-apache-maven-archetypes-maven-archetype-mojo-为骨架创建项目" class="headerlink" title="2.1 选择 org.apache.maven.archetypes:maven-archetype-mojo 为骨架创建项目"></a>2.1 选择 org.apache.maven.archetypes:maven-archetype-mojo 为骨架创建项目</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1585576537171-8acf6bd7-2bf5-4db9-8d03-cd17ce0073ea.png#align=left&amp;display=inline&amp;height=605&amp;name=image.png&amp;originHeight=1210&amp;originWidth=2462&amp;size=415035&amp;status=done&amp;style=none&amp;width=1231" alt="image.png"></p>
+<ol>
+<li>选择创建新项目</li>
+<li>选择通过 maven 创建</li>
+<li>勾选 Create from archetype 通过项目骨架创建</li>
+<li>选择  org.apache.maven.archetypes:maven-archetype-mojo</li>
+<li>点击下一步</li>
+</ol>
+<h4 id="2-2-输入在第一步起的项目名"><a href="#2-2-输入在第一步起的项目名" class="headerlink" title="2.2 输入在第一步起的项目名"></a>2.2 输入在第一步起的项目名</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1585576749262-5321d41f-c5c2-484b-9449-fc8f18f51d8e.png#align=left&amp;display=inline&amp;height=605&amp;name=image.png&amp;originHeight=1210&amp;originWidth=2462&amp;size=165287&amp;status=done&amp;style=none&amp;width=1231" alt="image.png"></p>
+<p>点击 Next</p>
+<h4 id="2-3-点击-Finish-完成项目创建"><a href="#2-3-点击-Finish-完成项目创建" class="headerlink" title="2.3 点击 Finish 完成项目创建"></a>2.3 点击 Finish 完成项目创建</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1585576887162-6f6a5e25-7aa6-4edb-9f38-e04697661b8d.png#align=left&amp;display=inline&amp;height=605&amp;name=image.png&amp;originHeight=1210&amp;originWidth=2462&amp;size=183559&amp;status=done&amp;style=none&amp;width=1231" alt="image.png"></p>
+<h4 id="2-4-分析项目文件"><a href="#2-4-分析项目文件" class="headerlink" title="2.4  分析项目文件"></a>2.4  分析项目文件</h4><h5 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h5><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1585577595314-252a1194-e2df-4087-952e-6c03b6b5bbb4.png#align=left&amp;display=inline&amp;height=155&amp;name=image.png&amp;originHeight=310&amp;originWidth=802&amp;size=35169&amp;status=done&amp;style=none&amp;width=401" alt="image.png"></p>
+<blockquote>
+<p>可以看到生成的项目就是我们最最常见的 maven 项目的结构，生成的文件也很少，一个 pom.xml 文件，一个 MyMojo 文件，简单介绍一下这两个文件</p>
+</blockquote>
+<h5 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h5><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://maven.apache.org/POM/4.0.0<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+  <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>modelVersion</span><span class="token punctuation">></span></span>4.0.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modelVersion</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>cn.coder4j.study.example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>demo-maven-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>packaging</span><span class="token punctuation">></span></span>maven-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>packaging</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.0-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>demo-mavne-plugin Maven Mojo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://maven.apache.org<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.maven<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>maven-plugin-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>junit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>junit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.8.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>首先生成的项目 pom.xml 中，自动依赖了两个项目，一个是 maven-plugin-api ，这个是开发 maven 插件必须依赖的核心包。另一个是单元测试时使用的 junit 包。这两个没什么要注意的，真正要注意的是这个项目的 packaging，通常我遇到的 packaging 都是 jar、war、pom，这里比较特殊是 maven-plugin。</p>
+</blockquote>
+<h5 id="MyMojo-java"><a href="#MyMojo-java" class="headerlink" title="MyMojo.java"></a>MyMojo.java</h5><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Copyright 2001-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>AbstractMojo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>MojoExecutionException<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>File<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>FileWriter<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * Goal which touches a timestamp file.
+ *
+ * @goal touch
+ *
+ * @phase process-sources
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyMojo</span>
+    <span class="token keyword">extends</span> <span class="token class-name">AbstractMojo</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * Location of the file.
+     * @parameter expression="${project.build.directory}"
+     * @required
+     */</span>
+    <span class="token keyword">private</span> File outputDirectory<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">throws</span> MojoExecutionException
+    <span class="token punctuation">{</span>
+        File f <span class="token operator">=</span> outputDirectory<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span>f<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            f<span class="token punctuation">.</span><span class="token function">mkdirs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        File touch <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span> f<span class="token punctuation">,</span> <span class="token string">"touch.txt"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        FileWriter w <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">try</span>
+        <span class="token punctuation">{</span>
+            w <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileWriter</span><span class="token punctuation">(</span> touch <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            w<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span> <span class="token string">"touch.txt"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">catch</span> <span class="token punctuation">(</span> IOException e <span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">MojoExecutionException</span><span class="token punctuation">(</span> <span class="token string">"Error creating file "</span> <span class="token operator">+</span> touch<span class="token punctuation">,</span> e <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">finally</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span> w <span class="token operator">!=</span> null <span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token keyword">try</span>
+                <span class="token punctuation">{</span>
+                    w<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">catch</span> <span class="token punctuation">(</span> IOException e <span class="token punctuation">)</span>
+                <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// ignore</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>首先生成的类继承了  AbstractMojo 这个抽象类，这里是 maven 插件的规范要求，maven 插件必须要继承  AbstractMojo  并实现他的  execute 方法。</p>
+<p>另外可以看到类与方法使用了很多 tag。注意是 tag 而不是注解，注解是直接标记的，而 tag 是在文档注释里面的。</p>
+<p>其中  @goal 这个 tag 的作用是指定插件的命名，比如我们常用的 mvn clean，这个 clean 就是他的  @goal 。</p>
+<p>而 @phase 是绑定插件执行的生成周期，比如你绑定在 clean 这个周期，那你在执行 clean 的时候会自动触发你的插件。</p>
+<p>@parameter 用来指定插件的参数。</p>
+<p>小朋友你是否有很多问号？tag 这个东西写在文档注释里面的东西，方便是方便但是容易写错呀，写错没有语法报错，写对时候也没有语法提示，为什么不直接用注解的形式呢？原因是 java 的注解是 jdk1.5 之后才有的，而实现 maven 的时候还没有这种语法。所以要一条路走到黑，一直背这个历史包袱吗？当然不是，后面我们会说解决办法。另外，这种写法虽然不推荐使用了，但是有些 maven 的经典插件由于完成时间比较早，熟悉这些 tag 对于理解代码也有帮助。</p>
+<h3 id="3-开发插件"><a href="#3-开发插件" class="headerlink" title="3. 开发插件"></a>3. 开发插件</h3><h4 id="3-1-代码未动，依赖先行-pom-xml"><a href="#3-1-代码未动，依赖先行-pom-xml" class="headerlink" title="3.1 代码未动，依赖先行  pom.xml"></a>3.1 代码未动，依赖先行  pom.xml</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://maven.apache.org/POM/4.0.0<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+  <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>modelVersion</span><span class="token punctuation">></span></span>4.0.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>modelVersion</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>cn.coder4j.study.example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>demo-maven-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>packaging</span><span class="token punctuation">></span></span>maven-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>packaging</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.0-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>demo-mavne-plugin Maven Mojo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url</span><span class="token punctuation">></span></span>http://maven.apache.org<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.maven<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>maven-plugin-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.5.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.maven.plugin-tools<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>maven-plugin-annotations<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.5.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>provided<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugins</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.maven.plugins<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>maven-plugin-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.5.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugin</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugins</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相较于默认的 pom.xml 文件，我们做了如下几个变动：</p>
+<ol>
+<li>升级 maven-plugin-api 的插件版本到  3.5.2 。原生的 2.0 实在是太老了。</li>
+<li>添加  maven-plugin-annotations 这个依赖，还记得上面说的 tag 的事吗？有了这个依赖就可以直接使用注解了</li>
+<li>添加  maven-plugin-plugin 插件依赖，添加这个依赖主要是为了在 jdk1.8 能编译通过，否则会报错</li>
+</ol>
+<h4 id="3-2-DemoMojo-java"><a href="#3-2-DemoMojo-java" class="headerlink" title="3.2 DemoMojo.java"></a>3.2 DemoMojo.java</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ *
+ *  * *
+ *  *  * blog.coder4j.cn
+ *  *  * Copyright (C) 2016-2020 All Rights Reserved.
+ *  *
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>AbstractMojo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>MojoExecutionException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>MojoFailureException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>Mojo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>Parameter<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version DemoMojo.java, v 0.1 2020-03-30 22:51 buhao
+ */</span>
+<span class="token annotation punctuation">@Mojo</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DemoMojo</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractMojo</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Parameter</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"name"</span><span class="token punctuation">,</span> defaultValue <span class="token operator">=</span> <span class="token string">"kiwi"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> MojoExecutionException<span class="token punctuation">,</span> MojoFailureException <span class="token punctuation">{</span>
+        <span class="token function">getLog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"hello "</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>首先，同生成的类一样，我们的类必须继承  AbstractMojo 并实现他的 execute 方法，而 execute 方法其实就是这个插件的入口类。</p>
+<p>示例代码中有两个很重要的注解，一个是 @Mojo ，它主要用来定义插件相关的信息相当于上面说的 @goal ，其中 name 属性用来指定这个插件名称，同 clean 类似。</p>
+<p>另外一个重要注解  @Parameter ，则是用来指定插件运行时使用的参数，其中 name 是参数名，defaultValue 顾名思义是默认值，也就是在用户没有设置的时候使用的值。</p>
+<p>详细的插件及作用如下：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>execution<span class="token punctuation">.</span>MavenSession<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>AbstractMojo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>MojoExecution<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>descriptor<span class="token punctuation">.</span>PluginDescriptor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>Component<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>Execute<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>InstantiationStrategy<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>LifecyclePhase<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>Mojo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>Parameter<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>ResolutionScope<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>project<span class="token punctuation">.</span>MavenProject<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>settings<span class="token punctuation">.</span>Settings<span class="token punctuation">;</span>
+
+       <span class="token comment" spellcheck="true">// 此Mojo对应的目标的名称</span>
+<span class="token annotation punctuation">@Mojo</span><span class="token punctuation">(</span> name <span class="token operator">=</span> <span class="token string">"&lt;goal-name>"</span><span class="token punctuation">,</span>
+       aggregator <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token boolean">false</span><span class="token operator">|</span><span class="token boolean">true</span><span class="token operator">></span><span class="token punctuation">,</span>
+       configurator <span class="token operator">=</span> <span class="token string">"&lt;role hint>"</span><span class="token punctuation">,</span>
+       <span class="token comment" spellcheck="true">// 执行策略</span>
+       executionStrategy <span class="token operator">=</span> <span class="token string">"&lt;once-per-session|always>"</span><span class="token punctuation">,</span>
+       inheritByDefault <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token boolean">true</span><span class="token operator">|</span><span class="token boolean">false</span><span class="token operator">></span><span class="token punctuation">,</span>
+       <span class="token comment" spellcheck="true">// 实例化策略</span>
+       instantiationStrategy <span class="token operator">=</span> InstantiationStrategy<span class="token punctuation">.</span>&lt;strategy<span class="token operator">></span><span class="token punctuation">,</span>
+       <span class="token comment" spellcheck="true">// 如果用户没有在POM中明确设置此Mojo绑定到的phase，那么绑定一个MojoExecution到那个phase</span>
+       defaultPhase <span class="token operator">=</span> LifecyclePhase<span class="token punctuation">.</span>&lt;phase<span class="token operator">></span><span class="token punctuation">,</span>
+       requiresDependencyResolution <span class="token operator">=</span> ResolutionScope<span class="token punctuation">.</span>&lt;scope<span class="token operator">></span><span class="token punctuation">,</span>
+       requiresDependencyCollection <span class="token operator">=</span> ResolutionScope<span class="token punctuation">.</span>&lt;scope<span class="token operator">></span><span class="token punctuation">,</span>
+       <span class="token comment" spellcheck="true">// 提示此Mojo需要被直接调用（而非绑定到生命周期阶段）</span>
+       requiresDirectInvocation <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token boolean">false</span><span class="token operator">|</span><span class="token boolean">true</span><span class="token operator">></span><span class="token punctuation">,</span>
+       <span class="token comment" spellcheck="true">// 提示此Mojo不能在离线模式下运行</span>
+       requiresOnline <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token boolean">false</span><span class="token operator">|</span><span class="token boolean">true</span><span class="token operator">></span><span class="token punctuation">,</span>
+       <span class="token comment" spellcheck="true">// 提示此Mojo必须在一个Maven项目内运行</span>
+       requiresProject <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token boolean">true</span><span class="token operator">|</span><span class="token boolean">false</span><span class="token operator">></span><span class="token punctuation">,</span>
+       <span class="token comment" spellcheck="true">// 提示此Mojo是否线程安全，线程安全的Mojo支持在并行构建中被并发的调用</span>
+       threadSafe <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token boolean">false</span><span class="token operator">|</span><span class="token boolean">true</span><span class="token operator">></span> <span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// (since Maven 3.0)</span>
+
+<span class="token comment" spellcheck="true">// 何时执行此Mojo</span>
+<span class="token annotation punctuation">@Execute</span><span class="token punctuation">(</span> goal <span class="token operator">=</span> <span class="token string">"&lt;goal-name>"</span><span class="token punctuation">,</span>           <span class="token comment" spellcheck="true">// 如果提供goal，则隔离执行此Mojo</span>
+          phase <span class="token operator">=</span> LifecyclePhase<span class="token punctuation">.</span>&lt;phase<span class="token operator">></span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 在此生命周期阶段自动执行此Mojo</span>
+          lifecycle <span class="token operator">=</span> <span class="token string">"&lt;lifecycle-id>"</span> <span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// 在此生命周期中执行此Mojo</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyMojo</span>
+    <span class="token keyword">extends</span> <span class="token class-name">AbstractMojo</span>
+<span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Parameter</span><span class="token punctuation">(</span> name <span class="token operator">=</span> <span class="token string">"parameter"</span><span class="token punctuation">,</span>
+                <span class="token comment" spellcheck="true">// 在POM中可使用别名来配置参数</span>
+                alias <span class="token operator">=</span> <span class="token string">"myAlias"</span><span class="token punctuation">,</span>
+                property <span class="token operator">=</span> <span class="token string">"a.property"</span><span class="token punctuation">,</span>
+                defaultValue <span class="token operator">=</span> <span class="token string">"an expression, possibly with ${variables}"</span><span class="token punctuation">,</span>
+                readonly <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token boolean">false</span><span class="token operator">|</span><span class="token boolean">true</span><span class="token operator">></span><span class="token punctuation">,</span>
+                required <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token boolean">false</span><span class="token operator">|</span><span class="token boolean">true</span><span class="token operator">></span> <span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String parameter<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Component</span><span class="token punctuation">(</span> role <span class="token operator">=</span> MyComponentExtension<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+                hint <span class="token operator">=</span> <span class="token string">"..."</span> <span class="token punctuation">)</span>
+    <span class="token keyword">private</span> MyComponent component<span class="token punctuation">;</span>
+
+
+    <span class="token annotation punctuation">@Parameter</span><span class="token punctuation">(</span> defaultValue <span class="token operator">=</span> <span class="token string">"${session}"</span><span class="token punctuation">,</span> readonly <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">)</span>
+    <span class="token keyword">private</span> MavenSession session<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Parameter</span><span class="token punctuation">(</span> defaultValue <span class="token operator">=</span> <span class="token string">"${project}"</span><span class="token punctuation">,</span> readonly <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">)</span>
+    <span class="token keyword">private</span> MavenProject project<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Parameter</span><span class="token punctuation">(</span> defaultValue <span class="token operator">=</span> <span class="token string">"${mojoExecution}"</span><span class="token punctuation">,</span> readonly <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">)</span>
+    <span class="token keyword">private</span> MojoExecution mojo<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Parameter</span><span class="token punctuation">(</span> defaultValue <span class="token operator">=</span> <span class="token string">"${plugin}"</span><span class="token punctuation">,</span> readonly <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">)</span>
+    <span class="token keyword">private</span> PluginDescriptor plugin<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Parameter</span><span class="token punctuation">(</span> defaultValue <span class="token operator">=</span> <span class="token string">"${settings}"</span><span class="token punctuation">,</span> readonly <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">)</span>
+    <span class="token keyword">private</span> Settings settings<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Parameter</span><span class="token punctuation">(</span> defaultValue <span class="token operator">=</span> <span class="token string">"${project.basedir}"</span><span class="token punctuation">,</span> readonly <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">)</span>
+    <span class="token keyword">private</span> File basedir<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Parameter</span><span class="token punctuation">(</span> defaultValue <span class="token operator">=</span> <span class="token string">"${project.build.directory}"</span><span class="token punctuation">,</span> readonly <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">)</span>
+    <span class="token keyword">private</span> File target<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>回到示例上了，我们这个插件作用很简单，根据配置输出 hello xxx，如果没有配置就输出 hello kiwi。我们在写插件时，当然不会这样写，但是通过这个 demo，你就掌握了 maven 插件的大部分知识，可以自己做一些很有趣的插件。</p>
+<h3 id="4-使用插件"><a href="#4-使用插件" class="headerlink" title="4. 使用插件"></a>4. 使用插件</h3><p>首先上面我们的代码写完了，必须要 Install 一下，否则别的项目无法直接依赖，如果你还想给其它人使用，那还需上传到 maven 仓库。</p>
+<h4 id="4-1-依赖插件"><a href="#4-1-依赖插件" class="headerlink" title="4.1 依赖插件"></a>4.1 依赖插件</h4><pre class="line-numbers language-xml"><code class="language-xml">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugins</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>cn.coder4j.study.example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>demo-maven-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.0-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugin</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugins</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在我们想使用插件的项目中，添加如上配置，其中 plugin 中使用我们插件的   GAV 信息。</p>
+<h4 id="4-2-启动插件"><a href="#4-2-启动插件" class="headerlink" title="4.2 启动插件"></a>4.2 启动插件</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1585581578390-50d9cb76-2506-4cae-8cba-d93d21bbd7fa.png#align=left&amp;display=inline&amp;height=326&amp;name=image.png&amp;originHeight=652&amp;originWidth=904&amp;size=126075&amp;status=done&amp;style=none&amp;width=452" alt="image.png"></p>
+<p>如果上面配置的都正确，那么在 idea 右侧的 Maven 中，你配置的项目的 Plugins 下会多了一个 demo（具体根据你插件项目的名称），而 demo 里面会有一个 demo:hello，其中这个 demo 对应你插件项目的名称，而 hello 对应你插件的名称也就是 @Mojo 中的 name 。</p>
+<p>好的，我们双击一下，demo:hello ，会输出如下日志：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1585581782947-f0d0ee16-4c02-4925-85e7-039229934079.png#align=left&amp;display=inline&amp;height=340&amp;name=image.png&amp;originHeight=680&amp;originWidth=1766&amp;size=109127&amp;status=done&amp;style=none&amp;width=883" alt="image.png"></p>
+<p>这样，我们的第一个 Maven 插件就好了。</p>
+<h4 id="4-3-配置参数"><a href="#4-3-配置参数" class="headerlink" title="4.3 配置参数"></a>4.3 配置参数</h4><p>可能你还记得，我们在写 DemoMojo 的时候还指定了一个 name 属性，并且为它指定了一个  Parameter，这个如何使用。只要在依赖的插件下面添加 configuration 标签就可以了。</p>
+<pre class="line-numbers language-xml"><code class="language-xml">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugins</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>cn.coder4j.study.example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>demo-maven-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.0-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>tom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugin</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugins</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中  configuration 标签内的标签，对应你定义的参数名称，而且 idea 还有语法提示，很 nice。</p>
+<p>好的，我们再运行一下，结果如下：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1585582062275-b8dfb9e9-bddc-4eea-bd3b-ec6e1aca2d6c.png#align=left&amp;display=inline&amp;height=338&amp;name=image.png&amp;originHeight=676&amp;originWidth=1788&amp;size=107447&amp;status=done&amp;style=none&amp;width=894" alt="image.png"></p>
+<p>好的，大功告成。</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://blog.gmem.cc/maven-plugin-development" target="_blank" rel="noopener">Maven 插件开发</a></p>
+<p><a href="https://www.cnblogs.com/sniffs/p/11985699.html" target="_blank" rel="noopener">Maven 插件编写</a></p>
+<h3 id="项目源码"><a href="#项目源码" class="headerlink" title="项目源码"></a>项目源码</h3><p>因为篇幅有限，无法贴完所有代码，如遇到问题可到 <a href="https://github.com/kiwiflydream/study-example/tree/master/demo-maven-plugin" target="_blank" rel="noopener">github</a> 上查看源码。</p>
+<h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1585582500755-9deeb99d-1ffa-4dfd-9812-2dfd9a399013.png#align=left&amp;display=inline&amp;height=250&amp;name=image.png&amp;originHeight=500&amp;originWidth=900&amp;size=291174&amp;status=done&amp;style=none&amp;width=450" alt="image.png"></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2020/03/30/yuque-【Maven】maven-插件开发实战/">https://blog.coder4j.cn/2020/03/30/yuque-【Maven】maven-插件开发实战/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-03-30</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2020/03/30/yuque-【Maven】maven-插件开发实战/,求索之路,【Maven】maven 插件开发实战,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2020/03/31/yuque-【随笔】开源之殇/" title="【随笔】开源之殇">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2020/03/22/yuque-【qdox】Java-代码解析利器-QDox/" title="【qdox】Java 代码解析利器 QDox">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

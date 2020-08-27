@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>git 常用命令 · 求索之路</title><meta name="description" content="添加远程库git remote add xxx
+
+第一次提交git push -u origin master
+
+强制提交git push -f origin master
+
+同时提交两个远程库    &gt; vim .git/config
+    &gt; [remote &quot;web&quot;]
+    &gt; url "><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>git 常用命令</a></h3></div><div class="post-content"><h3 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> remote add xxx
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="第一次提交"><a href="#第一次提交" class="headerlink" title="第一次提交"></a>第一次提交</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> push -u origin master
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="强制提交"><a href="#强制提交" class="headerlink" title="强制提交"></a>强制提交</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">git</span> push -f origin master
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="同时提交两个远程库"><a href="#同时提交两个远程库" class="headerlink" title="同时提交两个远程库"></a>同时提交两个远程库</h3><pre class="line-numbers language-bash"><code class="language-bash">    <span class="token operator">></span> vim .git/config
+    <span class="token operator">></span> <span class="token punctuation">[</span>remote <span class="token string">"web"</span><span class="token punctuation">]</span>
+    <span class="token operator">></span> url <span class="token operator">=</span> ssh://server.example.org/home/ams/website.git
+    <span class="token operator">></span> url <span class="token operator">=</span> ssh://other.exaple.org/home/foo/website.git
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="查看本地配置的远程仓库"><a href="#查看本地配置的远程仓库" class="headerlink" title="查看本地配置的远程仓库"></a>查看本地配置的远程仓库</h3><pre><code>git remote -v
+</code></pre><h3 id="删除原来的远程分支"><a href="#删除原来的远程分支" class="headerlink" title="删除原来的远程分支"></a>删除原来的远程分支</h3><pre><code>git remote remove origin
+</code></pre><h3 id="关联新的远程仓库"><a href="#关联新的远程仓库" class="headerlink" title="关联新的远程仓库"></a>关联新的远程仓库</h3><pre><code>git remote add origin url
+</code></pre><h3 id="本地分支关联远程分支"><a href="#本地分支关联远程分支" class="headerlink" title="本地分支关联远程分支"></a>本地分支关联远程分支</h3><pre><code>git branch --set-upstream-to=origin/xxx
+</code></pre><h3 id="新库操作"><a href="#新库操作" class="headerlink" title="新库操作"></a>新库操作</h3><pre><code>
+
+Git global setup
+
+git config --global user.name &quot;KiwiFly&quot;
+git config --global user.email &quot;xx@qq.com&quot;
+
+Create a new repository
+
+git clone git@xx.com:Java/abc.git
+cd fs_saledian_lovelife
+touch README.md
+git add README.md
+git commit -m &quot;add README&quot;
+git push -u origin master
+
+Existing folder or Git repository
+
+cd existing_folder
+git init
+git remote add origin git@xx.com:Java/abc.git
+git add .
+git commit
+git push -u origin master
+</code></pre><h3 id="创建公钥"><a href="#创建公钥" class="headerlink" title="创建公钥"></a>创建公钥</h3><pre class="line-numbers language-bash"><code class="language-bash">ssh-keygen -t rsa -C <span class="token string">"your_email@youremail.com"</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
+<li>error: failed to push some refs to</li>
+</ol>
+<ul>
+<li><p>原因</p>
+<ul>
+<li><blockquote>
+<p>这个问题是因为远程库与本地库不一致造成的，那么我们把远程库同步到本地库就可以了。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>解决</p>
+</li>
+</ul>
+<pre><code>git pull --rebase origin master
+</code></pre><ul>
+<li>引用</li>
+</ul>
+<p><a href="https://blog.csdn.net/MBuger/article/details/70197532" target="_blank" rel="noopener">链接</a></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/08/18/yuque-git-常用命令/">https://blog.coder4j.cn/2018/08/18/yuque-git-常用命令/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2018/08/18/yuque-git-常用命令/,求索之路,git 常用命令,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2018/08/18/yuque-idea-常用配置/" title="idea 常用配置">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/08/18/yuque-常用服务安装-原生/" title="常用服务安装(原生)">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

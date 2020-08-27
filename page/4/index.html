@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>求索之路</title><meta name="description" content="A Blog Powered By Hexo"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a class="current" href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)" style="display:none;"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-常用服务安装-原生/">常用服务安装(原生)</a></h3></div><div class="post-content"><p>centos 7 安装 docker
+安装 docker
+
+yum install docker
+
+启动并开机自启 docker
+
+systemctl  start docker.service
+systemctl  enable docker.service
+centos 安装 docker
+安装 docker...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-常用服务安装-docker/">常用服务安装(docker)</a></h3></div><div class="post-content"><p>
+mariadb
+
+docker run --name db --env MYSQL_PASSWORD=example -d mariadb
+
+wordpress
+
+docker run --MyWordPress --link db:mysql -p 8080:80 -d wordpress
+
+postgres...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-docker-compose使用/">docker compose使用</a></h3></div><div class="post-content"><p>
+安装(https://get.daocloud.io/)
+
+curl -L https://get.daocloud.io/docker/compose/releases/download/1.15.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-docker-常用命令/">docker 常用命令</a></h3></div><div class="post-content"><p>
+基础命令
+
+# 命令格式
+docker 命令关键字(command) 一系列参数([args...])
+
+# 查询命令帮助
+docker command --help
+
+启动容器docker start id/name
+
+关闭容器docker stop id/name
+
+查询在线容器
+
+
+docker ps [...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-lombok-基础教程/">lombok 基础教程</a></h3></div><div class="post-content"><p>Lombok作用：帮使用者提高编码效率，减少重复与冗余的代码原理：ASM   动态修改 class 文件
+配置maven依赖     &lt;dependency>
+        &lt;groupId>org.projectlombok&lt;/groupId>
+        &lt;artifactId>...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-maven-按环境加载配置文件/">maven 按环境加载配置文件</a></h3></div><div class="post-content"><p>通过 maven 的 profile 实现按环境来加载配置文件
+项目结构project_file_root|—main|——–java|——–resources|——–profile|—————dev|—————test|—————beta|—————release
+pom.xml    &lt;profiles...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-spring-aop注解教程/">spring aop注解教程</a></h3></div><div class="post-content"><p>
+spring aop 常用的有以下：
+
+通知类型：
+
+
+
+前置通知（Before advice）：在某连接点之前执行的通知，但这个通知不能阻止连接点之前的执行流程（除非它抛出一个异常）。
+后置通知（After returning advice）：在某连接点正常完成后执行的通知：例如，一个方法没有抛出任何异常，正...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-tomcat-配置https证书/">tomcat 配置https证书</a></h3></div><div class="post-content"><p>Tomcat 配置 https 证书
+网上搜索出来大多数是通过 keytool 自已生成证书来完成，这种在工作很少用到（浏览器会报不安全）。以下是通过申请的证书配置过程。因为在配置中遇到了一些坑，记之
+
+1、准备证书与私钥demo.crt  demo.key
+2、合并证书openssl pkcs12 -expor...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-Spring-boot-对于-js-的-long-精度问题处理/">Spring boot 对于 js 的 long 精度问题处理</a></h3></div><div class="post-content"><p>这几天前后端联调，遇到一个诡异的问题。前端请求后端提供的详情接口得到用户的 Id 与其它数据。然后前端又把这个 Id 与修改的数据内容一同传回后端的修改接口。结果前端反馈死活修改不了。
+然后各种 debug 查日志，发现详情接口返回给前端的与前端调用修改接口传回的 Id 不一致。
+然后一查发现是 js 的精度问题...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-docker-安装-workpress/">docker 安装 workpress</a></h3></div><div class="post-content"><p>
+使用 docker 安装 wordpress
+
+# 安装数据库
+docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
+
+# 安装 wordpress
+docker run --name MyWordPress --link db:my...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/page/3/">上一页</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/page/5/">下一页</a></li></ul></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

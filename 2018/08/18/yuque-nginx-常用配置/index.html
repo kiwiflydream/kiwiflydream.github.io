@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>nginx 常用配置 · 求索之路</title><meta name="description" content="配置结构
+常用配置
+配置 https
+
+server {
+    listen 443;
+    server_name localhost;
+    ssl on;
+    root html;
+    index index.html index.htm;
+    ssl_certificate"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>nginx 常用配置</a></h3></div><div class="post-content"><h3 id="配置结构"><a href="#配置结构" class="headerlink" title="配置结构"></a>配置结构</h3><p><img src="https://upload-images.jianshu.io/upload_images/9824247-6f7a9706b9f3982b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240#width=" alt></p>
+<h3 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h3><ol>
+<li>配置 https</li>
+</ol>
+<pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token keyword">server</span> <span class="token punctuation">{</span>
+    <span class="token keyword">listen</span> <span class="token number">443</span><span class="token punctuation">;</span>
+    <span class="token keyword">server_name</span> localhost<span class="token punctuation">;</span>
+    <span class="token keyword">ssl</span> on<span class="token punctuation">;</span>
+    <span class="token keyword">root</span> html<span class="token punctuation">;</span>
+    <span class="token keyword">index</span> <span class="token keyword">index</span><span class="token punctuation">.</span>html <span class="token keyword">index</span><span class="token punctuation">.</span>htm<span class="token punctuation">;</span>
+    <span class="token keyword">ssl_certificate</span>   cert<span class="token operator">/</span><span class="token number">1535407297197</span><span class="token punctuation">.</span>pem<span class="token punctuation">;</span>
+    <span class="token keyword">ssl_certificate_key</span>  cert<span class="token operator">/</span><span class="token number">1535407297197</span><span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+    <span class="token keyword">ssl_session_timeout</span> 5m<span class="token punctuation">;</span>
+    <span class="token keyword">ssl_ciphers</span> ECDHE<span class="token operator">-</span>RSA<span class="token operator">-</span>AES128<span class="token operator">-</span>GCM<span class="token operator">-</span>SHA256<span class="token punctuation">:</span>ECDHE<span class="token punctuation">:</span>ECDH<span class="token punctuation">:</span>AES<span class="token punctuation">:</span>HIGH<span class="token punctuation">:</span><span class="token operator">!</span>NULL<span class="token punctuation">:</span><span class="token operator">!</span>aNULL<span class="token punctuation">:</span><span class="token operator">!</span>MD5<span class="token punctuation">:</span><span class="token operator">!</span>ADH<span class="token punctuation">:</span><span class="token operator">!</span>RC4<span class="token punctuation">;</span>
+    <span class="token keyword">ssl_protocols</span> TLSv1 TLSv1<span class="token number">.1</span> TLSv1<span class="token number">.2</span><span class="token punctuation">;</span>
+    <span class="token keyword">ssl_prefer_server_ciphers</span> on<span class="token punctuation">;</span>
+    <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+        <span class="token keyword">root</span> html<span class="token punctuation">;</span>
+        <span class="token keyword">index</span> <span class="token keyword">index</span><span class="token punctuation">.</span>html <span class="token keyword">index</span><span class="token punctuation">.</span>htm<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>配置端口转发</li>
+</ol>
+<pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token keyword">http</span><span class="token punctuation">{</span>
+    <span class="token keyword">proxy_read_timeout</span> 300s<span class="token punctuation">;</span>
+    <span class="token keyword">proxy_send_timeout</span> 300s<span class="token punctuation">;</span>
+    <span class="token keyword">keepalive_requests</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+    <span class="token keyword">keepalive_timeout</span> 300s<span class="token punctuation">;</span>
+    <span class="token keyword">server</span><span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>  <span class="token number">8888</span><span class="token punctuation">;</span>
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">192.168</span><span class="token punctuation">.</span><span class="token number">1.20</span><span class="token punctuation">:</span><span class="token number">8080</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>参考</p>
+<ul>
+<li><a href="https://blog.csdn.net/qq_31226223/article/details/78766314" target="_blank" rel="noopener">Nginx 配置端口转发 映射 以及连接超时问题</a></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>跨域问题解决</li>
+</ol>
+<pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token keyword">server</span> <span class="token punctuation">{</span>
+        <span class="token keyword">listen</span>       <span class="token number">8081</span><span class="token punctuation">;</span><span class="token operator">/</span><span class="token operator">/</span>前端调试打开localhost<span class="token punctuation">:</span><span class="token number">8081</span>页面<span class="token punctuation">;</span>js文件中后台接口访问localhost<span class="token punctuation">:</span><span class="token number">8081</span><span class="token operator">/</span>data<span class="token punctuation">;</span>这样就保证不跨域了
+        <span class="token keyword">server_name</span>  localhost<span class="token punctuation">;</span>
+        <span class="token keyword">access_log</span>  logs<span class="token operator">/</span>host<span class="token punctuation">.</span>access<span class="token punctuation">.</span>log  main<span class="token punctuation">;</span>
+        <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>    <span class="token operator">/</span><span class="token operator">/</span>访问localhost<span class="token punctuation">:</span><span class="token number">8081</span>实际上访问是前端端口<span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">8080</span><span class="token operator">/</span>
+            <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">8080</span><span class="token operator">/</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">location</span> <span class="token operator">^</span><span class="token operator">~</span> <span class="token operator">/</span>data <span class="token punctuation">{</span><span class="token operator">/</span><span class="token operator">/</span>访问localhost<span class="token punctuation">:</span><span class="token number">8081</span><span class="token operator">/</span>data实际上访问是后端接口<span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">10.128</span><span class="token punctuation">.</span><span class="token number">166.42</span><span class="token punctuation">:</span><span class="token number">8533</span><span class="token operator">/</span>
+            <span class="token keyword">rewrite</span> <span class="token operator">^</span><span class="token operator">/</span>data<span class="token operator">/</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">/</span>$<span class="token number">1</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">10.128</span><span class="token punctuation">.</span><span class="token number">166.42</span><span class="token punctuation">:</span><span class="token number">8533</span><span class="token operator">/</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>配置压缩</li>
+</ol>
+<pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token keyword">gzip</span> on<span class="token punctuation">;</span>
+<span class="token keyword">gzip_disable</span> <span class="token string">"msie6"</span><span class="token punctuation">;</span>
+<span class="token keyword">gzip_vary</span> on<span class="token punctuation">;</span>
+<span class="token keyword">gzip_proxied</span> any<span class="token punctuation">;</span>
+<span class="token keyword">gzip_comp_level</span> <span class="token number">6</span><span class="token punctuation">;</span>
+<span class="token keyword">gzip_buffers</span> <span class="token number">16</span> 8k<span class="token punctuation">;</span>
+<span class="token keyword">gzip_http_version</span> <span class="token number">1.1</span><span class="token punctuation">;</span>
+<span class="token keyword">gzip_types</span> text<span class="token operator">/</span>plain text<span class="token operator">/</span>css application<span class="token operator">/</span>json application<span class="token operator">/</span>x<span class="token operator">-</span>javascript text<span class="token operator">/</span>xml application<span class="token operator">/</span>xml application<span class="token operator">/</span>xml<span class="token operator">+</span>rss image<span class="token operator">/</span>jpeg image<span class="token operator">/</span>gif image<span class="token operator">/</span>png
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>参考</p>
+<ul>
+<li><a href="https://blog.csdn.net/u013160932/article/details/50704618" target="_blank" rel="noopener">Nginx—-使用压缩传输</a></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>负载均衡</li>
+</ol>
+<pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token keyword">upstream</span> favtomcat <span class="token punctuation">{</span>
+       <span class="token keyword">server</span> <span class="token number">10.0</span><span class="token punctuation">.</span><span class="token number">6.108</span><span class="token punctuation">:</span><span class="token number">7080</span> weight<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
+       <span class="token keyword">server</span> <span class="token number">10.0</span><span class="token punctuation">.</span><span class="token number">0.85</span><span class="token punctuation">:</span><span class="token number">8980</span> weight<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>
+            <span class="token keyword">root</span>   html<span class="token punctuation">;</span>
+            <span class="token keyword">index</span>  <span class="token keyword">index</span><span class="token punctuation">.</span>html <span class="token keyword">index</span><span class="token punctuation">.</span>htm<span class="token punctuation">;</span>
+            <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>favtomcat<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>参考</p>
+<ul>
+<li><a href="http://blog.51cto.com/favccxx/1622091" target="_blank" rel="noopener">Nginx 配置 upstream 实现负载均衡</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><pre class="line-numbers language-nginx"><code class="language-nginx"><span class="token comment" spellcheck="true"># 重新打开日志文件</span>
+nginx <span class="token operator">-</span>s reopen
+<span class="token comment" spellcheck="true"># 重新加载配置文件</span>
+nginx <span class="token operator">-</span>s reload
+<span class="token comment" spellcheck="true"># 查看nginx的配置文件的目录，测试配置文件是否正确</span>
+nginx <span class="token operator">-</span>t
+<span class="token comment" spellcheck="true"># 停止ngix（优雅关闭）</span>
+nginx <span class="token operator">-</span>s quit
+<span class="token comment" spellcheck="true"># 关闭 nginx(快速关闭，不管有没有请求)</span>
+nginx <span class="token operator">-</span>s stop
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h3><ol>
+<li><p>invalid PID</p>
+<ul>
+<li>错误信息</li>
+</ul>
+</li>
+</ol>
+<pre class="line-numbers language-nginx"><code class="language-nginx">nginx<span class="token punctuation">:</span> <span class="token punctuation">[</span>error<span class="token punctuation">]</span> invalid <span class="token keyword">PID</span> number <span class="token string">""</span> in "<span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>var<span class="token operator">/</span>run<span class="token operator">/</span>nginx
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>解决方法</li>
+</ul>
+<pre><code>$ sudo nginx -c /usr/local/etc/nginx/nginx.conf
+$ sudo nginx -s reload
+</code></pre><ol>
+<li><p>nginx 做转发时，带’_‘的 header 内容丢失</p>
+<ul>
+<li>解决方法</li>
+</ul>
+</li>
+</ol>
+<pre><code>underscores_in_headers on;
+</code></pre><ul>
+<li><p>参考</p>
+</li>
+<li><p><a href="https://blog.csdn.net/Nazir2513/article/details/70889319" target="_blank" rel="noopener">nginx 做转发时，带’_‘的 header 内容丢失</a></p>
+</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><pre class="line-numbers language-nginx"><code class="language-nginx">
+      <span class="token keyword">worker_processes</span>  <span class="token number">1</span><span class="token punctuation">;</span>         <span class="token operator">/</span><span class="token operator">/</span>开启进程数小于CPU数
+      <span class="token keyword">error_log</span>  logs<span class="token operator">/</span>error<span class="token punctuation">.</span>log<span class="token punctuation">;</span>  <span class="token operator">/</span><span class="token operator">/</span>自定义错误日志保存位置，全局设置，默认logs<span class="token operator">/</span>error<span class="token punctuation">.</span>log
+      <span class="token keyword">events</span> <span class="token punctuation">{</span>
+          <span class="token keyword">worker_connections</span>  <span class="token number">1024</span><span class="token punctuation">;</span>    <span class="token operator">/</span><span class="token operator">/</span>每个进程最大连接数（最大连接<span class="token operator">=</span>连接数x进程数）每个worker允许同时产生多少个链接，默认<span class="token number">1024</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">http</span> <span class="token punctuation">{</span>
+          <span class="token keyword">include</span>       mime<span class="token punctuation">.</span><span class="token keyword">types</span><span class="token punctuation">;</span>        <span class="token operator">/</span><span class="token operator">/</span>文件扩展名与文件类型映射表
+          <span class="token keyword">default_type</span>  application<span class="token operator">/</span>octet<span class="token operator">-</span>stream<span class="token punctuation">;</span>     <span class="token operator">/</span><span class="token operator">/</span>默认文件类型
+          <span class="token keyword">log_format</span>  main  <span class="token string">'$remote_addr - $remote_user [$time_local] "$request" '</span>    <span class="token operator">/</span><span class="token operator">/</span>自定义日志文件输出格式 全局设置
+                    <span class="token string">'$status $body_bytes_sent "$http_referer" '</span>
+                    <span class="token string">'"$http_user_agent" "$http_x_forwarded_for"'</span><span class="token punctuation">;</span>
+          <span class="token keyword">access_log</span>  logs<span class="token operator">/</span>access<span class="token punctuation">.</span>log  main<span class="token punctuation">;</span>    自定义全局请求日志保存位置，全局设置，默认logs<span class="token operator">/</span>access<span class="token punctuation">.</span>log， 定义格式：文件存储位置 <span class="token operator">+</span> 日志输出格式
+          <span class="token keyword">sendfile</span>        on<span class="token punctuation">;</span>     <span class="token operator">/</span><span class="token operator">/</span>打开发送文件
+          <span class="token keyword">keepalive_timeout</span>  <span class="token number">0</span><span class="token punctuation">;</span>     <span class="token operator">/</span><span class="token operator">/</span>连接超时时间
+          <span class="token keyword">keepalive_timeout</span>  <span class="token number">65</span><span class="token punctuation">;</span>
+          <span class="token keyword">gzip</span>  on<span class="token punctuation">;</span>        <span class="token operator">/</span><span class="token operator">/</span>打开<span class="token keyword">gzip</span>压缩
+          配置虚拟主机，基于域名、ip和端口，可以配置多个<span class="token keyword">server</span>
+          <span class="token keyword">server</span> <span class="token punctuation">{</span>
+              <span class="token keyword">listen</span>       <span class="token number">80</span><span class="token punctuation">;</span>    <span class="token operator">/</span><span class="token operator">/</span>监听端口，可以是ip<span class="token punctuation">:</span>port 或者 port
+              <span class="token keyword">server_name</span>  <span class="token number">10.128</span><span class="token punctuation">.</span><span class="token number">166.57</span><span class="token punctuation">;</span> <span class="token operator">/</span><span class="token operator">/</span>监听域名<span class="token punctuation">,</span>可以是ip或者域名，<span class="token keyword">server_name</span>有三种匹配方式：精准匹配（www<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>com）、通配符匹配（<span class="token operator">*</span><span class="token punctuation">.</span>domain<span class="token punctuation">.</span>com 、www<span class="token punctuation">.</span><span class="token operator">*</span>）、正则表达式匹配（<span class="token operator">~</span><span class="token operator">^</span><span class="token punctuation">(</span><span class="token operator">?</span><span class="token punctuation">.</span><span class="token operator">+</span><span class="token punctuation">)</span>\<span class="token punctuation">.</span>domain\<span class="token punctuation">.</span>com$）
+              <span class="token keyword">access_log</span>  logs<span class="token operator">/</span>host<span class="token punctuation">.</span>access<span class="token punctuation">.</span>log  main<span class="token punctuation">;</span>     <span class="token operator">/</span><span class="token operator">/</span>自定义请求日志，局部，当前<span class="token keyword">server</span>有效
+              <span class="token keyword">error_page</span>   <span class="token number">500</span> <span class="token number">502</span> <span class="token number">503</span> <span class="token number">504</span>  <span class="token operator">/</span>50x<span class="token punctuation">.</span>html<span class="token punctuation">;</span>  <span class="token operator">/</span><span class="token operator">/</span>错误页面及其返回地址
+              <span class="token keyword">charset</span> UTF<span class="token number">-8</span><span class="token punctuation">;</span>    <span class="token operator">/</span><span class="token operator">/</span>设置字符集
+              <span class="token keyword">location</span> <span class="token operator">/</span> <span class="token punctuation">{</span>     <span class="token operator">/</span><span class="token operator">/</span>当访问<span class="token number">10.128</span><span class="token punctuation">.</span><span class="token number">166.57</span><span class="token punctuation">:</span><span class="token number">80</span>时
+                 <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">10.128</span><span class="token punctuation">.</span><span class="token number">166.57</span><span class="token punctuation">:</span><span class="token number">80</span><span class="token punctuation">:</span><span class="token number">8083</span><span class="token punctuation">;</span> <span class="token operator">/</span><span class="token operator">/</span>实际上访问的时<span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">10.128</span><span class="token punctuation">.</span><span class="token number">166.57</span><span class="token punctuation">:</span><span class="token number">80</span><span class="token punctuation">:</span><span class="token number">8083</span>地址
+              <span class="token punctuation">}</span>
+              <span class="token keyword">location</span> <span class="token operator">^</span><span class="token operator">~</span><span class="token operator">/</span>data <span class="token punctuation">{</span>     <span class="token operator">/</span><span class="token operator">/</span>当访问<span class="token number">10.128</span><span class="token punctuation">.</span><span class="token number">166.57</span><span class="token punctuation">:</span><span class="token number">80</span><span class="token operator">/</span>data时
+                 <span class="token keyword">proxy_pass</span> <span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">10.128</span><span class="token punctuation">.</span><span class="token number">166.57</span><span class="token punctuation">:</span><span class="token number">80</span><span class="token punctuation">:</span><span class="token number">8084</span><span class="token punctuation">;</span> <span class="token operator">/</span><span class="token operator">/</span>实际上访问的时<span class="token keyword">http</span><span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">10.128</span><span class="token punctuation">.</span><span class="token number">166.57</span><span class="token punctuation">:</span><span class="token number">80</span><span class="token punctuation">:</span><span class="token number">8084</span>地址
+              <span class="token punctuation">}</span>
+
+          <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://my.oschina.net/hansonwang99/blog/1835408" target="_blank" rel="noopener">从一份配置清单详解 Nginx 服务器配置</a></li>
+</ol>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/08/18/yuque-nginx-常用配置/">https://blog.coder4j.cn/2018/08/18/yuque-nginx-常用配置/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2018/08/18/yuque-nginx-常用配置/,求索之路,nginx 常用配置,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2018/08/18/yuque-linux-用户管理/" title="linux 用户管理">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/06/20/Linux-Linux用户管理/" title="[Linux] Linux用户管理">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

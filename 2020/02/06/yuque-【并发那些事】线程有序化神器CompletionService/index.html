@@ -1,0 +1,611 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>【并发那些事】线程有序化神器CompletionService · 求索之路</title><meta name="description" content="前言话说有一天，产品经理突然找到正在摸鱼的你。
+产品：『我们要加一个聚合搜索功能，当用户在我们网站查询一件商品时，我们分别从 A、B、C 三个网站上查询这个信息，然后再把得到的结果返回给用户』
+你：『哦，就是写个爬虫，从 3 个网站上抓取数据是吧？』
+产品：『呸，爬虫是犯法的，这叫数据分析，怎么样，"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>【并发那些事】线程有序化神器CompletionService</a></h3></div><div class="post-content"><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1582037585459-bd2594d2-21f6-4801-af65-dcf70611bfe0.png#align=left&amp;display=inline&amp;height=383&amp;name=image.png&amp;originHeight=383&amp;originWidth=900&amp;size=662400&amp;status=done&amp;style=none&amp;width=900" alt="image.png"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>话说有一天，产品经理突然找到正在摸鱼的你。</p>
+<p>产品：『我们要加一个聚合搜索功能，当用户在我们网站查询一件商品时，我们分别从 A、B、C 三个网站上查询这个信息，然后再把得到的结果返回给用户』</p>
+<p>你：『哦，就是写个爬虫，从 3 个网站上抓取数据是吧？』</p>
+<p>产品：『呸，爬虫是犯法的，这叫数据分析，怎么样，能实现吧？』</p>
+<p>你：『可以』</p>
+<p>产品：『好的，明天上线』</p>
+<p>你：『。。。』</p>
+<h2 id="Code-1-0"><a href="#Code-1-0" class="headerlink" title="Code 1.0"></a>Code 1.0</h2><p>你很快完成了开发，代码如下：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ *
+ *  * *
+ *  *  * blog.coder4j.cn
+ *  *  * Copyright (C) B0A6-B0B0 All Rights Reserved.
+ *  *
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>thread<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>thread<span class="token punctuation">.</span>ThreadUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>google<span class="token punctuation">.</span>common<span class="token punctuation">.</span>collect<span class="token punctuation">.</span>Lists<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version TestCompletionService.java, v 0.A B0B0-0B-A8 A9:0C buhao
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestCompletionService</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 查询信息</span>
+        String queryName <span class="token operator">=</span> <span class="token string">"java"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 调用查询接口</span>
+        <span class="token keyword">long</span> startTime <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> result <span class="token operator">=</span> <span class="token function">queryInfoCode1</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"耗时: "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> startTime<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 聚合查询信息 code 1
+     *
+     * @param queryName
+     * @return
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">queryInfoCode1</span><span class="token punctuation">(</span>String queryName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> resultList <span class="token operator">=</span> Lists<span class="token punctuation">.</span><span class="token function">newArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String webA <span class="token operator">=</span> <span class="token function">searchWebA</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String webB <span class="token operator">=</span> <span class="token function">searchWebB</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String webC <span class="token operator">=</span> <span class="token function">searchWebC</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webC<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> resultList<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站 A
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebA</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webA"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站B
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebB</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webB"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站C
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebC</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webC"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>你运行了一下代码，结果如下：</p>
+<pre class="line-numbers language-java"><code class="language-java">耗时<span class="token operator">:</span> <span class="token number">8512</span>
+<span class="token punctuation">[</span>webA<span class="token punctuation">,</span> webB<span class="token punctuation">,</span> webC<span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>我去，怎么请求一下要 8 秒多？上线了，产品还不砍死我。</p>
+<p>debug 了一下代码，发现问题出在了请求的网站上：</p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
+     * 查询网站 A
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebA</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webA"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站B
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebB</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webB"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站C
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebC</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webC"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>网站 A、网站 B 因为年久失修，没人维护，接口响应很慢，平均响应时间一个是 5 秒，一个是 3 秒（这里使用 sleep 模拟）。网站 C 性能还可以，平均响应时间 0.5 秒。 而我们程序的执行时间就是 <strong>网站 A 响应时间 + 网站 B 响应时间 + 网站 C 响应时间。</strong></p>
+<h2 id="Code-2-0"><a href="#Code-2-0" class="headerlink" title="Code 2.0"></a>Code 2.0</h2><p>好了，问题知道了，因为请求的网站太慢了，那么如何解决呢？总不能打电话找他们把网站优化一下让我爬吧。书上教导我们要先从自己身上找问题。先看看自己代码哪里可以优化。</p>
+<p>一分析代码发现，我们的代码全是串行化， A 网站请求完，再请求 B 网站，B 网站请求完再请求 C 网站。突然想到提高效率的第一要义，提高代码的并行率。为什么要一个一个串行请求，而不是 A、B、C 三个网站一起请求呢，Java 的多线程很轻松就可以实现，代码如下：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ *
+ *  * *
+ *  *  * blog.coder4j.cn
+ *  *  * Copyright (C) B0A6-B0B0 All Rights Reserved.
+ *  *
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>thread<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>thread<span class="token punctuation">.</span>ThreadUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>google<span class="token punctuation">.</span>common<span class="token punctuation">.</span>collect<span class="token punctuation">.</span>Lists<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ExecutionException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ExecutorService<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>Executors<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>Future<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version TestCompletionService.java, v 0.A B0B0-0B-A8 A9:0C buhao
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestCompletionService</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> ExecutionException<span class="token punctuation">,</span> InterruptedException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 查询信息</span>
+        String queryName <span class="token operator">=</span> <span class="token string">"java"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 调用查询接口</span>
+        <span class="token keyword">long</span> startTime <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> result <span class="token operator">=</span> <span class="token function">queryInfoCode2</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"耗时: "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> startTime<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 聚合查询信息 code 1
+     *
+     * @param queryName
+     * @return
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">queryInfoCode1</span><span class="token punctuation">(</span>String queryName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> resultList <span class="token operator">=</span> Lists<span class="token punctuation">.</span><span class="token function">newArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String webA <span class="token operator">=</span> <span class="token function">searchWebA</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String webB <span class="token operator">=</span> <span class="token function">searchWebB</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String webC <span class="token operator">=</span> <span class="token function">searchWebC</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webC<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> resultList<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 聚合查询信息 code 2
+     *
+     * @param queryName
+     * @return
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">queryInfoCode2</span><span class="token punctuation">(</span>String queryName<span class="token punctuation">)</span> <span class="token keyword">throws</span> ExecutionException<span class="token punctuation">,</span> InterruptedException <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> resultList <span class="token operator">=</span> Lists<span class="token punctuation">.</span><span class="token function">newArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 创建3个线程的线程池</span>
+        ExecutorService pool <span class="token operator">=</span> Executors<span class="token punctuation">.</span><span class="token function">newFixedThreadPool</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 创建任务的 feature</span>
+            Future<span class="token operator">&lt;</span>String<span class="token operator">></span> webAFuture <span class="token operator">=</span> pool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebA</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Future<span class="token operator">&lt;</span>String<span class="token operator">></span> webBFuture <span class="token operator">=</span> pool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebB</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Future<span class="token operator">&lt;</span>String<span class="token operator">></span> webCFuture <span class="token operator">=</span> pool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebC</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 得到任务结果</span>
+            resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webAFuture<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webBFuture<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webCFuture<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 关闭线程池</span>
+            pool<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> resultList<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站 A
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebA</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webA"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站B
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebB</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webB"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站C
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebC</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webC"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里的重点代码如下：</p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
+     * 聚合查询信息 code 2
+     *
+     * @param queryName
+     * @return
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">queryInfoCode2</span><span class="token punctuation">(</span>String queryName<span class="token punctuation">)</span> <span class="token keyword">throws</span> ExecutionException<span class="token punctuation">,</span> InterruptedException <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> resultList <span class="token operator">=</span> Lists<span class="token punctuation">.</span><span class="token function">newArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 创建3个线程的线程池</span>
+        ExecutorService pool <span class="token operator">=</span> Executors<span class="token punctuation">.</span><span class="token function">newFixedThreadPool</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 创建任务的 feature</span>
+            Future<span class="token operator">&lt;</span>String<span class="token operator">></span> webAFuture <span class="token operator">=</span> pool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebA</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Future<span class="token operator">&lt;</span>String<span class="token operator">></span> webBFuture <span class="token operator">=</span> pool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebB</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Future<span class="token operator">&lt;</span>String<span class="token operator">></span> webCFuture <span class="token operator">=</span> pool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebC</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 得到任务结果</span>
+            resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webAFuture<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webBFuture<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webCFuture<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 关闭线程池</span>
+            pool<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> resultList<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请求网站的代码其实一行没变，变的是我们调用请求方法的地方，把之前串行的代码，变成了多线程的形式，而且还不是普通的多线程的形式，因为我们要在主线程获得线程的结果，所以还要使用 Future 的形式。（这里可以参考之前的文章<a href="https://mp.weixin.qq.com/s?__biz=MzIzODE1NzA1MA==∣=2650157695&amp;idx=1&amp;sn=780603b41fb81746c173c0993b3d25b7&amp;chksm=f13f3feac648b6fc112d222954e63546a0ed48d8ce0daa614768cbe7e126bd056a5c51b9bf0f&amp;scene=0&amp;xtrack=1#rd" target="_blank" rel="noopener">【并发那些事】创建线程的三种方式</a>）。</p>
+<p>好的运行一下代码，看看效果，结果如下：</p>
+<pre class="line-numbers language-java"><code class="language-java">耗时<span class="token operator">:</span> <span class="token number">5058</span>
+<span class="token punctuation">[</span>webA<span class="token punctuation">,</span> webB<span class="token punctuation">,</span> webC<span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>嗯，效果明显，从 8 秒多下降到了 5 秒多，但是还是很长，没法接受的长。做为一个有追求的程序员，还要去优化。我们分析一下，刚开始代码是串行的，流程如下，总请求时间是三次请求的总时长。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1582032480701-8034db7e-8864-4610-bd6d-f928495f7d1d.png#align=left&amp;display=inline&amp;height=738&amp;name=image.png&amp;originHeight=738&amp;originWidth=1898&amp;size=53851&amp;status=done&amp;style=none&amp;width=1898" alt="image.png"><br>然后我们优化了一下，把串行请求给并行化，流程如下：<br><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1582032638666-1948978c-9778-4534-a9e0-848a2eafdf70.png#align=left&amp;display=inline&amp;height=1268&amp;name=image.png&amp;originHeight=1268&amp;originWidth=788&amp;size=50053&amp;status=done&amp;style=none&amp;width=788" alt="image.png"><br>因为是并行化，类似木桶效应，决定最长时间的因素，是你请求中最耗时的的那个操作，这里是时间为 5 秒的请求 A 网站操作。</p>
+<h2 id="Code-3-0"><a href="#Code-3-0" class="headerlink" title="Code 3.0"></a>Code 3.0</h2><p>其实分析到这里，在不能优化 AB 网站的请求时间的前提下，已经很难优化了。但是方法总比困难多，我们的确没办法再去压缩总请求时间，但是可以让用户体验更好一点，这里需要引入两个技术一个是 Websocket，一个是 <strong>CompletionService。</strong>其中 websocket 可以简单的理解成服务端推送技术，就是不需要客户端主动请求，而是通过服务端主动推送消息（ws 在本文中不是重点，会一笔带过，具体实现可以参考前文<a href="https://mp.weixin.qq.com/s?__biz=MzIzODE1NzA1MA==∣=2650157699&amp;idx=1&amp;sn=879d72a187e65d2ccd297ab44ca50d2c&amp;chksm=f13f3f16c648b6006483c92a5811402726761eb7ea139488623d91029759f7c651f9dd6e3de7&amp;scene=0&amp;xtrack=1#rd" target="_blank" rel="noopener">【websocket】spring boot 集成 websocket 的四种方式</a>），下面我们直接上代码</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ *
+ *  * *
+ *  *  * blog.coder4j.cn
+ *  *  * Copyright (C) B0A6-B0B0 All Rights Reserved.
+ *  *
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>thread<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>thread<span class="token punctuation">.</span>ThreadUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>google<span class="token punctuation">.</span>common<span class="token punctuation">.</span>collect<span class="token punctuation">.</span>Lists<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ExecutionException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ExecutorCompletionService<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ExecutorService<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>Executors<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>Future<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version TestCompletionService.java, v 0.A B0B0-0B-A8 A9:0C buhao
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestCompletionService</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> ExecutionException<span class="token punctuation">,</span> InterruptedException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 查询信息</span>
+        String queryName <span class="token operator">=</span> <span class="token string">"java"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 调用查询接口</span>
+        <span class="token keyword">long</span> startTime <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">queryInfoCode3</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"耗时: "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> startTime<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 聚合查询信息 code 1
+     *
+     * @param queryName
+     * @return
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">queryInfoCode1</span><span class="token punctuation">(</span>String queryName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> resultList <span class="token operator">=</span> Lists<span class="token punctuation">.</span><span class="token function">newArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String webA <span class="token operator">=</span> <span class="token function">searchWebA</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String webB <span class="token operator">=</span> <span class="token function">searchWebB</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String webC <span class="token operator">=</span> <span class="token function">searchWebC</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webC<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> resultList<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 聚合查询信息 code 2
+     *
+     * @param queryName
+     * @return
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">queryInfoCode2</span><span class="token punctuation">(</span>String queryName<span class="token punctuation">)</span> <span class="token keyword">throws</span> ExecutionException<span class="token punctuation">,</span> InterruptedException <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> resultList <span class="token operator">=</span> Lists<span class="token punctuation">.</span><span class="token function">newArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 创建3个线程的线程池</span>
+        ExecutorService pool <span class="token operator">=</span> Executors<span class="token punctuation">.</span><span class="token function">newFixedThreadPool</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 创建任务的 feature</span>
+            Future<span class="token operator">&lt;</span>String<span class="token operator">></span> webAFuture <span class="token operator">=</span> pool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebA</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Future<span class="token operator">&lt;</span>String<span class="token operator">></span> webBFuture <span class="token operator">=</span> pool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebB</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Future<span class="token operator">&lt;</span>String<span class="token operator">></span> webCFuture <span class="token operator">=</span> pool<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebC</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 得到任务结果</span>
+            resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webAFuture<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webBFuture<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            resultList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>webCFuture<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 关闭线程池</span>
+            pool<span class="token punctuation">.</span><span class="token function">shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> resultList<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 聚合查询信息 code 3
+     *
+     * @param queryName
+     * @return
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">queryInfoCode3</span><span class="token punctuation">(</span>String queryName<span class="token punctuation">)</span> <span class="token keyword">throws</span> ExecutionException<span class="token punctuation">,</span> InterruptedException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 开始时间</span>
+        <span class="token keyword">long</span> startTime <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 创建 CompletionService</span>
+        ExecutorCompletionService executorCompletionService <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ExecutorCompletionService</span><span class="token punctuation">(</span>Executors<span class="token punctuation">.</span><span class="token function">newFixedThreadPool</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 创建任务的 feature</span>
+        executorCompletionService<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebA</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        executorCompletionService<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebB</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        executorCompletionService<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebC</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">3</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Future take <span class="token operator">=</span> executorCompletionService<span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"获得请求结果 -> "</span> <span class="token operator">+</span> take<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"通过 ws 推送给客户端,总共耗时"</span> <span class="token operator">+</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> startTime<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站 A
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebA</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webA"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站B
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebB</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webB"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 查询网站C
+     *
+     * @param name
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">searchWebC</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ThreadUtil<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"webC"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>核心代码如下：</p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
+     * 聚合查询信息 code 3
+     *
+     * @param queryName
+     * @return
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">queryInfoCode3</span><span class="token punctuation">(</span>String queryName<span class="token punctuation">)</span> <span class="token keyword">throws</span> ExecutionException<span class="token punctuation">,</span> InterruptedException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 开始时间</span>
+        <span class="token keyword">long</span> startTime <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 创建 CompletionService</span>
+        ExecutorCompletionService executorCompletionService <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ExecutorCompletionService</span><span class="token punctuation">(</span>Executors<span class="token punctuation">.</span><span class="token function">newFixedThreadPool</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 创建任务的 feature</span>
+        executorCompletionService<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebA</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        executorCompletionService<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebB</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        executorCompletionService<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token function">searchWebC</span><span class="token punctuation">(</span>queryName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">3</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Future take <span class="token operator">=</span> executorCompletionService<span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"获得请求结果 -> "</span> <span class="token operator">+</span> take<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"通过 ws 推送给客户端,总共耗时"</span> <span class="token operator">+</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> startTime<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>先看执行结果：</p>
+<pre class="line-numbers language-java"><code class="language-java">获得请求结果 <span class="token operator">-</span><span class="token operator">></span> webC
+通过 ws 推送给客户端<span class="token punctuation">,</span>总共耗时<span class="token number">561</span>
+获得请求结果 <span class="token operator">-</span><span class="token operator">></span> webB
+通过 ws 推送给客户端<span class="token punctuation">,</span>总共耗时<span class="token number">3055</span>
+获得请求结果 <span class="token operator">-</span><span class="token operator">></span> webA
+通过 ws 推送给客户端<span class="token punctuation">,</span>总共耗时<span class="token number">5060</span>
+耗时<span class="token operator">:</span> <span class="token number">5060</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们来分析一下执行结果，首先总耗时时间还是 5 秒多没变，但是我们不是等全部执行完再推送给客户端，而是执行完一个就推送一个，并且发现了一个规律，最先推送的是请求最快的，然后是第二快的，最后推最慢的那一个。也就是说推送结果是有序的。给用户的体验就是点击按钮后，1 秒内会展示网站 C 的数据，然后过了 2 秒又在原有基础上又添加导示了网站 B 数据，又过了 2 秒，又增加展示了网站 A 数据。 这种体验要比用户一直白屏 5 秒，然后一下返回所有数据要好的多。</p>
+<p>是不是很神奇，这背后的功臣就是 CompletionService，他的源码如下：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * A service that decouples the production of new asynchronous tasks
+ * from the consumption of the results of completed tasks.  Producers
+ * {@code submit} tasks for execution. Consumers {@code take}
+ * completed tasks and process their results in the order they
+ * complete.  A {@code CompletionService} can for example be used to
+ * manage asynchronous I/O, in which tasks that perform reads are
+ * submitted in one part of a program or system, and then acted upon
+ * in a different part of the program when the reads complete,
+ * possibly in a different order than they were requested.
+ *
+ * &lt;p>Typically, a {@code CompletionService} relies on a separate
+ * {@link Executor} to actually execute the tasks, in which case the
+ * {@code CompletionService} only manages an internal completion
+ * queue. The {@link ExecutorCompletionService} class provides an
+ * implementation of this approach.
+ *
+ * &lt;p>Memory consistency effects: Actions in a thread prior to
+ * submitting a task to a {@code CompletionService}
+ * &lt;a href="package-summary.html#MemoryVisibility">&lt;i>happen-before&lt;/i>&lt;/a>
+ * actions taken by that task, which in turn &lt;i>happen-before&lt;/i>
+ * actions following a successful return from the corresponding {@code take()}.
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">CompletionService</span><span class="token operator">&lt;</span>V<span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * Submits a value-returning task for execution and returns a Future
+     * representing the pending results of the task.  Upon completion,
+     * this task may be taken or polled.
+     *
+     * @param task the task to submit
+     * @return a Future representing pending completion of the task
+     * @throws RejectedExecutionException if the task cannot be
+     *         scheduled for execution
+     * @throws NullPointerException if the task is null
+     */</span>
+    Future<span class="token operator">&lt;</span>V<span class="token operator">></span> <span class="token function">submit</span><span class="token punctuation">(</span>Callable<span class="token operator">&lt;</span>V<span class="token operator">></span> task<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Submits a Runnable task for execution and returns a Future
+     * representing that task.  Upon completion, this task may be
+     * taken or polled.
+     *
+     * @param task the task to submit
+     * @param result the result to return upon successful completion
+     * @return a Future representing pending completion of the task,
+     *         and whose {@code get()} method will return the given
+     *         result value upon completion
+     * @throws RejectedExecutionException if the task cannot be
+     *         scheduled for execution
+     * @throws NullPointerException if the task is null
+     */</span>
+    Future<span class="token operator">&lt;</span>V<span class="token operator">></span> <span class="token function">submit</span><span class="token punctuation">(</span>Runnable task<span class="token punctuation">,</span> V result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Retrieves and removes the Future representing the next
+     * completed task, waiting if none are yet present.
+     *
+     * @return the Future representing the next completed task
+     * @throws InterruptedException if interrupted while waiting
+     */</span>
+    Future<span class="token operator">&lt;</span>V<span class="token operator">></span> <span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Retrieves and removes the Future representing the next
+     * completed task, or {@code null} if none are present.
+     *
+     * @return the Future representing the next completed task, or
+     *         {@code null} if none are present
+     */</span>
+    Future<span class="token operator">&lt;</span>V<span class="token operator">></span> <span class="token function">poll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Retrieves and removes the Future representing the next
+     * completed task, waiting if necessary up to the specified wait
+     * time if none are yet present.
+     *
+     * @param timeout how long to wait before giving up, in units of
+     *        {@code unit}
+     * @param unit a {@code TimeUnit} determining how to interpret the
+     *        {@code timeout} parameter
+     * @return the Future representing the next completed task or
+     *         {@code null} if the specified waiting time elapses
+     *         before one is present
+     * @throws InterruptedException if interrupted while waiting
+     */</span>
+    Future<span class="token operator">&lt;</span>V<span class="token operator">></span> <span class="token function">poll</span><span class="token punctuation">(</span><span class="token keyword">long</span> timeout<span class="token punctuation">,</span> TimeUnit unit<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到  CompletionService 方法，分别如下：</p>
+<ol>
+<li><p>Future<v> submit(Callable<v> task);</v></v></p>
+<blockquote>
+<p>submit 用于提交一个 Callable 对象，用于提交一个可以获得结果的线程任务</p>
+</blockquote>
+</li>
+<li><p>Future<v> submit(Runnable task, V result);</v></p>
+<blockquote>
+<p>submit 用于提交一个 Runnable 对象及 result 对象，类似于上面的 submit，但是 runnable 的返回值 void 无法获得线程的结果，所以添加了 result 用于做为参数的桥梁</p>
+</blockquote>
+</li>
+<li><p>Future<v> take() throws InterruptedException;</v></p>
+<blockquote>
+<p>take 用于取出最新的线程执行结果，注意这里是阻塞的</p>
+</blockquote>
+</li>
+<li><p>Future<v> poll();</v></p>
+<blockquote>
+<p>take 用于取出最新的线程执行结果，是非阻塞的，如果没有结果就返回 null</p>
+</blockquote>
+</li>
+<li><p>Future<v> poll(long timeout, TimeUnit unit) throws InterruptedException;</v></p>
+<blockquote>
+<p>同上，只是加了一个超时时间</p>
+</blockquote>
+</li>
+</ol>
+<p>另外，CompletionService 是接口，无法直接使用，通常使用他的实现类  ExecutorCompletionService，具体使用方法如上面的 demo。</p>
+<p>可能看到这里会很好奇  ExecutorCompletionService 实现原理，其实原理很简单，他在内部维护了一个阻塞队列，提交的任务，先执行完的先进入队列，所以你通过 poll 或 take 获得的肯定是最先执行完的任务结果。</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="1-项目代码"><a href="#1-项目代码" class="headerlink" title="1. 项目代码"></a>1. 项目代码</h3><p>因为篇幅有限，无法贴完所有代码，如遇到问题可到<a href="https://github.com/kiwiflydream/study-example/tree/master/study-thread-example" target="_blank" rel="noopener">github</a>上查看源码。</p>
+<h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>欢迎关注我的个人公众号 <strong>KIWI 的碎碎念</strong> ，关注后回复 <strong>福利</strong>，海量学习内容免费分享！</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1578492545265-0511dd63-d473-4260-acd9-2e9bad7dec18.png#align=left&amp;display=inline&amp;height=137&amp;name=image.png&amp;originHeight=130&amp;originWidth=453&amp;size=34316&amp;status=done&amp;style=none&amp;width=476#align=left&amp;display=inline&amp;height=130&amp;originHeight=130&amp;originWidth=453&amp;status=done&amp;style=none&amp;width=453" alt="image.png"></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2020/02/06/yuque-【并发那些事】线程有序化神器CompletionService/">https://blog.coder4j.cn/2020/02/06/yuque-【并发那些事】线程有序化神器CompletionService/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-02-06</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2020/02/06/yuque-【并发那些事】线程有序化神器CompletionService/,求索之路,【并发那些事】线程有序化神器CompletionService,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2020/03/22/yuque-【qdox】Java-代码解析利器-QDox/" title="【qdox】Java 代码解析利器 QDox">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2020/01/02/yuque-【Jasypt】给你的配置加把锁/" title="【Jasypt】给你的配置加把锁">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

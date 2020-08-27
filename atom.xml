@@ -2,10 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>求索之路</title>
   
+  
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2018-06-20T14:24:39.000Z</updated>
+  <updated>2020-08-27T03:34:05.939Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -16,270 +17,344 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>[Linux] Linux用户管理</title>
-    <link href="https://blog.coder4j.cn/2018/06/20/Linux-Linux%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/"/>
-    <id>https://blog.coder4j.cn/2018/06/20/Linux-Linux用户管理/</id>
-    <published>2018-06-20T14:24:00.000Z</published>
-    <updated>2018-06-20T14:24:39.000Z</updated>
+    <title>【随笔】外卖与影子</title>
+    <link href="https://blog.coder4j.cn/2020/08/22/yuque-%E3%80%90%E9%9A%8F%E7%AC%94%E3%80%91%E5%A4%96%E5%8D%96%E4%B8%8E%E5%BD%B1%E5%AD%90/"/>
+    <id>https://blog.coder4j.cn/2020/08/22/yuque-【随笔】外卖与影子/</id>
+    <published>2020-08-22T08:38:46.000Z</published>
+    <updated>2020-08-27T03:34:05.939Z</updated>
     
     <summary type="html">
     
-      &lt;h4 id=&quot;添加用户&quot;&gt;&lt;a href=&quot;#添加用户&quot; class=&quot;headerlink&quot; title=&quot;添加用户&quot;&gt;&lt;/a&gt;添加用户&lt;/h4&gt;&lt;pre class=&quot;line-numbers language-shell&quot;&gt;&lt;code class=&quot;language-sh
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1598085674717-7de8bea9-c78a-4322-906f-a0c024260b1c.jpeg#align=left&amp;amp;display=i
+      
     
     </summary>
     
     
-      <category term="linux" scheme="https://blog.coder4j.cn/tags/linux/"/>
-    
   </entry>
   
   <entry>
-    <title>[问题集] mysql 数据库存储表情</title>
-    <link href="https://blog.coder4j.cn/2018/05/15/%E9%97%AE%E9%A2%98%E9%9B%86-mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8%E8%A1%A8%E6%83%85/"/>
-    <id>https://blog.coder4j.cn/2018/05/15/问题集-mysql-数据库存储表情/</id>
-    <published>2018-05-15T10:57:00.000Z</published>
-    <updated>2018-05-15T15:24:11.000Z</updated>
+    <title>【测试】 Java如何优雅的生成测试数据</title>
+    <link href="https://blog.coder4j.cn/2020/04/19/yuque-%E3%80%90%E6%B5%8B%E8%AF%95%E3%80%91-Java%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E7%9A%84%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE/"/>
+    <id>https://blog.coder4j.cn/2020/04/19/yuque-【测试】-Java如何优雅的生成测试数据/</id>
+    <published>2020-04-19T07:56:25.000Z</published>
+    <updated>2020-08-27T03:34:06.041Z</updated>
     
     <summary type="html">
     
-      &lt;h4 id=&quot;问题出现原因&quot;&gt;&lt;a href=&quot;#问题出现原因&quot; class=&quot;headerlink&quot; title=&quot;问题出现原因&quot;&gt;&lt;/a&gt;问题出现原因&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;Emoji表情符号为4个字节的字符，而 utf8 字符集只支持1-3个字节的字符，
-    
-    </summary>
-    
-      <category term="问题" scheme="https://blog.coder4j.cn/categories/%E9%97%AE%E9%A2%98/"/>
-    
-    
-      <category term="问题" scheme="https://blog.coder4j.cn/tags/%E9%97%AE%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[转] 有没有安全的工作？</title>
-    <link href="https://blog.coder4j.cn/2018/04/02/%E8%BD%AC-%E6%9C%89%E6%B2%A1%E6%9C%89%E5%AE%89%E5%85%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%EF%BC%9F/"/>
-    <id>https://blog.coder4j.cn/2018/04/02/转-有没有安全的工作？/</id>
-    <published>2018-04-02T11:42:00.000Z</published>
-    <updated>2018-04-02T11:43:29.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;http://www.ruanyif
-    
-    </summary>
-    
-      <category term="转载" scheme="https://blog.coder4j.cn/categories/%E8%BD%AC%E8%BD%BD/"/>
-    
-    
-      <category term="转载" scheme="https://blog.coder4j.cn/tags/%E8%BD%AC%E8%BD%BD/"/>
-    
-      <category term="职业道路" scheme="https://blog.coder4j.cn/tags/%E8%81%8C%E4%B8%9A%E9%81%93%E8%B7%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[转] Java 8 开发的 4 大顶级技巧</title>
-    <link href="https://blog.coder4j.cn/2018/02/26/%E8%BD%AC-Java-8-%E5%BC%80%E5%8F%91%E7%9A%84-4-%E5%A4%A7%E9%A1%B6%E7%BA%A7%E6%8A%80%E5%B7%A7/"/>
-    <id>https://blog.coder4j.cn/2018/02/26/转-Java-8-开发的-4-大顶级技巧/</id>
-    <published>2018-02-26T11:15:00.000Z</published>
-    <updated>2018-02-26T11:16:51.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;http://www.importn
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1596466683511-3126376c-fb13-4a4c-9b14-3b31d8aa198c.png#align=left&amp;amp;display=inl
+      
     
     </summary>
     
     
-      <category term="jdk8" scheme="https://blog.coder4j.cn/tags/jdk8/"/>
-    
   </entry>
   
   <entry>
-    <title>[转] 使用 Java8 Optional 的正确姿势</title>
-    <link href="https://blog.coder4j.cn/2018/02/26/%E8%BD%AC-%E4%BD%BF%E7%94%A8-Java8-Optional-%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/"/>
-    <id>https://blog.coder4j.cn/2018/02/26/转-使用-Java8-Optional-的正确姿势/</id>
-    <published>2018-02-26T10:25:00.000Z</published>
-    <updated>2018-02-26T10:30:06.000Z</updated>
+    <title>【随笔】开源之殇</title>
+    <link href="https://blog.coder4j.cn/2020/03/31/yuque-%E3%80%90%E9%9A%8F%E7%AC%94%E3%80%91%E5%BC%80%E6%BA%90%E4%B9%8B%E6%AE%87/"/>
+    <id>https://blog.coder4j.cn/2020/03/31/yuque-【随笔】开源之殇/</id>
+    <published>2020-03-31T11:40:26.000Z</published>
+    <updated>2020-08-27T03:34:06.090Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;a href=&quot;http://www.importnew.com/22060.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;原文链接&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/68f7ef
+      
+      
+        &lt;h1 id&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title&gt;&lt;/a&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1585665681398-9d34e534-df66-4ee2-a17
+      
     
     </summary>
     
     
-      <category term="jdk8" scheme="https://blog.coder4j.cn/tags/jdk8/"/>
-    
   </entry>
   
   <entry>
-    <title>[转] 版本号命名指南</title>
-    <link href="https://blog.coder4j.cn/2018/02/26/%E8%BD%AC-%E7%89%88%E6%9C%AC%E5%8F%B7%E5%91%BD%E5%90%8D%E6%8C%87%E5%8D%97/"/>
-    <id>https://blog.coder4j.cn/2018/02/26/转-版本号命名指南/</id>
-    <published>2018-02-26T09:55:00.000Z</published>
-    <updated>2018-02-26T09:56:31.000Z</updated>
+    <title>【Maven】maven 插件开发实战</title>
+    <link href="https://blog.coder4j.cn/2020/03/30/yuque-%E3%80%90Maven%E3%80%91maven-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/"/>
+    <id>https://blog.coder4j.cn/2020/03/30/yuque-【Maven】maven-插件开发实战/</id>
+    <published>2020-03-30T12:55:13.000Z</published>
+    <updated>2020-08-27T03:34:06.168Z</updated>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;http://www.importn
-    
-    </summary>
-    
-      <category term="程序员的自我修养" scheme="https://blog.coder4j.cn/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/"/>
-    
-    
-      <category term="程序员的自我修养" scheme="https://blog.coder4j.cn/tags/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%87%AA%E6%88%91%E4%BF%AE%E5%85%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[转] 正则表达式简明参考</title>
-    <link href="https://blog.coder4j.cn/2018/02/11/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B/"/>
-    <id>https://blog.coder4j.cn/2018/02/11/正则表达式简单教程/</id>
-    <published>2018-02-11T02:45:00.000Z</published>
-    <updated>2018-02-25T04:56:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;http://xiaoleilu.c
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1585583078647-c0a12206-3334-4eaf-9588-fd384bd43d3b.png#align=left&amp;amp;display=inl
+      
     
     </summary>
     
     
-      <category term="正则" scheme="https://blog.coder4j.cn/tags/%E6%AD%A3%E5%88%99/"/>
-    
   </entry>
   
   <entry>
-    <title>[转] 小明历险记：规则引擎drools教程一</title>
-    <link href="https://blog.coder4j.cn/2018/02/10/%E8%BD%AC-%E5%B0%8F%E6%98%8E%E5%8E%86%E9%99%A9%E8%AE%B0%EF%BC%9A%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8Edrools%E6%95%99%E7%A8%8B%E4%B8%80/"/>
-    <id>https://blog.coder4j.cn/2018/02/10/转-小明历险记：规则引擎drools教程一/</id>
-    <published>2018-02-10T15:36:00.000Z</published>
-    <updated>2018-02-10T15:39:03.000Z</updated>
+    <title>【qdox】Java 代码解析利器 QDox</title>
+    <link href="https://blog.coder4j.cn/2020/03/22/yuque-%E3%80%90qdox%E3%80%91Java-%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90%E5%88%A9%E5%99%A8-QDox/"/>
+    <id>https://blog.coder4j.cn/2020/03/22/yuque-【qdox】Java-代码解析利器-QDox/</id>
+    <published>2020-03-22T09:41:02.000Z</published>
+    <updated>2020-08-27T03:34:06.237Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;转自 &lt;a href=&quot;http://www.ityouknow.com/drools/2017/08/07/drools-started.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;小明历险记：规则引擎drools教程一&lt;/a&gt;&lt;br&gt;&lt;im
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1584882725192-78d7799b-f010-48a2-b59a-0a16cf76ea10.png#align=left&amp;amp;display=inl
+      
     
     </summary>
     
-      <category term="规则引擎" scheme="https://blog.coder4j.cn/categories/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/"/>
-    
-      <category term="java" scheme="https://blog.coder4j.cn/categories/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/java/"/>
-    
-    
-      <category term="drools" scheme="https://blog.coder4j.cn/tags/drools/"/>
-    
-      <category term="规则引擎" scheme="https://blog.coder4j.cn/tags/%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E/"/>
     
   </entry>
   
   <entry>
-    <title>mysql 中 between and 的边界问题</title>
-    <link href="https://blog.coder4j.cn/2018/02/10/mysql-%E4%B8%AD-between-and-%E7%9A%84%E8%BE%B9%E7%95%8C%E9%97%AE%E9%A2%98/"/>
-    <id>https://blog.coder4j.cn/2018/02/10/mysql-中-between-and-的边界问题/</id>
-    <published>2018-02-10T14:35:00.000Z</published>
-    <updated>2018-02-11T01:52:11.000Z</updated>
+    <title>【并发那些事】线程有序化神器CompletionService</title>
+    <link href="https://blog.coder4j.cn/2020/02/06/yuque-%E3%80%90%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B%E3%80%91%E7%BA%BF%E7%A8%8B%E6%9C%89%E5%BA%8F%E5%8C%96%E7%A5%9E%E5%99%A8CompletionService/"/>
+    <id>https://blog.coder4j.cn/2020/02/06/yuque-【并发那些事】线程有序化神器CompletionService/</id>
+    <published>2020-02-06T14:23:26.000Z</published>
+    <updated>2020-08-27T03:34:06.318Z</updated>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;mysql 中的 between … and … 语法，相信大家都会，但是在边界这个细节上一不留神就可能会出错。下面就以一个简单的例子去理解边界性的问题。&lt;/p&gt;
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1582037585459-bd2594d2-21f6-4801-af65-dcf70611bfe0.png#align=left&amp;amp;display=inl
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【Jasypt】给你的配置加把锁</title>
+    <link href="https://blog.coder4j.cn/2020/01/02/yuque-%E3%80%90Jasypt%E3%80%91%E7%BB%99%E4%BD%A0%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8A%A0%E6%8A%8A%E9%94%81/"/>
+    <id>https://blog.coder4j.cn/2020/01/02/yuque-【Jasypt】给你的配置加把锁/</id>
+    <published>2020-01-02T13:01:16.000Z</published>
+    <updated>2020-08-27T03:34:06.406Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1577972231962-a66da8bd-c22b-4924-bee6-ae77fd583bf9.png#align=left&amp;amp;display=inl
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【xmind】 使用 Java 生成思维导图</title>
+    <link href="https://blog.coder4j.cn/2019/12/01/yuque-%E3%80%90xmind%E3%80%91-%E4%BD%BF%E7%94%A8-Java-%E7%94%9F%E6%88%90%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/"/>
+    <id>https://blog.coder4j.cn/2019/12/01/yuque-【xmind】-使用-Java-生成思维导图/</id>
+    <published>2019-12-01T07:53:19.000Z</published>
+    <updated>2020-08-27T03:34:06.460Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/png/119443/1575186922937-956f55b0-1608-49c9-8ea9-0b09666ce294.png#align=left&amp;amp;display=inl
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【并发那些事】可见性问题的万恶之源</title>
+    <link href="https://blog.coder4j.cn/2019/11/24/yuque-%E3%80%90%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B%E3%80%91%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98%E7%9A%84%E4%B8%87%E6%81%B6%E4%B9%8B%E6%BA%90/"/>
+    <id>https://blog.coder4j.cn/2019/11/24/yuque-【并发那些事】可见性问题的万恶之源/</id>
+    <published>2019-11-24T02:34:38.000Z</published>
+    <updated>2020-08-27T03:34:06.593Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/png/119443/1574562962418-a57cff00-17f5-4cf6-b3e4-8f9706a83f4e.png#align=left&amp;amp;display=inl
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【并发那些事】生产者消费者问题</title>
+    <link href="https://blog.coder4j.cn/2019/11/07/yuque-%E3%80%90%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B%E3%80%91%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98/"/>
+    <id>https://blog.coder4j.cn/2019/11/07/yuque-【并发那些事】生产者消费者问题/</id>
+    <published>2019-11-07T14:20:03.000Z</published>
+    <updated>2020-08-27T03:34:06.693Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1573212056903-3511b031-63e5-4a9b-95f0-f9d05a784f14.jpeg#align=left&amp;amp;display=i
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【spock】单测竟然可以如此丝滑</title>
+    <link href="https://blog.coder4j.cn/2019/10/31/yuque-%E3%80%90spock%E3%80%91%E5%8D%95%E6%B5%8B%E7%AB%9F%E7%84%B6%E5%8F%AF%E4%BB%A5%E5%A6%82%E6%AD%A4%E4%B8%9D%E6%BB%91/"/>
+    <id>https://blog.coder4j.cn/2019/10/31/yuque-【spock】单测竟然可以如此丝滑/</id>
+    <published>2019-10-31T12:39:45.000Z</published>
+    <updated>2020-08-27T03:34:06.880Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/png/119443/1572609587644-4b77e5fa-311b-407f-8b58-471ec19ecea0.png#align=left&amp;amp;display=inl
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>碎碎念-03</title>
+    <link href="https://blog.coder4j.cn/2019/10/24/yuque-%E7%A2%8E%E7%A2%8E%E5%BF%B5-03/"/>
+    <id>https://blog.coder4j.cn/2019/10/24/yuque-碎碎念-03/</id>
+    <published>2019-10-24T13:07:53.000Z</published>
+    <updated>2020-08-27T03:34:06.910Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1571922915604-f292746d-c365-4512-b514-06eca9c7cc66.jpeg#align=left&amp;amp;display=i
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【websocket】spring boot 集成 websocket 的四种方式</title>
+    <link href="https://blog.coder4j.cn/2019/10/22/yuque-%E3%80%90websocket%E3%80%91spring-boot-%E9%9B%86%E6%88%90-websocket-%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F/"/>
+    <id>https://blog.coder4j.cn/2019/10/22/yuque-【websocket】spring-boot-集成-websocket-的四种方式/</id>
+    <published>2019-10-22T09:11:33.000Z</published>
+    <updated>2020-08-27T03:34:07.020Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1571838520170-96049339-d6e2-438f-9fe5-3119d6f5ebd5.jpeg#align=left&amp;amp;display=i
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【并发那些事】创建线程的三种方式</title>
+    <link href="https://blog.coder4j.cn/2019/10/16/yuque-%E3%80%90%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B%E3%80%91%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/"/>
+    <id>https://blog.coder4j.cn/2019/10/16/yuque-【并发那些事】创建线程的三种方式/</id>
+    <published>2019-10-16T07:21:09.000Z</published>
+    <updated>2020-08-27T03:34:07.102Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1571210975395-ea234d96-3b78-421d-92f5-1efdb5cfb706.jpeg#align=left&amp;amp;display=i
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【随笔】跳出程序员思维看世界</title>
+    <link href="https://blog.coder4j.cn/2019/10/13/yuque-%E3%80%90%E9%9A%8F%E7%AC%94%E3%80%91%E8%B7%B3%E5%87%BA%E7%A8%8B%E5%BA%8F%E5%91%98%E6%80%9D%E7%BB%B4%E7%9C%8B%E4%B8%96%E7%95%8C/"/>
+    <id>https://blog.coder4j.cn/2019/10/13/yuque-【随笔】跳出程序员思维看世界/</id>
+    <published>2019-10-13T01:03:53.000Z</published>
+    <updated>2020-08-27T03:34:07.217Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1570951045907-9a52ecf3-6ca0-4795-9de3-bdf2a8a92c9b.jpeg#align=left&amp;amp;display=i
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【随笔】爱因斯坦与科举制</title>
+    <link href="https://blog.coder4j.cn/2019/09/30/yuque-%E3%80%90%E9%9A%8F%E7%AC%94%E3%80%91%E7%88%B1%E5%9B%A0%E6%96%AF%E5%9D%A6%E4%B8%8E%E7%A7%91%E4%B8%BE%E5%88%B6/"/>
+    <id>https://blog.coder4j.cn/2019/09/30/yuque-【随笔】爱因斯坦与科举制/</id>
+    <published>2019-09-30T13:07:39.000Z</published>
+    <updated>2020-08-27T03:34:07.278Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;前段时间知乎上有一个热门问题–《&lt;a href=&quot;https://www.zhihu.com/question/333199024/answer/746004419&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;历史上有哪两件事听起来不在同一个年代实际上却
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>一个好看又能打的 swagger 工具包</title>
+    <link href="https://blog.coder4j.cn/2019/09/12/yuque-%E4%B8%80%E4%B8%AA%E5%A5%BD%E7%9C%8B%E5%8F%88%E8%83%BD%E6%89%93%E7%9A%84-swagger-%E5%B7%A5%E5%85%B7%E5%8C%85/"/>
+    <id>https://blog.coder4j.cn/2019/09/12/yuque-一个好看又能打的-swagger-工具包/</id>
+    <published>2019-09-12T15:17:02.000Z</published>
+    <updated>2020-08-27T03:34:07.349Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;【Swagger】可能是目前最好的-Spring-Boot-集成-swagger-的项目&quot;&gt;&lt;a href=&quot;#【Swagger】可能是目前最好的-Spring-Boot-集成-swagger-的项目&quot; class=&quot;headerlink&quot; title=&quot;【Swa
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>碎碎念-02(20190511)</title>
+    <link href="https://blog.coder4j.cn/2019/05/04/yuque-%E7%A2%8E%E7%A2%8E%E5%BF%B5-02-20190511/"/>
+    <id>https://blog.coder4j.cn/2019/05/04/yuque-碎碎念-02-20190511/</id>
+    <published>2019-05-04T03:56:59.000Z</published>
+    <updated>2020-08-27T03:34:07.424Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;如果想要更好的阅读体验，请点击文章末尾的阅读原文跳转语雀阅读。&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;首先我们建一个简单的用户表，简单
-    
-    </summary>
-    
-      <category term="mysql" scheme="https://blog.coder4j.cn/categories/mysql/"/>
-    
-    
-      <category term="mysql" scheme="https://blog.coder4j.cn/tags/mysql/"/>
-    
-      <category term="between and" scheme="https://blog.coder4j.cn/tags/between-and/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker 常用命令</title>
-    <link href="https://blog.coder4j.cn/2018/01/19/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    <id>https://blog.coder4j.cn/2018/01/19/docker-常用命令/</id>
-    <published>2018-01-18T16:44:00.000Z</published>
-    <updated>2018-01-18T16:48:28.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;基础命令&quot;&gt;&lt;a href=&quot;#基础命令&quot; class=&quot;headerlink&quot; title=&quot;基础命令&quot;&gt;&lt;/a&gt;基础命令&lt;/h5&gt;&lt;pre class=&quot;line-numbers language-shell&quot;&gt;&lt;code class=&quot;language-sh
-    
-    </summary>
-    
-    
-      <category term="docker" scheme="https://blog.coder4j.cn/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[转]spring 循环依赖</title>
-    <link href="https://blog.coder4j.cn/2018/01/13/spring-%E5%BE%AA%E7%8E%AF%E5%BC%95%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>https://blog.coder4j.cn/2018/01/13/spring-循环引入的问题/</id>
-    <published>2018-01-13T06:30:00.000Z</published>
-    <updated>2018-01-13T07:02:21.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;http://www.importn
-    
-    </summary>
-    
-      <category term="exception" scheme="https://blog.coder4j.cn/categories/exception/"/>
-    
-      <category term="spring" scheme="https://blog.coder4j.cn/categories/exception/spring/"/>
-    
-    
-      <category term="spring" scheme="https://blog.coder4j.cn/tags/spring/"/>
-    
-      <category term="exception" scheme="https://blog.coder4j.cn/tags/exception/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>人的一切痛苦，本质上都是对自己无能的愤怒</title>
-    <link href="https://blog.coder4j.cn/2018/01/06/%E4%BA%BA%E7%9A%84%E4%B8%80%E5%88%87%E7%97%9B%E8%8B%A6%EF%BC%8C%E6%9C%AC%E8%B4%A8%E4%B8%8A%E9%83%BD%E6%98%AF%E5%AF%B9%E8%87%AA%E5%B7%B1%E6%97%A0%E8%83%BD%E7%9A%84%E6%84%A4%E6%80%92/"/>
-    <id>https://blog.coder4j.cn/2018/01/06/人的一切痛苦，本质上都是对自己无能的愤怒/</id>
-    <published>2018-01-06T14:50:00.000Z</published>
-    <updated>2018-01-06T14:51:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&amp;emsp;人的一切痛苦，本质上都是对自己无能的愤怒！&lt;/p&gt;
-&lt;p&gt;&amp;emsp;为什么不欺负别人，只欺负你，因为你好欺负，因为你是完美受害人，因为你无能！&lt;/p&gt;
-&lt;p&gt;&amp;emsp;为什么不坑别人，只坑你，因为你傻，因为你蠢，因为你懦弱，因为你无能！&lt;/p&gt;
-&lt;p&gt;&amp;em
-    
-    </summary>
-    
-      <category term="漫漫人生路" scheme="https://blog.coder4j.cn/categories/%E6%BC%AB%E6%BC%AB%E4%BA%BA%E7%94%9F%E8%B7%AF/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>[转]为什么年轻时要多赚钱？</title>
-    <link href="https://blog.coder4j.cn/2018/01/06/%E8%BD%AC-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B9%B4%E8%BD%BB%E6%97%B6%E8%A6%81%E5%A4%9A%E8%B5%9A%E9%92%B1%EF%BC%9F/"/>
-    <id>https://blog.coder4j.cn/2018/01/06/转-为什么年轻时要多赚钱？/</id>
-    <published>2018-01-06T14:06:33.000Z</published>
-    <updated>2018-01-06T14:07:39.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;https://mp.weixin.
+&lt;h4 id=&quot;1-动物世界&quot;&gt;&lt;a href=&quot;#1-动物世界&quot; class=&quot;headerlink&quot; titl
+      
     
     </summary>
     
@@ -287,190 +362,40 @@
   </entry>
   
   <entry>
-    <title>[转] springboot 过滤器和拦截器的实现和区别</title>
-    <link href="https://blog.coder4j.cn/2018/01/02/%E8%BD%AC-springboot-%E8%BF%87%E6%BB%A4%E5%99%A8%E5%92%8C%E6%8B%A6%E6%88%AA%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%92%8C%E5%8C%BA%E5%88%AB/"/>
-    <id>https://blog.coder4j.cn/2018/01/02/转-springboot-过滤器和拦截器的实现和区别/</id>
-    <published>2018-01-02T12:52:00.000Z</published>
-    <updated>2018-01-02T12:56:30.000Z</updated>
+    <title>JMH 简单入门</title>
+    <link href="https://blog.coder4j.cn/2019/05/04/yuque-JMH-%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/"/>
+    <id>https://blog.coder4j.cn/2019/05/04/yuque-JMH-简单入门/</id>
+    <published>2019-05-04T02:45:36.000Z</published>
+    <updated>2020-08-27T03:34:07.508Z</updated>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;本文由 &lt;a href=&quot;http://ksria.com/simpread/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简悦 SimpRead&lt;/a&gt; 转码， 原文地址 &lt;a href=&quot;https://segmentfau
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2018/png/119443/1545838278500-0e333b6c-2ca5-4a0a-a7d6-59799f11ff91.png#align=left&amp;amp;display=inl
+      
     
     </summary>
     
-      <category term="转载" scheme="https://blog.coder4j.cn/categories/%E8%BD%AC%E8%BD%BD/"/>
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/categories/%E8%BD%AC%E8%BD%BD/spring-boot/"/>
-    
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
-    
-      <category term="过滤器" scheme="https://blog.coder4j.cn/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/"/>
-    
-      <category term="拦截器" scheme="https://blog.coder4j.cn/tags/%E6%8B%A6%E6%88%AA%E5%99%A8/"/>
-    
-      <category term="web" scheme="https://blog.coder4j.cn/tags/web/"/>
-    
-      <category term="转载" scheme="https://blog.coder4j.cn/tags/%E8%BD%AC%E8%BD%BD/"/>
     
   </entry>
   
   <entry>
-    <title>使用 docker 光速安装 gitlab</title>
-    <link href="https://blog.coder4j.cn/2018/01/01/%E4%BD%BF%E7%94%A8-docker-%E5%85%89%E9%80%9F%E5%AE%89%E8%A3%85-gitlab/"/>
-    <id>https://blog.coder4j.cn/2018/01/01/使用-docker-光速安装-gitlab/</id>
-    <published>2018-01-01T15:46:00.000Z</published>
-    <updated>2018-01-01T15:47:14.000Z</updated>
+    <title>碎碎念-01(20190504)</title>
+    <link href="https://blog.coder4j.cn/2019/04/25/yuque-%E7%A2%8E%E7%A2%8E%E5%BF%B5-01-20190504/"/>
+    <id>https://blog.coder4j.cn/2019/04/25/yuque-碎碎念-01-20190504/</id>
+    <published>2019-04-25T13:32:56.000Z</published>
+    <updated>2020-08-27T03:34:07.602Z</updated>
     
     <summary type="html">
     
-      &lt;ul&gt;
-&lt;li&gt;使用 docker 安装 gitlab&lt;pre&gt;&lt;code&gt;# 安装 postgresql
-docker run --name=gitlab-postgresql -d --env DB_NAME=gitlabhq_prodution --env DB_USER
+      
+      
+        &lt;h4 id=&quot;1-生命、宇宙以及任何事情的终极答案&quot;&gt;&lt;a href=&quot;#1-生命、宇宙以及任何事情的终极答案&quot; class=&quot;headerlink&quot; title=&quot;1. 生命、宇宙以及任何事情的终极答案&quot;&gt;&lt;/a&gt;1. 生命、宇宙以及任何事情的终极答案&lt;/h4&gt;&lt;blockq
+      
     
     </summary>
     
-      <category term="docker" scheme="https://blog.coder4j.cn/categories/docker/"/>
-    
-      <category term="gitlab" scheme="https://blog.coder4j.cn/categories/docker/gitlab/"/>
-    
-    
-      <category term="docker" scheme="https://blog.coder4j.cn/tags/docker/"/>
-    
-      <category term="gitlab" scheme="https://blog.coder4j.cn/tags/gitlab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 docker 光速安装 wordpress</title>
-    <link href="https://blog.coder4j.cn/2018/01/01/%E4%BD%BF%E7%94%A8-docker-%E5%85%89%E9%80%9F%E5%AE%89%E8%A3%85-workdpress/"/>
-    <id>https://blog.coder4j.cn/2018/01/01/使用-docker-光速安装-workdpress/</id>
-    <published>2018-01-01T15:45:00.000Z</published>
-    <updated>2018-01-01T15:49:01.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;ul&gt;
-&lt;li&gt;使用 docker 安装 wordpress&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;# 安装数据库
-docker run --name db --env MYSQL_ROOT_PASSWORD=example -d mariadb
-
-# 安装 wordpr
-    
-    </summary>
-    
-      <category term="docker" scheme="https://blog.coder4j.cn/categories/docker/"/>
-    
-      <category term="wordpress" scheme="https://blog.coder4j.cn/categories/docker/wordpress/"/>
-    
-    
-      <category term="docker" scheme="https://blog.coder4j.cn/tags/docker/"/>
-    
-      <category term="wordpress" scheme="https://blog.coder4j.cn/tags/wordpress/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2018年新年愿景</title>
-    <link href="https://blog.coder4j.cn/2018/01/01/2018%E5%B9%B4%E6%96%B0%E5%B9%B4%E6%84%BF%E6%99%AF/"/>
-    <id>https://blog.coder4j.cn/2018/01/01/2018年新年愿景/</id>
-    <published>2018-01-01T11:49:00.000Z</published>
-    <updated>2018-01-01T12:14:42.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;div class=&quot;tip&quot;&gt;&lt;br&gt;  今天是2018年第一天，转眼2017就这样过去了，感觉荒废了大把时光，新的一年希望自己可以蜕变！&lt;br&gt;  成为一个靠谱的人！&lt;br&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;生活&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;更爱萍萍，以后少怼她了。别太
-    
-    </summary>
-    
-      <category term="新年愿景" scheme="https://blog.coder4j.cn/categories/%E6%96%B0%E5%B9%B4%E6%84%BF%E6%99%AF/"/>
-    
-    
-      <category term="2018" scheme="https://blog.coder4j.cn/tags/2018/"/>
-    
-      <category term="新年愿景" scheme="https://blog.coder4j.cn/tags/%E6%96%B0%E5%B9%B4%E6%84%BF%E6%99%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring boot 对于 js 的 long 精度问题处理</title>
-    <link href="https://blog.coder4j.cn/2018/01/01/Spring-boot-%E5%AF%B9%E4%BA%8E-js-%E7%9A%84-long-%E7%B2%BE%E5%BA%A6%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
-    <id>https://blog.coder4j.cn/2018/01/01/Spring-boot-对于-js-的-long-精度问题处理/</id>
-    <published>2018-01-01T09:40:00.000Z</published>
-    <updated>2018-01-01T11:41:39.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这几天前后端联调，遇到一个诡异的问题。前端请求后端提供的详情接口得到用户的 Id 与其它数据。然后前端又把这个 Id与修改的数据内容一同传回后端的修改接口。结果前端反馈死活修改不了。  &lt;/p&gt;
-&lt;p&gt;然后各种 debug 查日志，发现详情接口返回给前端的与前端调用修改接口
-    
-    </summary>
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/categories/spring-boot/"/>
-    
-      <category term="json" scheme="https://blog.coder4j.cn/categories/spring-boot/json/"/>
-    
-    
-      <category term="spring boot" scheme="https://blog.coder4j.cn/tags/spring-boot/"/>
-    
-      <category term="json" scheme="https://blog.coder4j.cn/tags/json/"/>
-    
-      <category term="精度" scheme="https://blog.coder4j.cn/tags/%E7%B2%BE%E5%BA%A6/"/>
-    
-      <category term="js" scheme="https://blog.coder4j.cn/tags/js/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CDN原理</title>
-    <link href="https://blog.coder4j.cn/2017/03/18/CDN%E5%8E%9F%E7%90%86/"/>
-    <id>https://blog.coder4j.cn/2017/03/18/CDN原理/</id>
-    <published>2017-03-18T13:45:00.000Z</published>
-    <updated>2017-03-18T14:04:32.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;&amp;emsp;&amp;emsp;CDN是构建在网络之上的内容分发网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN的关键技术主要有内容存储和分发技术
-    
-    </summary>
-    
-      <category term="架构" scheme="https://blog.coder4j.cn/categories/%E6%9E%B6%E6%9E%84/"/>
-    
-    
-      <category term="cdn" scheme="https://blog.coder4j.cn/tags/cdn/"/>
-    
-      <category term="架构" scheme="https://blog.coder4j.cn/tags/%E6%9E%B6%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>maven按环境加载配置文件</title>
-    <link href="https://blog.coder4j.cn/2017/03/11/maven%E6%8C%89%E7%8E%AF%E5%A2%83%E5%8A%A0%E8%BD%BD%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"/>
-    <id>https://blog.coder4j.cn/2017/03/11/maven按环境加载配置文件/</id>
-    <published>2017-03-11T15:04:00.000Z</published>
-    <updated>2017-03-11T15:26:05.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;通过maven的profile实现按环境来加载配置文件&lt;br&gt;
-    
-    </summary>
-    
-      <category term="maven" scheme="https://blog.coder4j.cn/categories/maven/"/>
-    
-    
-      <category term="maven" scheme="https://blog.coder4j.cn/tags/maven/"/>
-    
-      <category term="profile" scheme="https://blog.coder4j.cn/tags/profile/"/>
     
   </entry>
   

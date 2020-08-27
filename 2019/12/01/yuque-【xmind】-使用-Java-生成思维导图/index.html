@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>【xmind】 使用 Java 生成思维导图 · 求索之路</title><meta name="description" content="前言在日常的工作与学习中，我们经常会使用思维导图这个工具，来把抽象而又无形的思考转换成有形并且具体的图像，是理清思路，梳理逻辑的一大神器。
+准确的说，思维导图并不是一个具体的工具，而是一种方法。是道而不是术。实际落地时，我们通常还需要借助外部的工具。从最原始的纸和笔，到各种软件，可以说是应用尽有。目"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>【xmind】 使用 Java 生成思维导图</a></h3></div><div class="post-content"><p><img src="https://cdn.nlark.com/yuque/0/2019/png/119443/1575186922937-956f55b0-1608-49c9-8ea9-0b09666ce294.png#align=left&amp;display=inline&amp;height=397&amp;name=image.png&amp;originHeight=793&amp;originWidth=1280&amp;size=285620&amp;status=done&amp;style=none&amp;width=640" alt="image.png"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常的工作与学习中，我们经常会使用思维导图这个工具，来把抽象而又无形的思考转换成有形并且具体的图像，是理清思路，梳理逻辑的一大神器。</p>
+<p>准确的说，思维导图并不是一个具体的工具，而是一种方法。是道而不是术。实际落地时，我们通常还需要借助外部的工具。从最原始的纸和笔，到各种软件，可以说是应用尽有。目前我在使用的是 xmind 这款软件，下面就会以 xmind 为媒介间接的通过 Java 代码画思维导图。</p>
+<h2 id="放码过来"><a href="#放码过来" class="headerlink" title="放码过来"></a>放码过来</h2><h3 id="通过目录生成思维导图"><a href="#通过目录生成思维导图" class="headerlink" title="通过目录生成思维导图"></a>通过目录生成思维导图</h3><p>我在看书的时候有一个习惯，先通过思维导图画出一本书的大纲，然后通过这个大纲来分主次的去阅读。可能有些同学感到疑惑，还没读过书，如何了解大纲呢？其实一本书的目录就是这本书最好的大纲。</p>
+<p>本文通过把一个目录生成思维导图的例子来学习 xmind 基本的 api 使用。当然如果想系统学习的同学，可以参考文末给出的官方 api 链接。下图就是我们最终要生成的结果。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/119443/1575300845565-aeda8243-cba9-4f3e-b218-d526af74c949.png#align=left&amp;display=inline&amp;height=817&amp;name=image.png&amp;originHeight=1633&amp;originWidth=2776&amp;size=765424&amp;status=done&amp;style=none&amp;width=1388" alt="image.png"></p>
+<h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><p>xmind 最开始是在 eclipse 上进行定制开发而来（对，这个 eclipse 就是你在遇到 idea 后，喜新厌旧抛弃的那个编程软件），所以天生就对 Java 有良好的支持。这个<a href="https://github.com/xmindltd/xmind" target="_blank" rel="noopener">地址</a>就是 xmind 在 github 上的仓库。对 xmind 的操作的 api 全在  org.xmind.core 包下，按官方提示把代码拉下来在本地打个包，再引入就 ok 了。但是呢？偷懒是第一生产力。立马跑到 maven 仓库搜索了一下，发现果然有人把官方的打包上传了，直接拿来使用。（时间有点老，但是基本操作已经够了，如果想用新功能，可以拉代码自行打包）</p>
+<ul>
+<li>pom.xml</li>
+</ul>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.eljah<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>xmindjbehaveplugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>0.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h3><p>我们要生成思维导图，首先得有数据。这里的数据就是一本书的目录。</p>
+<p>首先，书籍我选的是《<a href="https://book.douban.com/subject/26437061/" target="_blank" rel="noopener">一本书读懂 24 种互联网思维</a>》，选这本书，并不是因为这本书有多好，而是因为他比较典型，典型就典型在，看过这本书的目录后就没有必要再读这本书了，因为目录已经把要说的内容说的很清楚了。</p>
+<p>那知道书名，怎么获取书的目录呢？很简单，打开豆瓣，找到这本书的详情，里面就有书籍的目录，直接把它 copy 下来就可以了，目录如下图。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/119443/1575302109090-065fc60c-8041-4a80-acc9-e41eb42482d2.png#align=left&amp;display=inline&amp;height=363&amp;name=image.png&amp;originHeight=726&amp;originWidth=1170&amp;size=132601&amp;status=done&amp;style=none&amp;width=585" alt="image.png"></p>
+<h3 id="开始编码"><a href="#开始编码" class="headerlink" title="开始编码"></a>开始编码</h3><ul>
+<li>GeneratorDoubanXmind</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ *
+ *  * *
+ *  *  * blog.coder4j.cn
+ *  *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *  *
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>io<span class="token punctuation">.</span>FileUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ReUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>system<span class="token punctuation">.</span>SystemUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>google<span class="token punctuation">.</span>common<span class="token punctuation">.</span>collect<span class="token punctuation">.</span>Lists<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>xmind<span class="token punctuation">.</span>core<span class="token punctuation">.</span>Core<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>xmind<span class="token punctuation">.</span>core<span class="token punctuation">.</span>CoreException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>xmind<span class="token punctuation">.</span>core<span class="token punctuation">.</span>ISheet<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>xmind<span class="token punctuation">.</span>core<span class="token punctuation">.</span>ITopic<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>xmind<span class="token punctuation">.</span>core<span class="token punctuation">.</span>IWorkbook<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>xmind<span class="token punctuation">.</span>core<span class="token punctuation">.</span>IWorkbookBuilder<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version GeneratorDoubanXmind.java, v 0.1 2019-12-02 22:54 buhao
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GeneratorDoubanXmind</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 当前类路径
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> String CLASS_PATH <span class="token operator">=</span> GeneratorDoubanXmind<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getResource</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">/**
+     * 文件分隔符
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> String FILE_SEPARATOR <span class="token operator">=</span> SystemUtil<span class="token punctuation">.</span><span class="token function">getOsInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getFileSeparator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">,</span> CoreException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 读取目录</span>
+        String bookName <span class="token operator">=</span> <span class="token string">"一本书读懂24种互联网思维"</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> contents <span class="token operator">=</span> FileUtil<span class="token punctuation">.</span><span class="token function">readLines</span><span class="token punctuation">(</span>CLASS_PATH <span class="token operator">+</span> bookName <span class="token operator">+</span> <span class="token string">".txt"</span><span class="token punctuation">,</span> <span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 创建思维导图的工作空间</span>
+        IWorkbookBuilder workbookBuilder <span class="token operator">=</span> Core<span class="token punctuation">.</span><span class="token function">getWorkbookBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        IWorkbook workbook <span class="token operator">=</span> workbookBuilder<span class="token punctuation">.</span><span class="token function">createWorkbook</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 获得默认sheet</span>
+        ISheet primarySheet <span class="token operator">=</span> workbook<span class="token punctuation">.</span><span class="token function">getPrimarySheet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 获得根主题</span>
+        ITopic rootTopic <span class="token operator">=</span> primarySheet<span class="token punctuation">.</span><span class="token function">getRootTopic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 设置根主题的标题</span>
+        rootTopic<span class="token punctuation">.</span><span class="token function">setTitleText</span><span class="token punctuation">(</span>bookName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 章节 topic 的列表</span>
+        ArrayList<span class="token operator">&lt;</span>ITopic<span class="token operator">></span> chapterTopics <span class="token operator">=</span> Lists<span class="token punctuation">.</span><span class="token function">newArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String content <span class="token operator">:</span> contents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 如果是数字开头为章节名称</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>ReUtil<span class="token punctuation">.</span><span class="token function">isMatch</span><span class="token punctuation">(</span><span class="token string">"^[1-24].*?"</span><span class="token punctuation">,</span> content<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 创建章节节点</span>
+                ITopic topic <span class="token operator">=</span> workbook<span class="token punctuation">.</span><span class="token function">createTopic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                topic<span class="token punctuation">.</span><span class="token function">setTitleText</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                chapterTopics<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>topic<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 创建小节节点</span>
+                ITopic topic <span class="token operator">=</span> workbook<span class="token punctuation">.</span><span class="token function">createTopic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                topic<span class="token punctuation">.</span><span class="token function">setTitleText</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                chapterTopics<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>chapterTopics<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> ITopic<span class="token punctuation">.</span>ATTACHED<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 把章节节点添加到要节点上</span>
+        chapterTopics<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>it <span class="token operator">-</span><span class="token operator">></span> rootTopic<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>it<span class="token punctuation">,</span> ITopic<span class="token punctuation">.</span>ATTACHED<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 保存</span>
+        workbook<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>CLASS_PATH <span class="token operator">+</span> FILE_SEPARATOR <span class="token operator">+</span> bookName <span class="token operator">+</span> <span class="token string">".xmind"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><p>基本上代码都做了注释，对于核心代码再简单分析一下。</p>
+<pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 读取目录</span>
+        String bookName <span class="token operator">=</span> <span class="token string">"一本书读懂24种互联网思维"</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> contents <span class="token operator">=</span> FileUtil<span class="token punctuation">.</span><span class="token function">readLines</span><span class="token punctuation">(</span>CLASS_PATH <span class="token operator">+</span> bookName <span class="token operator">+</span> <span class="token string">".txt"</span><span class="token punctuation">,</span> <span class="token string">"utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>首先前两行不必说，我把目录数据保存到了 resources 目录下的 一本书读懂 24 种互联网思维.txt，这两行代码就是简单读取数据。</p>
+<pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 创建思维导图的工作空间</span>
+        IWorkbookBuilder workbookBuilder <span class="token operator">=</span> Core<span class="token punctuation">.</span><span class="token function">getWorkbookBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        IWorkbook workbook <span class="token operator">=</span> workbookBuilder<span class="token punctuation">.</span><span class="token function">createWorkbook</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>然后的两行代码，通过 Core 类创建工作空间构建者类，再通过它的  createWorkbook 方法创建出一个空白的工作空间，这个创建完就会得到一个没有任何节点的空白导图。</p>
+<pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 获得默认sheet</span>
+        ISheet primarySheet <span class="token operator">=</span> workbook<span class="token punctuation">.</span><span class="token function">getPrimarySheet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 获得根主题</span>
+        ITopic rootTopic <span class="token operator">=</span> primarySheet<span class="token punctuation">.</span><span class="token function">getRootTopic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 设置根主题的标题</span>
+        rootTopic<span class="token punctuation">.</span><span class="token function">setTitleText</span><span class="token punctuation">(</span>bookName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>再接着，通过刚刚创建 工作空间 得到主 sheet，这个 sheet 跟 excel 的概念差不多，就像浏览器的一个 tab 一样。效果如下图</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/119443/1575302706137-d42e7fb0-fcd1-4566-b88b-a9d788e9b67d.png#align=left&amp;display=inline&amp;height=30&amp;name=image.png&amp;originHeight=60&amp;originWidth=816&amp;size=10859&amp;status=done&amp;style=none&amp;width=408" alt="image.png"></p>
+<p>另外还通过主 sheet 获得了根 topic，并设置他的标题为书名，它对应下图</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/119443/1575377884589-67911a43-9e0b-4465-bf73-708155fe00f3.png#align=left&amp;display=inline&amp;height=122&amp;name=image.png&amp;originHeight=244&amp;originWidth=720&amp;size=35758&amp;status=done&amp;style=none&amp;width=360" alt="image.png"></p>
+<pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 章节 topic 的列表</span>
+        ArrayList<span class="token operator">&lt;</span>ITopic<span class="token operator">></span> chapterTopics <span class="token operator">=</span> Lists<span class="token punctuation">.</span><span class="token function">newArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String content <span class="token operator">:</span> contents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 如果是数字开头为章节名称</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>ReUtil<span class="token punctuation">.</span><span class="token function">isMatch</span><span class="token punctuation">(</span><span class="token string">"^[1-24].*?"</span><span class="token punctuation">,</span> content<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 创建章节节点</span>
+                ITopic topic <span class="token operator">=</span> workbook<span class="token punctuation">.</span><span class="token function">createTopic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                topic<span class="token punctuation">.</span><span class="token function">setTitleText</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                chapterTopics<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>topic<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 创建小节节点</span>
+                ITopic topic <span class="token operator">=</span> workbook<span class="token punctuation">.</span><span class="token function">createTopic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                topic<span class="token punctuation">.</span><span class="token function">setTitleText</span><span class="token punctuation">(</span>content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                chapterTopics<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>chapterTopics<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>topic<span class="token punctuation">,</span> ITopic<span class="token punctuation">.</span>ATTACHED<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这段代码比较多，但是重点是创建 topic 的操作，每个 topic 就是思维导图的一个节点，可以通过  workbook.createTopic() 来创建，同样的通过  setTitleText 设置标题。这段代码其实是分析了目录的规律，有 1-24 开头的是大章节，而后面紧跟的是小章节，一个大章节下是多个小章节（可以看上面的目录截图）。所以判断是大章节就创建一个新的节点，判断是小章节就往最后一个大章节上添加（通过 add 方法）。</p>
+<pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 把章节节点添加到要节点上</span>
+        chapterTopics<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>it <span class="token operator">-</span><span class="token operator">></span> rootTopic<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>it<span class="token punctuation">,</span> ITopic<span class="token punctuation">.</span>ATTACHED<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>刚才说了把小章节都添加到了大章节上了，但是大章节现在还是无依无靠的，所以通过一个循环全部添加到了根 Topic 上。</p>
+<pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 保存</span>
+        workbook<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>CLASS_PATH <span class="token operator">+</span> FILE_SEPARATOR <span class="token operator">+</span> bookName <span class="token operator">+</span> <span class="token string">".xmind"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>到此我们编码结束了，但是这些操作还在内存中，我们需要通过 workbook 的 save 方法把文件保存到硬盘上，另外文件后缀记得改成 xmind，否则软件无法识别。</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>因为篇幅有限，无法贴完所有代码，如遇到问题可到相关链接里面的 example 上，查看源码。</p>
+<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><ol>
+<li><a href="https://github.com/xmindltd/xmind/wiki/UsingXmindAPI" target="_blank" rel="noopener">xmind api 地址</a></li>
+<li><a href="https://github.com/kiwiflydream/study-example/tree/master/study-xmind-example" target="_blank" rel="noopener">study-xmind-example</a></li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/119443/1575379205600-702b996e-3229-40f4-a982-199adfccdf60.png#align=left&amp;display=inline&amp;height=178&amp;name=image.png&amp;originHeight=178&amp;originWidth=621&amp;size=39510&amp;status=done&amp;style=none&amp;width=621" alt="image.png"></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2019/12/01/yuque-【xmind】-使用-Java-生成思维导图/">https://blog.coder4j.cn/2019/12/01/yuque-【xmind】-使用-Java-生成思维导图/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-12-01</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2019/12/01/yuque-【xmind】-使用-Java-生成思维导图/,求索之路,【xmind】 使用 Java 生成思维导图,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2020/01/02/yuque-【Jasypt】给你的配置加把锁/" title="【Jasypt】给你的配置加把锁">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2019/11/24/yuque-【并发那些事】可见性问题的万恶之源/" title="【并发那些事】可见性问题的万恶之源">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

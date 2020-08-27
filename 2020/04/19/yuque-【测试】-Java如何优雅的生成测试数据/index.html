@@ -1,0 +1,314 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>【测试】 Java如何优雅的生成测试数据 · 求索之路</title><meta name="description" content="前言在日常的测试中，我们经常需要提前准备一大堆测试数据，用来验证业务逻辑。当然对于简单的数据类型完全可以通过 JDK 自带的  Random  类来实现。但是对于一个比较复杂的类，或者参数的格式有特殊要求的时候，Random  就不适用了，这个时候就需要借助一些能够生成测试数据的框架。
+相关框架我在"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>【测试】 Java如何优雅的生成测试数据</a></h3></div><div class="post-content"><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1596466683511-3126376c-fb13-4a4c-9b14-3b31d8aa198c.png#align=left&amp;display=inline&amp;height=383&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=383&amp;originWidth=900&amp;size=38900&amp;status=done&amp;style=none&amp;width=900" alt="image.png"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常的测试中，我们经常需要提前准备一大堆测试数据，用来验证业务逻辑。当然对于简单的数据类型完全可以通过 JDK 自带的  <code>Random</code>  类来实现。但是对于一个比较复杂的类，或者参数的格式有特殊要求的时候，<code>Random</code>  就不适用了，这个时候就需要借助一些能够生成测试数据的框架。</p>
+<h2 id="相关框架"><a href="#相关框架" class="headerlink" title="相关框架"></a>相关框架</h2><p>我在实际调研中，找到了 2 个在个人看来还不错的生成框架，他们分别是：</p>
+<ol>
+<li><a href="https://github.com/jsonzou/jmockdata" target="_blank" rel="noopener">jmockdata</a></li>
+<li><a href="https://github.com/DiUS/java-faker" target="_blank" rel="noopener">java-faker</a></li>
+</ol>
+<p>下面我将一一介绍这些框架的优缺点以及适用场景。话不多说，直接开始撸代码。</p>
+<h3 id="JmockData"><a href="#JmockData" class="headerlink" title="JmockData"></a>JmockData</h3><p>首先出场的是 JmockData 框架，它是官方定义如下：</p>
+<blockquote>
+<p>一款实现模拟 JAVA 类型或对象的实例化并随机初始化对象的数据的工具框架。</p>
+</blockquote>
+<h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><pre class="line-numbers language-xml"><code class="language-xml">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.jsonzou<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jmockdata<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.2.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="基础类型数据生成"><a href="#基础类型数据生成" class="headerlink" title="基础类型数据生成"></a>基础类型数据生成</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testBaseType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 基础数据类型</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span>BigDecimal<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 基础数据类型的数组</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">long</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">double</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span>BigDecimal<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h5><pre class="line-numbers language-java"><code class="language-java"><span class="token number">0</span>
+<span class="token number">2610</span>
+<span class="token number">3401</span>
+<span class="token number">8582.18</span>
+<span class="token number">7194.44</span>
+5Xu7
+<span class="token number">9051.92</span>
+<span class="token punctuation">[</span>B<span class="token annotation punctuation">@7fbe847c</span>
+<span class="token punctuation">[</span>I<span class="token annotation punctuation">@41975e01</span>
+<span class="token punctuation">[</span>J<span class="token annotation punctuation">@c2e1f26</span>
+<span class="token punctuation">[</span>D<span class="token annotation punctuation">@dcf3e99</span>
+<span class="token punctuation">[</span>F<span class="token annotation punctuation">@6d9c638</span>
+<span class="token punctuation">[</span>Ljava<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>String<span class="token punctuation">;</span><span class="token annotation punctuation">@7dc5e7b4</span>
+<span class="token punctuation">[</span>Ljava<span class="token punctuation">.</span>math<span class="token punctuation">.</span>BigDecimal<span class="token punctuation">;</span><span class="token annotation punctuation">@1ee0005</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="JavaBean-类型数据生成"><a href="#JavaBean-类型数据生成" class="headerlink" title="JavaBean 类型数据生成"></a>JavaBean 类型数据生成</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">/**
+     * java bean 测试
+     */</span>
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testJavaBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        Person mock <span class="token operator">=</span> JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span>Person<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h5><pre class="line-numbers language-java"><code class="language-java">Person<span class="token punctuation">[</span>address<span class="token operator">=</span>RrayfQIK<span class="token punctuation">,</span>age<span class="token operator">=</span><span class="token number">5863</span><span class="token punctuation">,</span>idCard<span class="token operator">=</span>SDn<span class="token punctuation">,</span>name<span class="token operator">=</span>j<span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里可以看到，使用 <code>JMockdata.mock(xx.class);</code> 可以很容易的生成一个 JavaBean。框架通过反射，在底层遍历获得类的属性与类型，然后填充数据。</p>
+<p>但是与此同时，大家也发现了，虽然我们可以的的确确的生成了一个 <code>Person</code> 类，也给它的每个属性都填充了值，但是生成的数据只是根据类型简单生成的，比如 <code>age</code> 字段被填充的是 5863。如果数据有现实含义，没有规则的随机就很容易出现乌龙。</p>
+<p>要解决这个问题，我们就要限制随机数据的范围，可以通过它的配置功能实现。</p>
+<h4 id="使用随机配置"><a href="#使用随机配置" class="headerlink" title="使用随机配置"></a>使用随机配置</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testJavaBeanWithConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        MockConfig mockConfig <span class="token operator">=</span>
+                <span class="token keyword">new</span> <span class="token class-name">MockConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">subConfig</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">)</span>
+                        <span class="token comment" spellcheck="true">// 设置 int 的范围</span>
+                        <span class="token punctuation">.</span><span class="token function">intRange</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">subConfig</span><span class="token punctuation">(</span><span class="token string">"email"</span><span class="token punctuation">)</span>
+                        <span class="token comment" spellcheck="true">// 设置生成邮箱正则</span>
+                        <span class="token punctuation">.</span><span class="token function">stringRegex</span><span class="token punctuation">(</span><span class="token string">"[a-z0-9]{5,15}\\@\\w{3,5}\\.[a-z]{2,3}"</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">globalConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        Person mock <span class="token operator">=</span> JMockData<span class="token punctuation">.</span><span class="token function">mock</span><span class="token punctuation">(</span>Person<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> mockConfig<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>mock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="运行结果-2"><a href="#运行结果-2" class="headerlink" title="运行结果"></a>运行结果</h5><pre class="line-numbers language-java"><code class="language-java">Person<span class="token punctuation">[</span>address<span class="token operator">=</span>hXttj2s<span class="token punctuation">,</span>age<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span>email<span class="token operator">=</span>w14hnn<span class="token annotation punctuation">@UvFB9</span><span class="token punctuation">.</span>kt<span class="token punctuation">,</span>idCard<span class="token operator">=</span>V5bBdX<span class="token punctuation">,</span>name<span class="token operator">=</span>KM8<span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以看到 <code>age</code> 跟 <code>email</code> 已经正常了，可以通过他强大的配置功能对于数据进行生成的限制，但是你也发现了，对于一些有简单边界的数据，这样做可以，否则就像 address 、 name 这样的数据，很难通过简单规则去生成。</p>
+<p>而对于有现实意义的数据生成，可以使用 java-faker 框架。</p>
+<h3 id="Java-faker"><a href="#Java-faker" class="headerlink" title="Java-faker"></a>Java-faker</h3><h4 id="依赖-1"><a href="#依赖-1" class="headerlink" title="依赖"></a>依赖</h4><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.javafaker<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>javafaker<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.0.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="数据生成"><a href="#数据生成" class="headerlink" title="数据生成"></a>数据生成</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testRandomName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Faker faker <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Faker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">final</span> Name name <span class="token operator">=</span> faker<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"firstName : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">firstName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"username : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">username</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"bloodGroup : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">bloodGroup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"suffix : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">suffix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"title : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">title</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"lastName : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">lastName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"nameWithMiddle : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">nameWithMiddle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"fullName : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">fullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"name : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"prefix : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">prefix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="生成结果"><a href="#生成结果" class="headerlink" title="生成结果"></a>生成结果</h5><pre class="line-numbers language-java"><code class="language-java">firstName <span class="token operator">:</span> Hollis
+username <span class="token operator">:</span> cristy<span class="token punctuation">.</span>white
+bloodGroup <span class="token operator">:</span> O<span class="token operator">-</span>
+suffix <span class="token operator">:</span> Sr<span class="token punctuation">.</span>
+title <span class="token operator">:</span> Product Implementation Specialist
+lastName <span class="token operator">:</span> Johnston
+nameWithMiddle <span class="token operator">:</span> Alesia Hagenes Kiehn
+fullName <span class="token operator">:</span> Dr<span class="token punctuation">.</span> Pat Marvin
+name <span class="token operator">:</span> Ms<span class="token punctuation">.</span> Jamal Rau
+prefix <span class="token operator">:</span> Mr<span class="token punctuation">.</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以看到 java-faker 生成数据特别的方便，基本格式如下：</p>
+<pre class="line-numbers language-java"><code class="language-java">        Faker faker <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Faker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">final</span> Xx xx <span class="token operator">=</span> faker<span class="token punctuation">.</span><span class="token function">xx</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        xx<span class="token punctuation">.</span>yyyy<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>步骤：</p>
+<ol>
+<li>创建 faker 对象</li>
+<li>通过 faker 对象获得要生成的实体对象</li>
+<li>调用实体对象获得对于生成的部分</li>
+</ol>
+<p>这里的实体对象，对应上面的 name，也就说我们要生成姓名相关的数据，拿到实体对象后还可以只获得其中的部分数据，比如姓名中的姓或名，还有前缀，甚至血型，可以说是非常全面。</p>
+<p>而且 java-faker 支持的实体对象特别的多，如下：</p>
+<blockquote>
+<ul>
+<li>Address</li>
+<li>Ancient</li>
+<li>Animal</li>
+<li>App</li>
+<li>Aqua Teen Hunger Force</li>
+<li>Artist</li>
+<li>Avatar</li>
+<li>Back To The Future</li>
+<li>Aviation</li>
+<li>Basketball</li>
+<li>Beer</li>
+<li>Bojack Horseman</li>
+<li>Book</li>
+<li>Bool</li>
+<li>Business</li>
+<li>ChuckNorris</li>
+<li>Cat</li>
+<li>Code</li>
+<li>Coin</li>
+<li>Color</li>
+<li>Commerce</li>
+<li>Company</li>
+<li>Crypto</li>
+<li>DateAndTime</li>
+<li>Demographic</li>
+<li>Disease</li>
+<li>Dog</li>
+<li>DragonBall</li>
+<li>Dune</li>
+<li>Educator</li>
+<li>Esports</li>
+<li>File</li>
+<li>Finance</li>
+<li>Food</li>
+<li>Friends</li>
+<li>FunnyName</li>
+<li>GameOfThrones</li>
+<li>Gender</li>
+<li>Hacker</li>
+<li>HarryPotter</li>
+<li>Hipster</li>
+<li>HitchhikersGuideToTheGalaxy</li>
+<li>Hobbit</li>
+<li>HowIMetYourMother</li>
+<li>IdNumber</li>
+<li>Internet</li>
+<li>Job</li>
+<li>Kaamelott</li>
+<li>LeagueOfLegends</li>
+<li>Lebowski</li>
+<li>LordOfTheRings</li>
+<li>Lorem</li>
+<li>Matz</li>
+<li>Music</li>
+<li>Name</li>
+<li>Nation</li>
+<li>Number</li>
+<li>Options</li>
+<li>Overwatch</li>
+<li>PhoneNumber</li>
+<li>Pokemon</li>
+<li>Princess Bride</li>
+<li>Relationship Terms</li>
+<li>RickAndMorty</li>
+<li>Robin</li>
+<li>RockBand</li>
+<li>Shakespeare</li>
+<li>SlackEmoji</li>
+<li>Space</li>
+<li>StarTrek</li>
+<li>Stock</li>
+<li>Superhero</li>
+<li>Team</li>
+<li>TwinPeaks</li>
+<li>University</li>
+<li>Weather</li>
+<li>Witcher</li>
+<li>Yoda</li>
+<li>Zelda</li>
+</ul>
+</blockquote>
+<p>从身份证到姓名再到地址、动物、书籍、头像、职位等等，基本上覆盖了我们生活中的方方页面。</p>
+<p>另外，java-faker 更贴心的是帮我们实现了国际化，可能刚才看了姓名的例子，有些朋友觉得这个框架好看但不好用，就拿生成姓名来说，生成都是 Johnston、Tom、Kiwi 之类英文名，在国内很少用到这些数据。其实 java-faker 已经考虑到这个问题。而且只要改一行代码就可以了。</p>
+<h5 id="修改后的代码"><a href="#修改后的代码" class="headerlink" title="修改后的代码"></a>修改后的代码</h5><pre class="line-numbers language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// 原代码 Faker faker = new Faker();</span>
+        <span class="token comment" spellcheck="true">// 新代码</span>
+        Faker faker <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Faker</span><span class="token punctuation">(</span>Locale<span class="token punctuation">.</span>CHINA<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">final</span> Name name <span class="token operator">=</span> faker<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"firstName : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">firstName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"username : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">username</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"bloodGroup : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">bloodGroup</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"suffix : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">suffix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"title : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">title</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"lastName : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">lastName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"nameWithMiddle : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">nameWithMiddle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"fullName : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">fullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"name : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"prefix : "</span> <span class="token operator">+</span> name<span class="token punctuation">.</span><span class="token function">prefix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="生成结果-1"><a href="#生成结果-1" class="headerlink" title="生成结果"></a>生成结果</h5><pre class="line-numbers language-java"><code class="language-java">firstName <span class="token operator">:</span> 熠彤
+username <span class="token operator">:</span> 烨霖<span class="token punctuation">.</span>龙
+bloodGroup <span class="token operator">:</span> A<span class="token operator">-</span>
+suffix <span class="token operator">:</span> IV
+title <span class="token operator">:</span> Investor Division Engineer
+lastName <span class="token operator">:</span> 范
+nameWithMiddle <span class="token operator">:</span> 胡思
+fullName <span class="token operator">:</span> 孟鸿涛
+name <span class="token operator">:</span> 黎航
+prefix <span class="token operator">:</span> Miss
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>只需要，把之前的 Faker faker = new Faker(); 改成 Faker faker = new Faker(Locale.CHINA); 即可。如果你想生成其它国家的内容也是可以的，java-faker 支持的国家如下：</p>
+<blockquote>
+<ul>
+<li>bg</li>
+<li>ca</li>
+<li>ca-CAT</li>
+<li>da-DK</li>
+<li>de</li>
+<li>de-AT</li>
+<li>de-CH</li>
+<li>en</li>
+<li>en-AU</li>
+<li>en-au-ocker</li>
+<li>en-BORK</li>
+<li>en-CA</li>
+<li>en-GB</li>
+<li>en-IND</li>
+<li>en-MS</li>
+<li>en-NEP</li>
+<li>en-NG</li>
+<li>en-NZ</li>
+<li>en-PAK</li>
+<li>en-SG</li>
+<li>en-UG</li>
+<li>en-US</li>
+<li>en-ZA</li>
+<li>es</li>
+<li>es-MX</li>
+<li>fa</li>
+<li>fi-FI</li>
+<li>fr</li>
+<li>he</li>
+<li>hu</li>
+<li>in-ID</li>
+<li>it</li>
+<li>ja</li>
+<li>ko</li>
+<li>nb-NO</li>
+<li>nl</li>
+<li>pl</li>
+<li>pt</li>
+<li>pt-BR</li>
+<li>ru</li>
+<li>sk</li>
+<li>sv</li>
+<li>sv-SE</li>
+<li>tr</li>
+<li>uk</li>
+<li>vi</li>
+<li>zh-CN</li>
+<li>zh-TW</li>
+</ul>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="JmockData-1"><a href="#JmockData-1" class="headerlink" title="JmockData"></a>JmockData</h3><p>个人感觉它是 plus 版的 Random 类，方便简单的按类型生成数据，也可以自己给定配置与规则去生成，缺点，上文也说了，生成的数据没有太多实际意义，简单数据还好，如果像姓名、地址等有现实意义的数据，就不太合适了。</p>
+<h3 id="Java-faker-1"><a href="#Java-faker-1" class="headerlink" title="Java-faker"></a>Java-faker</h3><p>java-faker 其实是迁移自 ruby 中大名鼎鼎的 faker。很多语言都有他的对应迁移，比如 python、java。所以数据量和功能是很完善并且经过考验的，使用起来也很方便。实际工作中，可以优化使用。如果要说缺点，个人觉得他有些地方国际化的并不全面，比如车牌、身份证之类的。如果对于这些数据有比较严格的要求，推荐另一个项目 <a href="https://github.com/yindz/common-random" target="_blank" rel="noopener">yindz/common-random: 简单易用的随机数据生成器。</a>这个项目对于本地化数据，做了很多处理，基本够用。</p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2020/04/19/yuque-【测试】-Java如何优雅的生成测试数据/">https://blog.coder4j.cn/2020/04/19/yuque-【测试】-Java如何优雅的生成测试数据/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-04-19</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2020/04/19/yuque-【测试】-Java如何优雅的生成测试数据/,求索之路,【测试】 Java如何优雅的生成测试数据,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2020/08/22/yuque-【随笔】外卖与影子/" title="【随笔】外卖与影子">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2020/03/31/yuque-【随笔】开源之殇/" title="【随笔】开源之殇">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>dubbo 过滤器使用 · 求索之路</title><meta name="description" content="什么是 dubbo 过滤器学过 servlet 或 spring mvc 的同学都知道有一个叫作过滤器的东西。顾名思义他就是用于过滤的。它本身不产生请求或者响应，它只是修改对某一资源的请求，或者修改某一资源的响应。
+为什么需要 dubbo 过滤器对于有些操作，我们可能每个接口都需要使用。比如打印接口"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>dubbo 过滤器使用</a></h3></div><div class="post-content"><p><img src="https://cdn.nlark.com/yuque/0/2018/png/119443/1537282396426-96544e5f-a1b7-49e0-a244-850912ebbd96.png#width=458" alt></p>
+<h3 id="什么是-dubbo-过滤器"><a href="#什么是-dubbo-过滤器" class="headerlink" title="什么是 dubbo 过滤器"></a>什么是 dubbo 过滤器</h3><p>学过 servlet 或 spring mvc 的同学都知道有一个叫作过滤器的东西。顾名思义他就是用于过滤的。它本身不产生请求或者响应，它只是修改对某一资源的请求，或者修改某一资源的响应。</p>
+<h3 id="为什么需要-dubbo-过滤器"><a href="#为什么需要-dubbo-过滤器" class="headerlink" title="为什么需要 dubbo 过滤器"></a>为什么需要 dubbo 过滤器</h3><p>对于有些操作，我们可能每个接口都需要使用。比如打印接口调用的请求与响应信息，计算接口调用的时间。或者字符编码的转换。再或者就接口的权限判断。。。不胜枚举。对于这些通用且是大多数接口都会使用的内容。如果在第一个接口里面去实现或者调用，就太过于麻烦。这个时候就可以把它抽到一个调用接口时都会经过的地方去。这个地方就是过滤器。其实可以简单理解成接口层面的 AOP。</p>
+<h3 id="什么时候运行"><a href="#什么时候运行" class="headerlink" title="什么时候运行"></a>什么时候运行</h3><p>一般情况下过滤器不只一个。比如说有一个编码转换的过滤器，一个接口调用日志的过滤器，两个同时存在。因为打印日志时是使用一个固定编码的。所以为了防止打印时不产生乱码，必须要在编码转换过滤器之后运行。这种情况下我们就需要一个顺序。这也就形成了常说的过滤器链。至于如何控制顺序，会在下文介绍。</p>
+<h3 id="在哪种场景下使用"><a href="#在哪种场景下使用" class="headerlink" title="在哪种场景下使用"></a>在哪种场景下使用</h3><blockquote>
+<p>主要是一些通用的操作</p>
+</blockquote>
+<ol>
+<li><p>接口的调用日志打印</p>
+</li>
+<li><p>接口权限判断</p>
+</li>
+<li><p>编码转换</p>
+</li>
+</ol>
+<h3 id="相关角色有哪些"><a href="#相关角色有哪些" class="headerlink" title="相关角色有哪些"></a>相关角色有哪些</h3><p>对于 servlet 来说，一个是接口的调用方比如浏览器，爬虫。。。。，一个是提供的接口。对于 dubbo 来说，一个是生产者，一个是消费者。</p>
+<h3 id="怎么去使用-dubbo-过滤器"><a href="#怎么去使用-dubbo-过滤器" class="headerlink" title="怎么去使用 dubbo 过滤器"></a>怎么去使用 dubbo 过滤器</h3><ol>
+<li>继承<strong>com.alibaba.dubbo.rpc.Filter</strong>并且实现它的 <strong>invoke 方法。</strong></li>
+</ol>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>fshows<span class="token punctuation">.</span>fsframework<span class="token punctuation">.</span>extend<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>filter<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>rpc<span class="token punctuation">.</span>Filter<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>rpc<span class="token punctuation">.</span>Invocation<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>rpc<span class="token punctuation">.</span>Invoker<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>rpc<span class="token punctuation">.</span>Result<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>rpc<span class="token punctuation">.</span>RpcException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>fshows<span class="token punctuation">.</span>fsframework<span class="token punctuation">.</span>core<span class="token punctuation">.</span>utils<span class="token punctuation">.</span>SystemClock<span class="token punctuation">;</span>
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>extern<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Slf4j<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version LogFilter.java, v 0.1 2018-09-18 20:40 buhao
+ */</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LogFilter</span> <span class="token keyword">implements</span> <span class="token class-name">Filter</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Result <span class="token function">invoke</span><span class="token punctuation">(</span>Invoker<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> invoker<span class="token punctuation">,</span> Invocation invocation<span class="token punctuation">)</span> <span class="token keyword">throws</span> RpcException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 获得 RPC 方法名</span>
+        String methodName <span class="token operator">=</span> invoker<span class="token punctuation">.</span><span class="token function">getUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 获得开始时间</span>
+        <span class="token keyword">long</span> startTime <span class="token operator">=</span> SystemClock<span class="token punctuation">.</span><span class="token function">millisClock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 打印调用前日志</span>
+        <span class="token comment" spellcheck="true">// 获得参数</span>
+        Object<span class="token punctuation">[</span><span class="token punctuation">]</span> arguments <span class="token operator">=</span> invocation<span class="token punctuation">.</span><span class="token function">getArguments</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"RPC 接口开始 methodName = {}, agruments = {}"</span><span class="token punctuation">,</span> methodName<span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+        <span class="token comment" spellcheck="true">// 调用接口</span>
+        Result result <span class="token operator">=</span> invoker<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>invocation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 打印调用后日志</span>
+        <span class="token comment" spellcheck="true">// 抛出的异常</span>
+        Throwable exception <span class="token operator">=</span> result<span class="token punctuation">.</span><span class="token function">getException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 返回结果</span>
+        Object value <span class="token operator">=</span> result<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 打印结束日志</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>exception <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"RPC 接口异常结束 methodName = {},  exception = {}, time = {}ms "</span><span class="token punctuation">,</span> methodName<span class="token punctuation">,</span> exception<span class="token punctuation">,</span> SystemClock<span class="token punctuation">.</span><span class="token function">millisClock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> startTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"RPC 接口结束 methodName = {},  result ={}, time = {}ms "</span><span class="token punctuation">,</span> methodName<span class="token punctuation">,</span> value<span class="token punctuation">,</span> SystemClock<span class="token punctuation">.</span><span class="token function">millisClock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> startTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li><p>配置过滤器</p>
+<ol>
+<li><p>在 resources 目录下创建一个名为 META-INF 的目录</p>
+</li>
+<li><p>在 META-INF 的目录下创建一个名为 dubbo 目录</p>
+</li>
+<li><p>在 dubbo 目录下创建一个名为 <strong>com.alibaba.dubbo.rpc.Filter</strong> 的文本文件</p>
+</li>
+<li><p>在文本中配置自定义的过滤器</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>文件目录如下：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2018/png/119443/1537274909108-5f7e2642-b813-432d-95d9-6ee786c57adc.png#width=608" alt></p>
+<p><strong>com.alibaba.dubbo.rpc.Filter</strong>文件内容如下：</p>
+<blockquote>
+<p>内容： 过滤器名称=过滤器全限定名</p>
+</blockquote>
+<pre><code>logFilter=com.fshows.fsframework.extend.dubbo.filter.LogFilter
+</code></pre><blockquote>
+<p>至于为什么要这些写？因为这里使用的是 SPI 机制。类似于 spring 的 IOC,详情可以看<a href="https://juejin.im/post/5b9b1c115188255c5e66d18c" target="_blank" rel="noopener">理解的 Java 中 SPI 机制</a></p>
+</blockquote>
+<ol>
+<li>指定过滤器的拦截对象与过滤器顺序</li>
+</ol>
+<blockquote>
+<p>通过@Adaptive 去指定</p>
+</blockquote>
+<ul>
+<li>Adaptive 源码</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span>ElementType<span class="token punctuation">.</span>TYPE<span class="token punctuation">,</span> ElementType<span class="token punctuation">.</span>METHOD<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">Activate</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * Group过滤条件。
+     *
+
+     * 包含{@link ExtensionLoader#getActivateExtension}的group参数给的值，则返回扩展。
+     *
+
+     * 如没有Group设置，则不过滤。
+     */</span>
+    String<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">group</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Key过滤条件。包含{@link ExtensionLoader#getActivateExtension}的URL的参数Key中有，则返回扩展。
+     * &lt;p/>
+     * 示例：&lt;br/>
+     * 注解的值 &lt;code>@Activate("cache,validatioin")&lt;/code>，
+     * 则{@link ExtensionLoader#getActivateExtension}的URL的参数有&lt;code>cache&lt;/code>Key，或是&lt;code>validatioin&lt;/code>则返回扩展。
+     * &lt;br/>
+     * 如没有设置，则不过滤。
+     */</span>
+    String<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 排序信息，可以不提供。
+     */</span>
+    String<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">before</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 排序信息，可以不提供。
+     */</span>
+    String<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">after</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 排序信息，可以不提供。
+     */</span>
+    <span class="token keyword">int</span> <span class="token function">order</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><p>用法</p>
+<ul>
+<li><p>指定过滤器使用方</p>
+<pre><code>- group
+
+   - 例子 - 指定生产者使用
+
+      - ```
+</code></pre><p>@Activate(group = {Constants.PROVIDER})</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>
+   - 指定特定参数
+
+      - value
+
+         - 例子 - 指定参数 accessToken=123的参数使用
+
+            - ```java
+  @Activate(&quot;accessToken=123&quot;)
+</code></pre><pre><code>     - 例子 - 指定有 accessToken参数使用
+
+        - ```java
+</code></pre><p>@Activate(“accessToken”)</p>
+<pre><code>
+   - 指定过滤器顺序
+
+      - order
+
+         - 例子 - 数字越小优先级越高
+
+            - ```java
+  @Activate(order = -1)
+</code></pre><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://juejin.im/post/5ab0699f6fb9a028c42e0517" target="_blank" rel="noopener">Dubbo 过滤器 Filter 的使用及应用场景</a><br><a href="https://juejin.im/post/5b9b1c115188255c5e66d18c" target="_blank" rel="noopener">理解的 Java 中 SPI 机制</a><br><a href="http://dubbo.apache.org/zh-cn/docs/dev/SPI.html" target="_blank" rel="noopener">dubbo 官方文档-扩展点加载</a></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/2018/09/19/yuque-dubbo-过滤器使用/">https://blog.coder4j.cn/2018/09/19/yuque-dubbo-过滤器使用/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-09-19</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2018/09/19/yuque-dubbo-过滤器使用/,求索之路,dubbo 过滤器使用,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2019/04/21/yuque-创建-Java-对象有几种写法？/" title="创建 Java 对象有几种写法？">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2018/08/26/yuque-黑客马拉松比赛有感/" title="黑客马拉松比赛有感">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

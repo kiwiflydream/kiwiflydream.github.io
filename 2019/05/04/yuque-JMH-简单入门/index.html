@@ -1,0 +1,386 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>JMH 简单入门 · 求索之路</title><meta name="description" content="什么是 JMHJMH 是 Java Microbenchmark Harness 的缩写。中文意思大致是 “JAVA 微基准测试套件”。首先先明白什么是“基准测试”。百度百科给的定义如下：
+
+基准测试是指通过设计科学的测试方法、测试工具和测试系统，实现对一类测试对象的某项性能指标进行定量的和可对比的"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>JMH 简单入门</a></h3></div><div class="post-content"><p><img src="https://cdn.nlark.com/yuque/0/2018/png/119443/1545838278500-0e333b6c-2ca5-4a0a-a7d6-59799f11ff91.png#align=left&amp;display=inline&amp;height=480&amp;originHeight=480&amp;originWidth=720&amp;status=done&amp;width=720" alt></p>
+<h2 id="什么是-JMH"><a href="#什么是-JMH" class="headerlink" title="什么是 JMH"></a>什么是 JMH</h2><p>JMH 是 Java Microbenchmark Harness 的缩写。中文意思大致是 “JAVA 微基准测试套件”。首先先明白什么是“基准测试”。百度百科给的定义如下：</p>
+<blockquote>
+<p><a href="https://baike.baidu.com/item/%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/5876292" target="_blank" rel="noopener">基准测试</a>是指通过设计科学的测试方法、测试工具和测试系统，实现对一类测试对象的某项性能指标进行定量的和可对比的测试。</p>
+</blockquote>
+<p>可以简单的类比成我们电脑常用的鲁大师，或者手机常用的跑分软件安兔兔之类的性能检测软件。都是按一定的基准或者在特定条件下去测试某一对象的的性能，比如显卡、IO、CPU 之类的。</p>
+<h2 id="为什么要使用-JMH"><a href="#为什么要使用-JMH" class="headerlink" title="为什么要使用 JMH"></a>为什么要使用 JMH</h2><p>基准测试的特质有如下几种：</p>
+<blockquote>
+<p><strong>①、可重复性</strong>：可进行重复性的测试，这样做有利于比较每次的测试结果，得到性能结果的长期变化趋势，为系统调优和上线前的容量规划做参考。</p>
+<p><strong>②、可观测性</strong>：通过全方位的监控（包括测试开始到结束，执行机、服务器、数据库），及时了解和分析测试过程发生了什么。</p>
+<p><strong>③、可展示性</strong>：相关人员可以直观明了的了解测试结果（web 界面、仪表盘、折线图树状图等形式）。</p>
+<p><strong>④、真实性</strong>：测试的结果反映了客户体验到的真实的情况（真实准确的业务场景+与生产一致的配置+合理正确的测试方法）。</p>
+<p><strong>⑤、可执行性</strong>：相关人员可以快速的进行测试验证修改调优（可定位可分析）。</p>
+</blockquote>
+<p>可见要做一次符合特质的基准测试，是很繁琐也很困难的。外界因素很容易影响到最终的测试结果。特别对于 JAVA 的基准测试。</p>
+<p>有些文章会告诉我们 JAVA 是 C++编写的，一般来说 JAVA 编写的程序不太可能比 C++编写的代码运行效率更好。但是 JAVA 在某些场景的确要比 C++运行的更高效。不要觉得天方夜谭。其实 JVM 随着这些年的发展已经变得很智能，它会在运行期间不断的去优化。</p>
+<p>这对于我们程序来说是好事，但是对于性能测试就头疼的。你运行的次数与时间不同可能获得的结果也不同，很难获得一个比较稳定的结果。对于这种情况，有一个解决办法就是大量的重复调用，并且在真正测试前还要进行一定的预热，使结果尽可能的准确。</p>
+<p>除了这些，对于结果我们还需要一个很好的展示，可以让我们通过这些展示结果判断性能的好坏。</p>
+<p><strong>而这些 JMH 都有！</strong>😊</p>
+<h2 id="如何使用-JMH"><a href="#如何使用-JMH" class="headerlink" title="如何使用 JMH"></a>如何使用 JMH</h2><p>下面我们以字符串拼接的几种方法为例子使用 JMH 做基准测试。</p>
+<h3 id="1-导入依赖"><a href="#1-导入依赖" class="headerlink" title="1. 导入依赖"></a>1. 导入依赖</h3><blockquote>
+<p>JMH 是 JDK9 自带的，如果你是 JDK9 之前的版本也可以通过导入 openjdk</p>
+</blockquote>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.openjdk.jmh<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jmh-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.19<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.openjdk.jmh<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jmh-generator-annprocess<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.19<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-目录结构"><a href="#2-目录结构" class="headerlink" title="2. 目录结构"></a>2. 目录结构</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token keyword">.</span>
+├── pom.xml
+└── src
+   ├── main
+   │  └── java
+   │     └── cn
+   │        └── coder4j
+   │           └── study
+   │              └── demo
+   │                 └── jmh
+   │                    ├── benchmark
+   │                    │  └── StringConnectBenchmark.java
+   │                    └── runner
+   │                       └── StringBuilderRunner.java
+   └── <span class="token function">test</span>
+      └── java
+         └── cn
+            └── coder4j
+               └── study
+                  └── demo
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="3-具体代码"><a href="#3-具体代码" class="headerlink" title="3. 具体代码"></a>3. 具体代码</h3><ul>
+<li>StringBuilderRunner.java</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * coder4j.cn
+ * Copyright (C) 2013-2018 All Rights Reserved.
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>jmh<span class="token punctuation">.</span>runner<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>jmh<span class="token punctuation">.</span>benchmark<span class="token punctuation">.</span>StringConnectBenchmark<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>openjdk<span class="token punctuation">.</span>jmh<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>Mode<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>openjdk<span class="token punctuation">.</span>jmh<span class="token punctuation">.</span>runner<span class="token punctuation">.</span>Runner<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>openjdk<span class="token punctuation">.</span>jmh<span class="token punctuation">.</span>runner<span class="token punctuation">.</span>RunnerException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>openjdk<span class="token punctuation">.</span>jmh<span class="token punctuation">.</span>runner<span class="token punctuation">.</span>options<span class="token punctuation">.</span>Options<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>openjdk<span class="token punctuation">.</span>jmh<span class="token punctuation">.</span>runner<span class="token punctuation">.</span>options<span class="token punctuation">.</span>OptionsBuilder<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version StringBuilderRunner.java, v 0.1 2018-12-25 09:53 buhao
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StringBuilderRunner</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span> String<span class="token punctuation">[</span><span class="token punctuation">]</span> args <span class="token punctuation">)</span> <span class="token keyword">throws</span> RunnerException <span class="token punctuation">{</span>
+        Options opt <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OptionsBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">// 导入要测试的类</span>
+                <span class="token punctuation">.</span><span class="token function">include</span><span class="token punctuation">(</span>StringConnectBenchmark<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getSimpleName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">// 预热5轮</span>
+                <span class="token punctuation">.</span><span class="token function">warmupIterations</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">// 度量10轮</span>
+                <span class="token punctuation">.</span><span class="token function">measurementIterations</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">mode</span><span class="token punctuation">(</span>Mode<span class="token punctuation">.</span>Throughput<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">forks</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">new</span> <span class="token class-name">Runner</span><span class="token punctuation">(</span>opt<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>StringConnectBenchmark.java</li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * coder4j.cn
+ * Copyright (C) 2013-2018 All Rights Reserved.
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>jmh<span class="token punctuation">.</span>benchmark<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>openjdk<span class="token punctuation">.</span>jmh<span class="token punctuation">.</span>annotations<span class="token punctuation">.</span>Benchmark<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version StringConnectBenchmark.java, v 0.1 2018-12-25 09:29 buhao
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StringConnectBenchmark</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 字符串拼接之 StringBuilder 基准测试
+     */</span>
+    <span class="token annotation punctuation">@Benchmark</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testStringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 字符串拼接之直接相加基准测试
+     */</span>
+    <span class="token annotation punctuation">@Benchmark</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testStringAdd</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 字符串拼接之String Concat基准测试
+     */</span>
+    <span class="token annotation punctuation">@Benchmark</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testStringConcat</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token string">"3"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 字符串拼接之 StringBuffer 基准测试
+     */</span>
+    <span class="token annotation punctuation">@Benchmark</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testStringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 字符串拼接之 StringFormat 基准测试
+     */</span>
+    <span class="token annotation punctuation">@Benchmark</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testStringFormat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">print</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%s%s%s"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span>String str<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-运行结果"><a href="#4-运行结果" class="headerlink" title="4. 运行结果"></a>4. 运行结果</h3><pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Run progress: 93.33% complete, ETA 00:00:15</span>
+<span class="token comment" spellcheck="true"># Fork: 3 of 3</span>
+objc<span class="token punctuation">[</span>12440<span class="token punctuation">]</span>: Class JavaLaunchHelper is implemented <span class="token keyword">in</span> both /Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre/bin/java <span class="token punctuation">(</span>0x106a7d4c0<span class="token punctuation">)</span> and /Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre/lib/libinstrument.dylib <span class="token punctuation">(</span>0x106af74e0<span class="token punctuation">)</span>. One of the two will be used. Which one is undefined.
+<span class="token comment" spellcheck="true"># Warmup Iteration   1: 747281.755 ops/s</span>
+<span class="token comment" spellcheck="true"># Warmup Iteration   2: 924220.081 ops/s</span>
+<span class="token comment" spellcheck="true"># Warmup Iteration   3: 1129741.585 ops/s</span>
+<span class="token comment" spellcheck="true"># Warmup Iteration   4: 1135268.541 ops/s</span>
+<span class="token comment" spellcheck="true"># Warmup Iteration   5: 1062994.936 ops/s</span>
+Iteration   1: 1142834.160 ops/s
+Iteration   2: 1143207.472 ops/s
+Iteration   3: 1178363.827 ops/s
+Iteration   4: 1156408.897 ops/s
+Iteration   5: 1123123.829 ops/s
+Iteration   6: 1086029.992 ops/s
+Iteration   7: 1108795.147 ops/s
+Iteration   8: 1125522.731 ops/s
+Iteration   9: 1120021.744 ops/s
+Iteration  10: 1119916.181 ops/s
+
+
+Result <span class="token string">"cn.coder4j.study.demo.jmh.benchmark.StringConnectBenchmark.testStringFormat"</span><span class="token keyword">:</span>
+  1132633.183 ±<span class="token punctuation">(</span>99.9%<span class="token punctuation">)</span> 16252.303 ops/s <span class="token punctuation">[</span>Average<span class="token punctuation">]</span>
+  <span class="token punctuation">(</span>min, avg, max<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span>1082146.355, 1132633.183, 1182418.648<span class="token punctuation">)</span>, stdev <span class="token operator">=</span> 24325.684
+  CI <span class="token punctuation">(</span>99.9%<span class="token punctuation">)</span>: <span class="token punctuation">[</span>1116380.879, 1148885.486<span class="token punctuation">]</span> <span class="token punctuation">(</span>assumes normal distribution<span class="token punctuation">)</span>
+
+
+<span class="token comment" spellcheck="true"># Run complete. Total time: 00:03:57</span>
+
+Benchmark                                  Mode  Cnt          Score         Error  Units
+StringConnectBenchmark.testStringAdd      thrpt   30   63728919.269 ±  906608.141  ops/s
+StringConnectBenchmark.testStringBuffer   thrpt   30  112423521.098 ± 1157072.848  ops/s
+StringConnectBenchmark.testStringBuilder  thrpt   30  110558976.274 ±  654163.111  ops/s
+StringConnectBenchmark.testStringConcat   thrpt   30   44820009.200 ±  524305.660  ops/s
+StringConnectBenchmark.testStringFormat   thrpt   30    1132633.183 ±   16252.303  ops/s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="5-代码解析"><a href="#5-代码解析" class="headerlink" title="5. 代码解析"></a>5. 代码解析</h3><ul>
+<li>StringBuilderRunner</li>
+</ul>
+<p>这个 runner 类的作用，就是启动基准测试。</p>
+<p>JMH 通常有两种方式启动，一种就是通过命令行使用 maven 命令执行。这种适合对于大型基准测试，像那些要运行很多很多次，并且运行的时间也很长的情况下。你可以直接打个 jar 包，发到服务器上，敲个命令就不用管它，过几十分钟、几小时、几天的时间再回来看结果。</p>
+<p>但是很多情况下，我们只是想简单测试一个小功能，没必要还要搞台服务器去跑。所以 JMH 还提供了一种通过 Main 方法运行的方式，就如上面代码所示。</p>
+<p>在 Main 方法中，通过 org.openjdk.jmh.runner.Runner 类去运行 org.openjdk.jmh.runner.options.Options 实例即可。这里的重点在于 Options 对象的构建。官方提供了一个 OptionsBuilder 对象去构建。这个 Builder 对象是流式的。它的常用方法及对应的注解形式如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>参数</th>
+<th>作用</th>
+<th>对应注解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>include</td>
+<td>要运行基准测试类的简单名称 eg. StringConnectBenchmark</td>
+<td>指定要运行的基准测试类</td>
+<td>-</td>
+</tr>
+<tr>
+<td>exclude</td>
+<td>不要运行基准测试类的简单名称 eg. StringConnectBenchmark</td>
+<td>指定不要运行的基准测试类</td>
+<td>-</td>
+</tr>
+<tr>
+<td>warmupIterations</td>
+<td>预热的迭代次数</td>
+<td>指定预热的迭代次数</td>
+<td>@Warmup</td>
+</tr>
+<tr>
+<td>warmupBatchSize</td>
+<td>预热批量的大小</td>
+<td>指定预热批量的大小</td>
+<td>@Warmup</td>
+</tr>
+<tr>
+<td>warmupForks</td>
+<td>预热模式：INDI，BULK，BULK_INDI</td>
+<td>指定预热模式</td>
+<td>@Warmup</td>
+</tr>
+<tr>
+<td>warmupMode</td>
+<td>预热的模式</td>
+<td>指定预热的模式</td>
+<td>@Warmup</td>
+</tr>
+<tr>
+<td>warmupTime</td>
+<td>预热的时间</td>
+<td>指定预热的时间</td>
+<td>@Warmup</td>
+</tr>
+<tr>
+<td>measurementIterations</td>
+<td>测试的迭代次数</td>
+<td>指定测试的迭代次数</td>
+<td>@Measurement</td>
+</tr>
+<tr>
+<td>measurementBatchSize</td>
+<td>测试批量的大小</td>
+<td>指定测试批量的大小</td>
+<td>@Measurement</td>
+</tr>
+<tr>
+<td>measurementTime</td>
+<td>测试的时间</td>
+<td>指定测试的时间</td>
+<td>@Measurement</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>测试模式： Throughput（吞吐量）， AverageTime（平均时间），SampleTime（在测试中，随机进行采样执行的时间），SingleShotTime（在每次执行中计算耗时），All</td>
+<td>指定测试的模式</td>
+<td>@BenchmarkMode</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>StringConnectBenchmark</li>
+</ul>
+<p>这个就是真正执行基准测试的类，这个类很像单元测试的类，每个测试方法中写上你要执行的测试代码。只不过这里把@Test 换成了@Benchmark 注解。</p>
+<p>而加上了这个就指明这个方法是基准测试方法，当 Runner 类的 Main 方法运行时，它就会找这些被注解修饰的方法，再按指定的规则去进行基准测试。当然可能不同的方法有时候需要不同的规则，这个时间可以通过上面方法对应的注解形式去单独指定某个方法的规则即可。</p>
+<h3 id="6-结果解析"><a href="#6-结果解析" class="headerlink" title="6. 结果解析"></a>6. 结果解析</h3><p>结果主要分成三个部分。</p>
+<p>第一部分以 “#Warmup Iteration。。。。”这种形式的内容。这表明每次预热迭代的结果。</p>
+<p>另一部分以“Iteration。。。”形式内容，这表明每次基准测试迭代的结果。</p>
+<p>最后一部分以“Result。。。”形式的内容，这就是所有迭代跑完最终的结果。第一段结果告诉了我们最大值、最小值、平均值的信息。</p>
+<p>而最最后的表格结构的信息才是我们分析的重点，但是它输出的结果有点错位，刚开始我一直在纠结 Error 是 ±  906608.141 代表什么意思，google 了一圈发现，Error 它其实什么都没输出，而且 Score 是 63728919.269 ±  906608.141。我用表格排板了一下，解释如下：</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Mode</th>
+<th>Cnt</th>
+<th>Score</th>
+<th>Error</th>
+<th>Units</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基准测试执行的方法</td>
+<td>测试模式，这里是吞吐量</td>
+<td>运行多少次</td>
+<td>分数</td>
+<td>错误</td>
+<td>单位</td>
+</tr>
+<tr>
+<td>StringConnectBenchmark.testStringAdd</td>
+<td>thrpt</td>
+<td>30</td>
+<td>63728919.269 ±  906608.141</td>
+<td></td>
+<td>ops/s</td>
+</tr>
+<tr>
+<td>StringConnectBenchmark.testStringBuffer</td>
+<td>thrpt</td>
+<td>30</td>
+<td>112423521.098 ± 1157072.848</td>
+<td></td>
+<td>ops/s</td>
+</tr>
+<tr>
+<td>StringConnectBenchmark.testStringBuilder</td>
+<td>thrpt</td>
+<td>30</td>
+<td>110558976.274 ±  654163.111</td>
+<td></td>
+<td>ops/s</td>
+</tr>
+<tr>
+<td>StringConnectBenchmark.testStringConcat</td>
+<td>thrpt</td>
+<td>30</td>
+<td>44820009.200 ±  524305.660</td>
+<td></td>
+<td>ops/s</td>
+</tr>
+<tr>
+<td>StringConnectBenchmark.testStringFormat</td>
+<td>thrpt</td>
+<td>30</td>
+<td>1132633.183 ±   16252.303</td>
+<td></td>
+<td>ops/s</td>
+</tr>
+</tbody>
+</table>
+<p>结论：</p>
+<p>StringBuffer  &gt;= StringBuilder &gt; String 直接相加 &gt; StringConcat &gt;&gt; StringFormat</p>
+<p>可见 StringBuffer 与 StringBuilder 大致性能相同，都比直接相加高几个数量级，而且直接相加与 Concat 方法相加差不多。但是这里不管哪种都比 StringFormat 高 N 个数量级。<strong>所以 String 的 Format 方法一定要慎用、不用、禁用！！！</strong></p>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ol>
+<li><p><a href="http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/" target="_blank" rel="noopener">openjdk 官方 DEMO</a></p>
+</li>
+<li><p><a href="https://github.com/Childe-Chen/goodGoodStudy/tree/master/src/main/java/com/cxd/benchmark" target="_blank" rel="noopener">openjdk 官方 DEMO （翻译版）</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/imyalost/p/9630843.html" target="_blank" rel="noopener">浅谈基准测试</a></p>
+</li>
+<li><p><a href="http://www.blogjava.net/qileilove/archive/2012/07/05/382241.html" target="_blank" rel="noopener">什么是基准测试</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/myjcxd/article/details/83501333" target="_blank" rel="noopener">JMH 学习笔记</a>   ← 很不错</p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/bcb0b60c7ca7" target="_blank" rel="noopener">使用 JMH 做 JAVA 基准测试</a></p>
+</li>
+<li><p><a href="http://irfen.me/java-jmh-simple-microbenchmark/" target="_blank" rel="noopener">JMH 做 JAVA 基准测试</a></p>
+</li>
+</ol>
+<h3 id="代码链接"><a href="#代码链接" class="headerlink" title="代码链接"></a>代码链接</h3><ol>
+<li><a href="https://github.com/kiwiflydream/study-demo/tree/master/study-jmh-demo" target="_blank" rel="noopener">DEMO 代码链接</a></li>
+</ol>
+<p>本文地址 <a href="https://blog.coder4j.cn/2019/05/04/yuque-JMH-简单入门/">https://blog.coder4j.cn/2019/05/04/yuque-JMH-简单入门/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-05-04</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2019/05/04/yuque-JMH-简单入门/,求索之路,JMH 简单入门,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2019/05/04/yuque-碎碎念-02-20190511/" title="碎碎念-02(20190511)">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2019/04/25/yuque-碎碎念-01-20190504/" title="碎碎念-01(20190504)">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

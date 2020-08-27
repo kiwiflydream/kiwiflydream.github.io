@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>【Jasypt】给你的配置加把锁 · 求索之路</title><meta name="description" content="前言前几天，有个前同事向我吐槽，他们公司有个大神把公司的项目代码全部上传到了 github，并且是公开项目，所有人都可以浏览。更加恐怖的是项目里面包含配置文件，数据库信息、redis 配置、各种公钥私钥密码全在项目里面，也一同上传了。
+如果只是单纯的业务代码泄露，情况倒还好，因为别人知道你代码，要想"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>【Jasypt】给你的配置加把锁</a></h3></div><div class="post-content"><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1577972231962-a66da8bd-c22b-4924-bee6-ae77fd583bf9.png#align=left&amp;display=inline&amp;height=1584&amp;name=image.png&amp;originHeight=3168&amp;originWidth=4752&amp;size=2493712&amp;status=done&amp;style=none&amp;width=2376" alt="image.png"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前几天，有个前同事向我吐槽，他们公司有个大神把公司的项目代码全部上传到了 github，并且是公开项目，所有人都可以浏览。更加恐怖的是项目里面包含配置文件，数据库信息、redis 配置、各种公钥私钥密码全在项目里面，也一同上传了。</p>
+<p>如果只是单纯的业务代码泄露，情况倒还好，因为别人知道你代码，要想搞你，他必须要把源码看一遍，分析漏洞。 又因为代码上线，经过了层层测试，漏洞也不好找，至少短时间内不好找。但是别人拿到你的数据库信息，那就开启了上帝模式，想怎么玩就怎么玩，删库都不用跑路的。</p>
+<p>不过，还好他们发现的及时，第一时间删除了 github 上的项目，但是不能保证当时的项目没有人拉到本地，所以第二就是把配置文件内的各项配置都更改一遍，改配置听起来简单，但是要知道有些配置是不能热更新的。很多配置要把前一个配置修改后才能使用，新老配置不能共存，你改的瞬间运行的项目就崩了，必须要停机维护才可以。为了变更配置他们花了大量的人力物力与精力。</p>
+<p>其实这种惨痛的教训本可以避免的，防止配置泄露，通用的有两种形式。一种是使用配置中心，本地不保存配置，启动的时候从配置中心获取，这应该是最优解了。但是很多时候你所做的项目并没有使用配置中心，配置就在项目里面裸奔。这个时候就需要本地加密的形式防止配置泄露了，常用框架是  jasypt。同时它也是本文的主题，话不多说，直接开始，看看如果使用  jasypt 进行配置加密。</p>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.ulisesbocchio<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jasypt-spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.0.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>build</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugins</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plugin</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.github.ulisesbocchio<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jasypt-maven-plugin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.0.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugin</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>plugins</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>build</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>如果你使用了 spring boot 那么使用  jasypt 很简单，只要依赖一个  jasypt-spring-boot-starter 包就可以了。</p>
+<p>至于  jasypt-maven-plugin 是方便我们加密解密配置的 maven 插件，后面会说用法。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h3><pre class="line-numbers language-bash"><code class="language-bash">my.conf.test1<span class="token operator">=</span>123
+my.conf.test2<span class="token operator">=</span>DEC<span class="token punctuation">(</span>123<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 记得看最佳实践</span>
+jasypt.encryptor.password<span class="token operator">=</span>lE1rl5K$
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h3><p>总共有三个配置，第一个配置  <strong>my.conf.test1</strong> 是不需要加密的配置，第二个配置 <strong>my.conf.test2</strong> 是需要加密的配置，要加密的内容是 <strong>123</strong>。注意他的格式的是 <strong>DEC(待加密内容)</strong>。第三个 <strong>jasypt.encryptor.password</strong>  配置是我们的加密私钥，默认使用的加密算法是  <strong>PBEWITHHMACSHA512ANDAES_256</strong> ，这个密钥可以是任意字符串，而    <strong>lE1rl5K\$</strong> 只是我随机生成的，你可以自由发挥。</p>
+<h2 id="生成加密内容"><a href="#生成加密内容" class="headerlink" title="生成加密内容"></a>生成加密内容</h2><p>好了，到目前为止，我们的配置还是明文的。<strong>my.conf.test2</strong> 是我们想加密的配置，他与  <strong>my.conf.test1</strong> 唯一的区别就是多了一个 <strong>DEC()</strong> 包裹，这算哪门子加密，其实我们还差一步。还记得我们上面加依赖的时候，配置了一个 Maven 插件吗？现在就是用到他的时候，在我们的项目目录路径下执行如下命令：</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><pre class="line-numbers language-bash"><code class="language-bash"> mvn jasypt:encrypt -Djasypt.encryptor.password<span class="token operator">=</span><span class="token string">"lE1rl5K$"</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>注意在执行的时候，password 要换成你自己在上文配置的密钥。执行完后，看到终端输出了一大堆日志，然后就没有然后了。但是真的是这样吗？</p>
+<p>你再打开  <strong>application.properties</strong> 看一下，有什么不一样的地方。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">my.conf.test1<span class="token operator">=</span>123
+my.conf.test2<span class="token operator">=</span>ENC<span class="token punctuation">(</span>0ZWzuD2DH0BZ8ANGMZxQyC6wv84sQLJtE6u7bcRjU+DntbMgkBvE2Z4fSzKKhYN8<span class="token punctuation">)</span>
+jasypt.encryptor.password<span class="token operator">=</span>lE1rl5K$
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>我们发现，三个配置中其它两个是原来的样子，但是  <strong>my.conf.test2</strong> 变了，首先格式从之前 <strong>DEC(xxx)</strong> 变成了 <strong>ENC(xxx)</strong> 。另外括号的 <strong>123</strong> 变成了  <strong>0ZWzuD2DH0BZ8ANGMZxQyC6wv84sQLJtE6u7bcRjU+DntbMgkBvE2Z4fSzKKhYN8</strong> 。</p>
+<p>这其实就是配置加密后的样子。这条命令的功能其实很简单:</p>
+<ol>
+<li>从配置文件中加载配置</li>
+<li>从配置中找到有 <strong>DEC(xxx)</strong> 格式并且不是 <strong>jasypt</strong> 开头的配置</li>
+<li>使用配置的密钥加密并覆盖配置为 <strong>ENC(加密后的值)</strong></li>
+</ol>
+<p>另外通过插件也可以解密，使用</p>
+<pre class="line-numbers language-bash"><code class="language-bash">mvn jasypt:decrypt -Djasypt.encryptor.password<span class="token operator">=</span><span class="token string">"lE1rl5K$"</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>执行这条命令会反过来，把 <strong>ENC(xxx)</strong> 内容的配置解密成 <strong>DEC(明文)</strong> 打印在控制台，注意是控制台，而不是把配置文件变回去，作者说这样是为了安全。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="TestController-java"><a href="#TestController-java" class="headerlink" title="TestController.java"></a>TestController.java</h3><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+ *
+ *  * *
+ *  *  * blog.coder4j.cn
+ *  *  * Copyright (C) 2016-2019 All Rights Reserved.
+ *  *
+ *
+ */</span>
+<span class="token keyword">package</span> cn<span class="token punctuation">.</span>coder4j<span class="token punctuation">.</span>study<span class="token punctuation">.</span>example<span class="token punctuation">.</span>jasypt<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Value<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>GetMapping<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>PathVariable<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>RequestMapping<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>ResponseBody<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>RestController<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author buhao
+ * @version TestController.java, v 0.1 2019-12-26 10:55 buhao
+ */</span>
+<span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"${my.conf.test1}"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String confTest1<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"${my.conf.test2}"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String confTest2<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/getConf/{type}"</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@ResponseBody</span>
+    <span class="token keyword">public</span> Object <span class="token function">getConfTest</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span> Integer type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> confTest1<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> confTest2<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="说明-2"><a href="#说明-2" class="headerlink" title="说明"></a>说明</h3><p>代码其实很简单，首先通过  <a href="#">@Value</a>  的方式读取配置，同时把没有加密的配置与加密的配置都读出来，然后通过接口，当路径参数为 1 的时候返回没有经过加密的参数，当路径参数为 2 的时候返回加密过的参数。要是都返回 123 说明我们成功了。</p>
+<p>为了方便验证，直接用 IDEA 的内置工具，下面是验证结果：</p>
+<h4 id="未加密的参数"><a href="#未加密的参数" class="headerlink" title="未加密的参数"></a>未加密的参数</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1578230853814-3c4fa873-3041-4c12-8548-83e7ab0780e3.png#align=left&amp;display=inline&amp;height=143&amp;name=image.png&amp;originHeight=286&amp;originWidth=2082&amp;size=51195&amp;status=done&amp;style=none&amp;width=1041" alt="image.png"></p>
+<h4 id="经过加密的参数"><a href="#经过加密的参数" class="headerlink" title="经过加密的参数"></a>经过加密的参数</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1578230873283-6946fb5e-49bb-4059-ba48-84842ab57f18.png#align=left&amp;display=inline&amp;height=123&amp;name=image.png&amp;originHeight=246&amp;originWidth=1616&amp;size=37724&amp;status=done&amp;style=none&amp;width=808" alt="image.png"></p>
+<p>结果如我们所料，加密成功。</p>
+<p>获取配置的大致流程其中跟上面加密配置的流程大致反过来：</p>
+<ol>
+<li>拦截获取配置的操作</li>
+<li>如果拦截到的配置是 <strong>ENC(xxx)</strong> 格式</li>
+<li>读取  <strong>jasypt.encryptor.password</strong> 密钥</li>
+<li>通过密钥解密配置</li>
+</ol>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="密钥与配置分开保存"><a href="#密钥与配置分开保存" class="headerlink" title="密钥与配置分开保存"></a>密钥与配置分开保存</h3><p>可以看到，通过  jasypt 十分的方便，第一依赖，第二配置，其中配置除加密内容外还有一个  <strong>jasypt.encryptor.password</strong> 。这个前文也说了是用于加密与解密的密码，通过它可以加解密配置。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1578231764351-ed960bdc-af01-4417-85e1-d0d130d69e34.png#align=left&amp;display=inline&amp;height=191&amp;name=image.png&amp;originHeight=381&amp;originWidth=300&amp;size=71153&amp;status=done&amp;style=none&amp;width=150" alt="image.png"></p>
+<p>回到开头，我们加密的目的是为了防止代码泄露的时候把配置一起给泄露出去了。配置是没有问题了，我们加密了，但是我们同时把密钥也放在配置文件中了。这相当于什么呢？<strong>就像你把门给锁了，但是钥匙还插在锁上。</strong></p>
+<p>所以密钥一定要跟配置分开保存，通常是通过启动命令传给应用，比如下面这种：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">java -Djasypt.encryptor.password<span class="token operator">=</span><span class="token string">"password"</span> -jar my-application.jar
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果再保险一点，可以把密钥放在环境变量中，再通过命令传给应用。</p>
+<h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>默认使用的加密算法为对称加密  HHMAC ，既然有对称那肯定也有非对称。</p>
+<p>这里的对称与非对称指的是密钥的保存方式，对称加密是指的是加密与解密共用一个密钥，也就是说我用这个密钥即可以用来加密也可以用来解密。上一条说为了安全我们要把配置跟密钥分开保存，一般保存在两个地方，一个是线上服务器，一个是项目负责人的电脑上了，因为他要把配置从明文变成密文。为什么是项目负责人的电脑上，因为密钥不可能人手一份，那样又会增大泄露风险。</p>
+<p>但是这样的话又会出来一种问题，一个项目涉及了太多配置，我加一个配置找下项目负责人帮我生成个密文，加一个生成一个，项目负责人变成工具人了。</p>
+<p>这个时候我们可以通过非对称加密的方式来解决，这种方式的好处就是有一对密码，分别称为公钥与私钥，公钥用来生成加密数据，可以放心大胆人手一份，而私钥放在服务器上进行运行时候的解密工作，因篇幅有限，具体使用方式可以通过文末的链接查看官方文档。</p>
+<h3 id="环境隔离"><a href="#环境隔离" class="headerlink" title="环境隔离"></a>环境隔离</h3><p>配置肯定是区分环境的，有些环境安全等级没有那么高，比如开发与测试环境，没有必要加密。而预发及生产环境就需要加密，并且推荐使用不同的密钥，这样最大程度的避免安全问题。</p>
+<h2 id="其实相关"><a href="#其实相关" class="headerlink" title="其实相关"></a>其实相关</h2><ol>
+<li><a href="https://github.com/ulisesbocchio/jasypt-spring-boot" target="_blank" rel="noopener">jasypt-spring-boot</a> (jasypt 的 github 地址，有着详尽的文档)</li>
+<li><a href="https://github.com/kiwiflydream/study-example/tree/master/study-jasypt-example" target="_blank" rel="noopener">本文 DEMO</a> （因为文章篇幅有限，只展示部分代码，具体代码已上传 github）</li>
+</ol>
+<p>本文地址 <a href="https://blog.coder4j.cn/2020/01/02/yuque-【Jasypt】给你的配置加把锁/">https://blog.coder4j.cn/2020/01/02/yuque-【Jasypt】给你的配置加把锁/</a> </p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2020-01-02</span><i class="fa fa-tag"></i></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://blog.coder4j.cn/2020/01/02/yuque-【Jasypt】给你的配置加把锁/,求索之路,【Jasypt】给你的配置加把锁,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2020/02/06/yuque-【并发那些事】线程有序化神器CompletionService/" title="【并发那些事】线程有序化神器CompletionService">上一篇</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2019/12/01/yuque-【xmind】-使用-Java-生成思维导图/" title="【xmind】 使用 Java 生成思维导图">下一篇</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+  app_key:'M6soikk87YmsFLtgwu6vVqed',
+  placeholder:'ヾﾉ≧∀≦)o来啊，快活啊!',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

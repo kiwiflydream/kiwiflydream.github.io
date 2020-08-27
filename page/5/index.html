@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="KIWI,kiwiflydream@gmail.com"><meta name="referrer" content="no-referrer"><title>求索之路</title><meta name="description" content="A Blog Powered By Hexo"><meta name="keywords" content="Hexo,HTML,CSS,java,Linux,code,spring"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">求索之路</a></h3><div class="description"><p>路漫漫其修远兮，吾将上下而求索</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/1761079264"><i class="fa fa-weibo"></i></a></li><li><a href="http://github.com/kiwiflydream"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a class="current" href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">友链</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)" style="display:none;"> </a></li></div><div class="avatar"><img src="https://avatars2.githubusercontent.com/u/13311001"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-docker-安装-gitlab/">docker 安装 gitlab</a></h3></div><div class="post-content"><p>
+使用 docker 安装 gitlab
+
+# 安装 postgresql
+docker run --name=gitlab-postgresql -d --env DB_NAME=gitlabhq_prodution --env DB_USER=gitlab --env DB_PASS=password sam...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-linux-用户管理/">linux 用户管理</a></h3></div><div class="post-content"><p>添加用户useradd 用户名称
+adduser 用户名称
+
+Linux 添加新用户命令：useradd 与 adduser 的区别
+设置用户密码passwd 用户名称
+
+删除用户userdel 用户名称
+
+常见问题：添加后并设置密码仍无法登录?
+查看 /etc/ssh/sshd_config 文件中是否允许登录...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/08/18/yuque-nginx-常用配置/">nginx 常用配置</a></h3></div><div class="post-content"><p>配置结构
+常用配置
+配置 https
+
+server {
+    listen 443;
+    server_name localhost;
+    ssl on;
+    root html;
+    index index.html index.htm;
+    ssl_certificate   cert...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-08-18</span><i class="fa fa-tag"></i></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/06/20/Linux-Linux用户管理/">[Linux] Linux用户管理</a></h3></div><div class="post-content"><p>添加用户useradd 用户名称
+adduser 用户名称
+
+Linux添加新用户命令：useradd 与adduser的区别
+设置用户密码passwd 用户名称
+
+删除用户userdel 用户名称
+
+常见问题：添加后并设置密码仍无法登录?
+查看 /etc/ssh/sshd_config 文件中是否允许登录，更多...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-06-20</span><i class="fa fa-tag"></i><a class="tag" href="/tags/linux/" title="linux">linux </a></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/05/15/问题集-mysql-数据库存储表情/">[问题集] mysql 数据库存储表情</a></h3></div><div class="post-content"><p>问题出现原因
+Emoji表情符号为4个字节的字符，而 utf8 字符集只支持1-3个字节的字符，导致无法写入数据库。  
+
+环境
+语言
+java
+
+
+数据库连接池
+druid
+
+
+数据库
+mysql
+
+
+持久性框架
+mybatis
+
+
+
+数据库修改
+修改数据库字符集character-set-server=utf...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-05-15</span><i class="fa fa-tag"></i><a class="tag" href="/categories/问题/" title="问题">问题 </a><a class="tag" href="/tags/问题/" title="问题">问题 </a></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/04/02/转-有没有安全的工作？/">[转] 有没有安全的工作？</a></h3></div><div class="post-content"><p>
+本文由 简悦 SimpRead 转码， 原文地址 http://www.ruanyifeng.com/blog/2015/12/safe-job.html
+
+如果你经常使用互联网，可能知道有一种东西叫做 Flash。
+
+它是一种软件，用来制作网页游戏、动画，以及视频播放器。只要观看网络视频，基本都会用到它。
+七...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-04-02</span><i class="fa fa-tag"></i><a class="tag" href="/categories/转载/" title="转载">转载 </a><a class="tag" href="/tags/转载/" title="转载">转载 </a><a class="tag" href="/tags/职业道路/" title="职业道路">职业道路 </a></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/02/26/转-Java-8-开发的-4-大顶级技巧/">[转] Java 8 开发的 4 大顶级技巧</a></h3></div><div class="post-content"><p>
+本文由 简悦 SimpRead 转码， 原文地址 http://www.importnew.com/22417.html 译文出处： Elyn   原文出处：Java 8 Top Tips
+
+我使用 Java 8 编码已经有些年头，既用于新的应用程序，也用来迁移现有的应用，感觉是时候写一些我发现的非常有用的 “...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-02-26</span><i class="fa fa-tag"></i><a class="tag" href="/tags/jdk8/" title="jdk8">jdk8 </a></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/02/26/转-使用-Java8-Optional-的正确姿势/">[转] 使用 Java8 Optional 的正确姿势</a></h3></div><div class="post-content"><p>原文链接
+
+本文地址 https://blog.coder4j.cn/2018/02/26/转-使用-Java8-Optional-的正确姿势/ 
+</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-02-26</span><i class="fa fa-tag"></i><a class="tag" href="/tags/jdk8/" title="jdk8">jdk8 </a></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/02/26/转-版本号命名指南/">[转] 版本号命名指南</a></h3></div><div class="post-content"><p>
+本文由 简悦 SimpRead 转码， 原文地址 http://www.importnew.com/28063.html 原文出处： koala bear
+
+首先看看某些常见软件的版本号：
+
+Linux Kernel： 0.0.1，1.0.0，2.6.32，3.0.18…，若用 X.Y.Z 表示，则偶数 Y 表...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-02-26</span><i class="fa fa-tag"></i><a class="tag" href="/categories/程序员的自我修养/" title="程序员的自我修养">程序员的自我修养 </a><a class="tag" href="/tags/程序员的自我修养/" title="程序员的自我修养">程序员的自我修养 </a></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/2018/02/11/正则表达式简单教程/">[转] 正则表达式简明参考</a></h3></div><div class="post-content"><p>
+本文由 简悦 SimpRead 转码， 原文地址 http://xiaoleilu.com/regex-guide
+
+正则表达式简明参考2014-09-11
+前言我想在网上最出名的正则相关的一篇文章就是《正则表达式30分钟入门教程》了，说实话这篇文章确实是我的正则入门，但是随着使用熟练，冗长的文章已经不能满足我...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-02-11</span><i class="fa fa-tag"></i><a class="tag" href="/tags/正则/" title="正则">正则 </a></div></div></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/page/4/">上一页</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/page/6/">下一页</a></li></ul></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
