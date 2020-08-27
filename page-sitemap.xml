@@ -7,15 +7,15 @@
     </url>
     
     <url>
-        <loc>https://blog.coder4j.cn/categories/</loc>
-        <lastmod>2018-02-25T11:41:37.000Z</lastmod>
+        <loc>https://blog.coder4j.cn/about/</loc>
+        <lastmod>2020-08-27T04:09:29.388Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>https://blog.coder4j.cn/about/</loc>
-        <lastmod>2018-01-01T06:18:13.000Z</lastmod>
+        <loc>https://blog.coder4j.cn/categories/</loc>
+        <lastmod>2018-02-25T11:41:37.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
