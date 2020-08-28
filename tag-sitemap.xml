@@ -3,6 +3,76 @@
 
 
     <url>
+        <loc>https://blog.coder4j.cn/tags/qdox/</loc>
+        <lastmod>2020-08-28T15:35:19.885Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/spock/</loc>
+        <lastmod>2020-08-28T15:35:19.883Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/%25E5%25B9%25B6%25E5%258F%2591%25E9%2582%25A3%25E4%25BA%259B%25E4%25BA%258B/</loc>
+        <lastmod>2020-08-28T15:35:19.882Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/%25E9%259A%258F%25E7%25AC%2594/</loc>
+        <lastmod>2020-08-28T15:35:19.881Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/Maven/</loc>
+        <lastmod>2020-08-28T15:35:19.880Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/%25E7%25A2%258E%25E7%25A2%258E%25E5%25BF%25B5/</loc>
+        <lastmod>2020-08-28T15:35:19.880Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/Jasypt/</loc>
+        <lastmod>2020-08-28T15:35:19.876Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/%25E6%25B5%258B%25E8%25AF%2595/</loc>
+        <lastmod>2020-08-28T15:35:19.875Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/xmind/</loc>
+        <lastmod>2020-08-28T15:35:19.870Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/tags/websocket/</loc>
+        <lastmod>2020-08-28T15:35:19.869Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://blog.coder4j.cn/tags/linux/</loc>
         <lastmod>2018-06-20T14:24:39.000Z</lastmod>
         <changefreq>weekly</changefreq>

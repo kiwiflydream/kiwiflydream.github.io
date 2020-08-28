@@ -8,15 +8,22 @@
     </url>
     
     <url>
-        <loc>https://blog.coder4j.cn/about/</loc>
-        <lastmod>2020-08-27T04:09:29.388Z</lastmod>
+        <loc>https://blog.coder4j.cn/tags/</loc>
+        <lastmod>2020-08-28T16:10:17.537Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://blog.coder4j.cn/categories/</loc>
-        <lastmod>2018-02-25T11:41:37.000Z</lastmod>
+        <lastmod>2020-08-28T16:08:14.501Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://blog.coder4j.cn/about/</loc>
+        <lastmod>2020-08-27T04:09:29.388Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -31,13 +38,6 @@
     <url>
         <loc>https://blog.coder4j.cn/google2e6ddb0f2b7e1137.html</loc>
         <lastmod>2017-03-11T06:34:32.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://blog.coder4j.cn/tags/</loc>
-        <lastmod>2017-03-09T16:51:51.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
