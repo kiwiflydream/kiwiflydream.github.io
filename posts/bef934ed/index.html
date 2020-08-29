@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width,initial-scale=1"><title>[转]为什么年轻时要多赚钱？ | KIWI的碎碎念</title><meta name="description" content="本文由 简悦 SimpRead 转码， 原文地址 https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s?__biz=MjM5MTA4MjE5OA%3D%3D&amp;amp;mid=2660133503&amp;amp;idx=1&amp;amp;sn=cd14d3771918901b405008797c5728e8#wechat_redirect   文 | 王耳朵 来源 | 王耳朵先生（ID:huangezishib"><meta name="author" content="kiwi"><meta name="copyright" content="kiwi"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.coder4j.cn/posts/bef934ed/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><meta name="google-site-verification" content="UmogYJs8EkbHTfEA10dQGhMlcfWLykt1UZYncxv0OE0"/><meta name="baidu-site-verification" content="gFvKOYwT3Y"/><meta property="og:type" content="article"><meta property="og:title" content="[转]为什么年轻时要多赚钱？"><meta property="og:url" content="https://blog.coder4j.cn/posts/bef934ed/"><meta property="og:site_name" content="KIWI的碎碎念"><meta property="og:description" content="本文由 简悦 SimpRead 转码， 原文地址 https:&#x2F;&#x2F;mp.weixin.qq.com&#x2F;s?__biz=MjM5MTA4MjE5OA%3D%3D&amp;amp;mid=2660133503&amp;amp;idx=1&amp;amp;sn=cd14d3771918901b405008797c5728e8#wechat_redirect   文 | 王耳朵 来源 | 王耳朵先生（ID:huangezishib"><meta property="og:image" content="https://blog.coder4j.cn/img/random/material-13.png"><meta property="article:published_time" content="2018-01-06T14:06:33.000Z"><meta property="article:modified_time" content="2020-08-29T03:42:00.911Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'true'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"距离本文发布已经过去了","messageNext":"天，如果是技术相关文章，很可能已不适应最新版本，请留意。"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: true    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: false,
+  postUpdate: '2020-08-29 11:42:00'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="KIWI的碎碎念" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="KIWI的碎碎念" type="application/rss+xml">
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">70</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">47</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">33</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 读书</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/random/material-13.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">KIWI的碎碎念</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 读书</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">[转]为什么年轻时要多赚钱？</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-01-06T14:06:33.000Z" title="undefined 2018-01-06 22:06:33">2018-01-06</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><blockquote>
+<p>本文由 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://ksria.com/simpread/">简悦 SimpRead</a> 转码， 原文地址 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s?__biz=MjM5MTA4MjE5OA==&amp;mid=2660133503&amp;idx=1&amp;sn=cd14d3771918901b405008797c5728e8#wechat_redirect">https://mp.weixin.qq.com/s?__biz=MjM5MTA4MjE5OA%3D%3D&amp;mid=2660133503&amp;idx=1&amp;sn=cd14d3771918901b405008797c5728e8#wechat_redirect</a></p>
+</blockquote>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/ZsUic8pXgxFibEU1JABRpqPzSdmCYRCWiajsKBGPGOqcdAKZWSDLic6ibLtibYCfOjytScMdPR8tVyPwMdGOaPkYvczw/?wx_fmt=gif"></p>
+<p>文 | 王耳朵</p>
+<p>来源 | 王耳朵先生（ID:huangezishiba）</p>
+<p><strong>Part1</strong></p>
+<p><strong>那年，你 23 岁。第一次去女朋友家，见父母。</strong></p>
+<p>其实，以前你们也见过，在视频里。这次不一样，是女朋友父母的盛情邀请。</p>
+<p>坐在满满的一桌饭菜前，场面太正式，你有些隐隐不安。</p>
+<p>餐过半程，女朋友的父亲，果然开始提问，先是些无关紧要的话题，然后话锋一转：</p>
+<blockquote>
+<p>大概什么时候买房？</p>
+</blockquote>
+<p>旁边，女朋友的母亲，也漫不经心说，隔壁家老刘的准女婿，刚买了套三室两厅。</p>
+<p>你不知道，说些什么才好。你脑袋里，满是那张每月 4000 的工资卡。</p>
+<p>然后，气氛就冷了。你匆匆吃完饭，找了个公司有事的借口，当天就返程了。</p>
+<p><strong>一个星期后，你约了女朋友出来，平静地分了手。</strong></p>
+<p>她的泪水，就像决堤的坝，但你仍然冷静的走了。</p>
+<p>不是你冷静，而是你开始懂得，谈不起钱的爱情，注定走不远。</p>
+<p>爱情中可以没钱，但结婚不行。</p>
+<p><strong>Part2</strong></p>
+<p><strong>你 26 岁了，你终于有了些积蓄。</strong></p>
+<p>这三年，你去了新的城市，换了新工作。你曾拼命陪客户喝酒，也曾加班到天亮。</p>
+<p>你的工资翻了两倍，某个时刻，你甚至感觉全身充满了力量。你决定去买房。</p>
+<p>含着职业微笑的销售顾问，带你去了样板间。</p>
+<p>南北通透的户型，小区绿化很好，推开窗，你就能看到远方的山脊线。</p>
+<p>但问了总价，你就沉默了。房子涨价的速度，太快了。</p>
+<p>你慢慢走回家，决定过些日子，房价降了再买。但你打开朋友圈，看到的第一条动态，就是市民连夜排队买房。</p>
+<p>你知道，还不出手，可能再也追不上房价了。</p>
+<p>你狠下心，给父母打电话，拿来了他们的 10 万养老钱。你给所有的亲戚打电话，陪着笑脸，向他们借钱。</p>
+<p>三天后，凑够了首付，你去签了购房合同。</p>
+<p><strong>按上指印的那一刻，你的眼睛酸了。</strong></p>
+<p>有钱多好啊。</p>
+<p>你开始懂得，有钱，就有家，你就有稳稳的确定感。</p>
+<p><strong>Part3</strong></p>
+<p><strong>离 28 岁只有四个月的时候，你失去了工作。</strong></p>
+<p>是被动的失业，集团公司撤销了华南办事处，象征性地补偿后，你被遣散了。</p>
+<p>你开始重新找工作，从这个城市的南边，奔波到北边。</p>
+<p>你突然发现，过了 30 以后，工作越来越难找了。</p>
+<p>要么是薪水太低，要么是要求太高，一大群刚出校门的大学生，等在面试室外，随时准备把你 PK 掉。</p>
+<p><strong>还完 3 个月的房贷，你突然发现，卡里只剩下 1000 块钱了。</strong></p>
+<p>幸运的是，你终于赶在 28 岁前，找到了新工作。</p>
+<p>虽然公司距离住的地方，有点远，但一切看起来，都是有希望的样子。</p>
+<p>所以，28 岁生日那天，你特意给自己点了一个小小的蛋糕。烛光里，你安静的许愿。</p>
+<p>不是为了犒劳自己。</p>
+<p>而是你开始懂得，有时候，稳定的收入，也是有温度的。</p>
+<p>它能免你惊，免你苦，免你无枝可依。</p>
+<p><strong>Part4</strong></p>
+<p><strong>转眼，你 32 岁了，成了别人眼里的中产。</strong></p>
+<p>日子过得波澜不惊，一切都走上了正轨，孩子也已经 3 岁，该上幼儿园了。</p>
+<p>你有两种选择：楼下的双语幼稚园；或者是把他送到隔壁安置小区，那里也有一家民营的幼教机构。</p>
+<p>前一家，每月费用 4000，有外教。后一家，1800 就够了，老师都是中年的阿姨。</p>
+<p>你在电脑上，看了一晚上的虐童新闻，第二天早餐时，你和妻子说：</p>
+<blockquote>
+<p>就去那家 4000 块的优质幼儿园吧。</p>
+</blockquote>
+<p>你没有和妻子说，这段时间，公司正在进行岗位调整。</p>
+<p>你准备申请调岗，从现在悠闲的办公室工作，调到一线工作部门。虽然会累些，但收入会增加不少。</p>
+<p><strong>知道调岗的消息后，妻子果然抱怨了你，说你不自量力。</strong></p>
+<p>你没有辩解，相反你在心里笑了。</p>
+<p>因为你开始懂了，累是累些，但至少在孩子需要时，你不会囊中羞涩，你不会让他在起跑线上就输了。</p>
+<p><strong>Part5</strong></p>
+<p><strong>又过了三年。</strong></p>
+<p>所有的事情，都在向好处发展，你甚至有了野心勃勃的计划，等父母都退休了，就把他们接到身边来。</p>
+<p>但清晨，母亲的电话就来了，父亲在晨练时突发脑溢血，县城的医院束手无策。</p>
+<p>你疯了地开车，往老家赶，把父母接到了你住的一线城市里。</p>
+<p>你相信，这里有优质的医疗资源，有一流的医生，一切会重新回到原来的样子。</p>
+<p>在那家三甲医院里，科室里的医生，果然都给出了肯定的回答，你的父亲，也一天天好起来。</p>
+<p><strong>但每天几千块的支出，很快就让你感觉到了压力。父亲的医保证，在这里形同废纸。</strong></p>
+<p>两个月后，父亲坚持要出院。你不肯，但父亲用含糊的固执的声音告诉你，剩下的，就是康复训练了，老家也可以，哪里都一样。</p>
+<p>你送他们回家，平时三个小时的路程，你开了六个小时。</p>
+<p>因为你总是忍不住，想爬在方向盘上想哭。</p>
+<p>父母老去的速度，比你想象的快多了。</p>
+<p>你开始懂了，钱有时也是孝心。如果你有足够的钱，就不会对父母无能为力。</p>
+<p><strong>Part6</strong></p>
+<p>如果你没有经历过买房，你不会知道钱有多重要；</p>
+<p>如果你没有经历过家人生病，你不会知道，钱是多么不可或缺；</p>
+<p>如果你没有过月薪三千的生活，你不会知道，赚钱是为了什么。</p>
+<p>在《亲爱的安德烈》里，作家龙应台有一段话说的很好：</p>
+<blockquote>
+<p>“孩子，我要求你读书用功，不是因为我要你跟别人比成绩，而是，我希望你将来会拥有选择的权利，选择有意义、有时间的工作，而不是被迫谋生。”</p>
+</blockquote>
+<p>同样，为什么年轻时要努力赚钱？</p>
+<p><strong>不是为了成为富豪，也不是为了享受。</strong></p>
+<p>而是有一天，你有底气说，我可过上更好的生活；</p>
+<p>你也有底气对亲人说，亲爱的，别怕，一切有我。</p>
+<p>王尔德说：</p>
+<blockquote>
+<p>“我年轻时还以为金钱最重要，如今年纪大了，发现那句话一点不假。”</p>
+</blockquote>
+<p>千万别在年轻时假装不爱钱，你应该更努力一些。</p>
+<p><strong>我们努力赚钱，就是为了不对亲人无能为力，就是为了能够对世界说 “不”。</strong></p>
+<p>你为什么年轻时要多赚钱？这是我听过的最好的回答。</p>
+<ul>
+<li>作者简介：王耳朵先生，青年作家，知名媒体前首席记者，关注于职场和个人成长，千万级阅读代表作《别扯了，这世界上根本没有稳定的工作》，微信公众号：王耳朵先生（ID：huangezishiba）。转载请联系原作者授权！</li>
+</ul>
+<p>— THE END —</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mTzGsLCNvribcZPNdfZUzENkKhDafiaCqARhGjSB9lWicSctia48SvEicSINjd6WhiaXlfuVnmmXSM0veibjeOxjPBvuA/?wx_fmt=gif"></p>
+<p>本文地址 <a href="https://blog.coder4j.cn/posts/bef934ed/">https://blog.coder4j.cn/posts/bef934ed/</a> </p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">kiwi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.coder4j.cn/posts/bef934ed/">https://blog.coder4j.cn/posts/bef934ed/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.coder4j.cn" target="_blank">KIWI的碎碎念</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/random/material-13.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat_pay.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat_pay.png"/></a><div class="post-qr-code-desc"></div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/8e904538/"><img class="prev-cover" data-lazy-src="/img/random/material-2.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">人的一切痛苦，本质上都是对自己无能的愤怒</div></div></a></div><div class="next-post pull-right"><a href="/posts/17d41b3e/"><img class="next-cover" data-lazy-src="/img/random/material-14.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">[转] springboot 过滤器和拦截器的实现和区别</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" style="background-image: url(/img/random/material-13.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2015 - 2020 By kiwi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://blog.coder4j.cn/">blog</a>!</div><div class="icp"><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.miit.gov.cn"><img class="icp-icon" src="/img/icp.png"/><span>皖ICP备16020534号-1</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: '8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+      appKey: 'M6soikk87YmsFLtgwu6vVqed',
+      placeholder: '记得留下您的昵称与邮箱，可以快速收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>

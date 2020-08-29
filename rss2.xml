@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>KIWI的碎碎念</title>
+    <link>https://blog.coder4j.cn/</link>
+    
+    <atom:link href="https://blog.coder4j.cn/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>清醒时做事,糊涂时读书,大怒时睡觉,独处时思考。</description>
+    <pubDate>Sat, 29 Aug 2020 03:42:00 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>【随笔】外卖与影子</title>
+      <link>https://blog.coder4j.cn/posts/42ae089e/</link>
+      <guid>https://blog.coder4j.cn/posts/42ae089e/</guid>
+      <pubDate>Sat, 22 Aug 2020 08:38:46 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1598085674717-7de8bea9-c78a-4322-906f-a0c024260b1c.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/42ae089e/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【测试】 Java如何优雅的生成测试数据</title>
+      <link>https://blog.coder4j.cn/posts/ca9ab046/</link>
+      <guid>https://blog.coder4j.cn/posts/ca9ab046/</guid>
+      <pubDate>Sun, 19 Apr 2020 07:56:25 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1596466683511-3126376c-fb13-4a4c-9b14-3b31d8aa198c.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E6%B5%8B%E8%AF%95/">测试</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E6%B5%8B%E8%AF%95/">测试</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/ca9ab046/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【随笔】开源之殇</title>
+      <link>https://blog.coder4j.cn/posts/3bff6daa/</link>
+      <guid>https://blog.coder4j.cn/posts/3bff6daa/</guid>
+      <pubDate>Tue, 31 Mar 2020 11:40:26 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1585665681398-9d34e534-df66-4e</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/3bff6daa/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【Maven】maven 插件开发实战</title>
+      <link>https://blog.coder4j.cn/posts/7e8b6a7/</link>
+      <guid>https://blog.coder4j.cn/posts/7e8b6a7/</guid>
+      <pubDate>Mon, 30 Mar 2020 12:55:13 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1585583078647-c0a12206-3334-4eaf-9588-fd384bd43d3b.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/Maven/">Maven</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/Maven/">Maven</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/7e8b6a7/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【qdox】Java 代码解析利器 QDox</title>
+      <link>https://blog.coder4j.cn/posts/2a8bb95f/</link>
+      <guid>https://blog.coder4j.cn/posts/2a8bb95f/</guid>
+      <pubDate>Sun, 22 Mar 2020 09:41:02 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1584882725192-78d7799b-f010-48a2-b59a-0a16cf76ea10.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/qdox/">qdox</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/qdox/">qdox</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/2a8bb95f/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【并发那些事】线程有序化神器CompletionService</title>
+      <link>https://blog.coder4j.cn/posts/3df73832/</link>
+      <guid>https://blog.coder4j.cn/posts/3df73832/</guid>
+      <pubDate>Thu, 06 Feb 2020 14:23:26 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1582037585459-bd2594d2-21f6-4801-af65-dcf70611bfe0.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/3df73832/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【Jasypt】给你的配置加把锁</title>
+      <link>https://blog.coder4j.cn/posts/d0687c8b/</link>
+      <guid>https://blog.coder4j.cn/posts/d0687c8b/</guid>
+      <pubDate>Thu, 02 Jan 2020 13:01:16 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1577972231962-a66da8bd-c22b-4924-bee6-ae77fd583bf9.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/Jasypt/">Jasypt</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/Jasypt/">Jasypt</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/d0687c8b/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【xmind】 使用 Java 生成思维导图</title>
+      <link>https://blog.coder4j.cn/posts/a9d13c35/</link>
+      <guid>https://blog.coder4j.cn/posts/a9d13c35/</guid>
+      <pubDate>Sun, 01 Dec 2019 07:53:19 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/png/119443/1575186922937-956f55b0-1608-49c9-8ea9-0b09666ce294.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/xmind/">xmind</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/xmind/">xmind</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/a9d13c35/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【并发那些事】可见性问题的万恶之源</title>
+      <link>https://blog.coder4j.cn/posts/b2d626fd/</link>
+      <guid>https://blog.coder4j.cn/posts/b2d626fd/</guid>
+      <pubDate>Sun, 24 Nov 2019 02:34:38 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/png/119443/1574562962418-a57cff00-17f5-4cf6-b3e4-8f9706a83f4e.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/b2d626fd/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【并发那些事】生产者消费者问题</title>
+      <link>https://blog.coder4j.cn/posts/48faaa95/</link>
+      <guid>https://blog.coder4j.cn/posts/48faaa95/</guid>
+      <pubDate>Thu, 07 Nov 2019 14:20:03 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1573212056903-3511b031-63e5-4a9b-95f0-f9d05a784f14.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/48faaa95/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【spock】单测竟然可以如此丝滑</title>
+      <link>https://blog.coder4j.cn/posts/2022afcd/</link>
+      <guid>https://blog.coder4j.cn/posts/2022afcd/</guid>
+      <pubDate>Thu, 31 Oct 2019 12:39:45 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/png/119443/1572609587644-4b77e5fa-311b-407f-8b58-471ec19ecea0.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/spock/">spock</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/spock/">spock</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/2022afcd/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【碎碎念】03</title>
+      <link>https://blog.coder4j.cn/posts/d18db60a/</link>
+      <guid>https://blog.coder4j.cn/posts/d18db60a/</guid>
+      <pubDate>Thu, 24 Oct 2019 13:07:53 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1571922915604-f292746d-c365-4512-b514-06eca9c7cc66.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/d18db60a/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【websocket】spring boot 集成 websocket 的四种方式</title>
+      <link>https://blog.coder4j.cn/posts/2bed5d1c/</link>
+      <guid>https://blog.coder4j.cn/posts/2bed5d1c/</guid>
+      <pubDate>Tue, 22 Oct 2019 09:11:33 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1571838520170-96049339-d6e2-438f-9fe5-3119d6f5ebd5.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/websocket/">websocket</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/websocket/">websocket</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/2bed5d1c/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【并发那些事】创建线程的三种方式</title>
+      <link>https://blog.coder4j.cn/posts/8dfe4337/</link>
+      <guid>https://blog.coder4j.cn/posts/8dfe4337/</guid>
+      <pubDate>Wed, 16 Oct 2019 07:21:09 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1571210975395-ea234d96-3b78-421d-92f5-1efdb5cfb706.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/8dfe4337/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【随笔】跳出程序员思维看世界</title>
+      <link>https://blog.coder4j.cn/posts/9f58e145/</link>
+      <guid>https://blog.coder4j.cn/posts/9f58e145/</guid>
+      <pubDate>Sun, 13 Oct 2019 01:03:53 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1570951045907-9a52ecf3-6ca0-4795-9de3-bdf2a8a92c9b.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/9f58e145/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【随笔】爱因斯坦与科举制</title>
+      <link>https://blog.coder4j.cn/posts/ab94273d/</link>
+      <guid>https://blog.coder4j.cn/posts/ab94273d/</guid>
+      <pubDate>Mon, 30 Sep 2019 13:07:39 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;前段时间知乎上有一个热门问题–《&lt;a href=&quot;https://www.zhihu.com/question/333199024/answer/746004419&quot;&gt;历史上有哪两件事听起来不在同一个年代实际上却同时发生的?&lt;/a&gt;》。点赞最高的是下面这个答案。&lt;br&gt;&lt;i</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/ab94273d/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>一个好看又能打的 swagger 工具包</title>
+      <link>https://blog.coder4j.cn/posts/5f40214/</link>
+      <guid>https://blog.coder4j.cn/posts/5f40214/</guid>
+      <pubDate>Thu, 12 Sep 2019 15:17:02 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;【Swagger】可能是目前最好的-Spring-Boot-集成-swagger-的项目&quot;&gt;&lt;a href=&quot;#【Swagger】可能是目前最好的-Spring-Boot-集成-swagger-的项目&quot; class=&quot;headerlink&quot; title=&quot;【Swa</description>
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.coder4j.cn/posts/5f40214/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【碎碎念】02(20190511)</title>
+      <link>https://blog.coder4j.cn/posts/f8a1a670/</link>
+      <guid>https://blog.coder4j.cn/posts/f8a1a670/</guid>
+      <pubDate>Sat, 04 May 2019 03:56:59 GMT</pubDate>
+      
+        
+        
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;如果想要更好的阅读体验，请点击文章末尾的阅读原文跳转语雀阅读。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;1-动物世界&quot;&gt;&lt;a href=&quot;#1-动物世界&quot; class=&quot;headerlink&quot; titl</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/f8a1a670/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>JMH 简单入门</title>
+      <link>https://blog.coder4j.cn/posts/b8755310/</link>
+      <guid>https://blog.coder4j.cn/posts/b8755310/</guid>
+      <pubDate>Sat, 04 May 2019 02:45:36 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2018/png/119443/1545838278500-0e333b6c-2ca5-4a0a-a7d6-59799f11ff91.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.coder4j.cn/posts/b8755310/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【碎碎念】01(20190504)</title>
+      <link>https://blog.coder4j.cn/posts/1df65e03/</link>
+      <guid>https://blog.coder4j.cn/posts/1df65e03/</guid>
+      <pubDate>Thu, 25 Apr 2019 13:32:56 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h4 id=&quot;1-生命、宇宙以及任何事情的终极答案&quot;&gt;&lt;a href=&quot;#1-生命、宇宙以及任何事情的终极答案&quot; class=&quot;headerlink&quot; title=&quot;1. 生命、宇宙以及任何事情的终极答案&quot;&gt;&lt;/a&gt;1. 生命、宇宙以及任何事情的终极答案&lt;/h4&gt;&lt;blockq</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/1df65e03/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>

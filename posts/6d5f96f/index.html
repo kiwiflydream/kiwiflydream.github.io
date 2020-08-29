@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width,initial-scale=1"><title>[转] 有没有安全的工作？ | KIWI的碎碎念</title><meta name="description" content="本文由 简悦 SimpRead 转码， 原文地址 http:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;blog&#x2F;2015&#x2F;12&#x2F;safe-job.html  如果你经常使用互联网，可能知道有一种东西叫做 Flash。  它是一种软件，用来制作网页游戏、动画，以及视频播放器。只要观看网络视频，基本都会用到它。 七八年前，它是最热门的互联网技术之一。如果不安装 Flash，很多网站根本打不开。那时还流"><meta name="keywords" content="转载,职业道路"><meta name="author" content="kiwi"><meta name="copyright" content="kiwi"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.coder4j.cn/posts/6d5f96f/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><meta name="google-site-verification" content="UmogYJs8EkbHTfEA10dQGhMlcfWLykt1UZYncxv0OE0"/><meta name="baidu-site-verification" content="gFvKOYwT3Y"/><meta property="og:type" content="article"><meta property="og:title" content="[转] 有没有安全的工作？"><meta property="og:url" content="https://blog.coder4j.cn/posts/6d5f96f/"><meta property="og:site_name" content="KIWI的碎碎念"><meta property="og:description" content="本文由 简悦 SimpRead 转码， 原文地址 http:&#x2F;&#x2F;www.ruanyifeng.com&#x2F;blog&#x2F;2015&#x2F;12&#x2F;safe-job.html  如果你经常使用互联网，可能知道有一种东西叫做 Flash。  它是一种软件，用来制作网页游戏、动画，以及视频播放器。只要观看网络视频，基本都会用到它。 七八年前，它是最热门的互联网技术之一。如果不安装 Flash，很多网站根本打不开。那时还流"><meta property="og:image" content="https://blog.coder4j.cn/img/random/material-11.png"><meta property="article:published_time" content="2018-04-02T11:42:00.000Z"><meta property="article:modified_time" content="2020-08-29T03:42:00.915Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'true'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"距离本文发布已经过去了","messageNext":"天，如果是技术相关文章，很可能已不适应最新版本，请留意。"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: true    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: false,
+  postUpdate: '2020-08-29 11:42:00'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="KIWI的碎碎念" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="KIWI的碎碎念" type="application/rss+xml">
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">70</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">47</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">33</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 读书</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/random/material-11.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">KIWI的碎碎念</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 读书</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">[转] 有没有安全的工作？</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-04-02T11:42:00.000Z" title="undefined 2018-04-02 19:42:00">2018-04-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><blockquote>
+<p>本文由 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://ksria.com/simpread/">简悦 SimpRead</a> 转码， 原文地址 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.ruanyifeng.com/blog/2015/12/safe-job.html">http://www.ruanyifeng.com/blog/2015/12/safe-job.html</a></p>
+</blockquote>
+<p>如果你经常使用互联网，可能知道有一种东西叫做 Flash。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015121501.jpg"></p>
+<p>它是一种软件，用来制作网页游戏、动画，以及视频播放器。只要观看网络视频，基本都会用到它。</p>
+<p>七八年前，它是最热门的互联网技术之一。如果不安装 Flash，很多网站根本打不开。那时还流行用它制作动画，随便一个作品，就有几十万、上百万的浏览量。电视台甚至开辟栏目，播放网上流行的 Flash 动画。各大互联网公司都有专门的 Flash 工程师，还是属于那种比较抢手、收入较高的工程师。我记得那个时候，社会上也有大量的 Flash 培训班，它们的招生广告都写着保证就业。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015121502.jpg"></p>
+<p>后来，Flash 就不行了。2010 年，乔布斯宣布，苹果手机不会使用 Flash，因为影响手机性能。再后来，新的技术兴起，它就开始没落了。上个月，BBC 发表一篇报道，名字就叫<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.bbc.com/news/technology-34799790">《Flash 还能活多久？》</a>。话音刚落，一周后，这项技术的拥有者 Adobe 公司<a target="_blank" rel="noopener external nofollow noreferrer" href="http://arstechnica.com/information-technology/2015/12/adobe-to-kill-off-flash-in-januarys-creative-cloud-update/">宣布</a>，放弃 Flash 这个名字，软件将<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zdnet.com/article/adobe-renames-flash-professional-to-animate-pivots-to-html5/">重新定位</a>，只用来制作动画。</p>
+<p>说了这么多，我并不是感叹 Flash 这项技术的没落，这也是很正常的事，而是感叹那些从事 Flash 开发的工程师，他们该怎么办呢？你在一个领域钻研多年，都成了专家，突然之间那个领域过时了，你的所学所长没人需要了，那将是怎样的处境？</p>
+<p>那些年里，我在上海遇见过一个朋友。他开了一家软件公司，专门面向海外市场开发 Flash 游戏。公司不大，十几个人，那时正是最好的年景，每个月都有几十万、甚至上百万人民币进账，看上去前景一片大好。可是，谁能想到 Flash 技术突然就会不行了呢？开始时，公司还能维持，后来手机游戏起来了，Flash 游戏的市场顿时萎缩。我见过他的招聘广告，改招手机游戏的开发者。再后来，就再没听到过他的消息。</p>
+<p>当一种技术消亡的时候，与它相关的工作岗位也就消亡了。这种事情在技术行业特别多，因为技术的升级换代太快了。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015121503.jpg"></p>
+<p>我再举一个例子。苹果手机出现之前，最流行的手机都使用 Nokia 公司开发的 “塞班” 操作系统。你可能还记得，它的典型标志就是 “九宫格” 菜单。那时，塞班工程师也是非常抢手的，彻底掌握它那一套开发技术，我估计至少要一两年时间。后来，智能手机流行，塞班一败涂地。2010 年，诺基亚宣布放弃塞班，改用微软的操作系统。再后来，Nokia 自己也没了，所有手机工程师都遣散了。我知道，Nokia 中国有一个资深工程师，选择重进大学去读 MBA 学位。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015121504.jpg"></p>
+<p>试想一下，你花了多年的心血，孜孜不倦地投入和练习，终于掌握了一门赖以谋生的手艺，还进入了世界排名第一位的通信业跨国公司。就在你觉得人生终于有一点安全感的时候，一切就变了，几年之间，曾经的巨无霸土崩瓦解，不仅你的职位没了，更可怕的是，以前的产品已经没人用了，全世界现在不生产任何塞班设备。你的手艺的价值变成了零。</p>
+<p>有人说，可以再学习、然后重新就业啊，塞班不行了，可以学习苹果手机开发。没错，说得完全正确。但是，你以前的积累没了，需要从零开始。跟现在刚刚走出校门的学生，站在同一条起跑线上，学习同样的东西。说实话，虽然你有几年开发经验，但很可能并没有那些 20 岁的年轻人学得快。在一个高速变化的行业，经验有时候不是帮助，而是障碍，因为以前的那套行不通了。退一步说，就算你重新学习了，但苹果手机的开发也在变，你得不停地追赶新东西 。一个人的人生，能经受得起多少次从零开始呢？</p>
+<p>“终身学习” 这个词完全没错，但是想通过 “终身学习” 保持职业竞争力，我觉得不太可能。</p>
+<p>程序员，乃至其他很多技术岗位，其实是青春饭。只有底层的技术，还有一些稳定性，越接近应用层，技术的升级换代就越快。你学会一门技术，然后吃上三十年，这种事情越来越少见了。更常见的是，几年以后，你会的东西就淘汰了，你被迫重新学习新东西，或者重新就业。</p>
+<p>为什么中国很少见 35 岁以上的程序员？因为他们上学时学习的东西都淘汰了，必须和年轻人一起学习新技术。你很难比年轻人更有竞争力，其中最关键的是，雇佣刚走出校门的学生，比雇佣你便宜得多。</p>
+<p>其他行业的升级换代，不如技术行业那么夸张和激进。职业的安全感可以保持得更久一些，但远不是高枕无忧。技术正在取代人力劳动，比如财务会计这样的行业，随着电子支付的兴起，将来肯定不会需要这么多财务人员。”互联网 +” 从某个方面说，就是使用互联网技术取代一部分人力，更便宜地服务更多的顾客。</p>
+<p>回到本文的题目，世界上有没有安全的工作？应该是有的吧，但真的不多。公务员可能比较安全，因为这个职业改变得比较缓慢，而且没有技术升级的压力。医生和律师，也比较安全，因为对于这些行业，经验很重要，但技术正在把它们的成本降下来。厨师和物流，也是比较安全的行业，因为技术再进步，也总需要人来做饭和送货，但是它们是纯粹的体力劳动，没有进入门槛，供给非常大，想拿到高工资不容易。</p>
+<p>最终来说，人类社会的就业形态正在发生深刻的改变，”终生职业” 越来越少了。每个人都应该尽早打算，如果明天你的职业消失了，你该怎么办？</p>
+<p>[说明] 原文发表在<a target="_blank" rel="noopener external nofollow noreferrer" href="http://culture.caixin.com/2015-12-11/100885728.html">《财新周刊》</a>（2015 年 12 月 11 日）的专栏。</p>
+<p>本文地址 <a href="https://blog.coder4j.cn/posts/6d5f96f/">https://blog.coder4j.cn/posts/6d5f96f/</a> </p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">kiwi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.coder4j.cn/posts/6d5f96f/">https://blog.coder4j.cn/posts/6d5f96f/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.coder4j.cn" target="_blank">KIWI的碎碎念</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a><a class="post-meta__tags" href="/tags/%E8%81%8C%E4%B8%9A%E9%81%93%E8%B7%AF/">职业道路</a></div><div class="post_share"><div class="social-share" data-image="/img/random/material-11.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat_pay.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat_pay.png"/></a><div class="post-qr-code-desc"></div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/b2644b76/"><img class="prev-cover" data-lazy-src="/img/random/material-1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">[问题集] mysql 数据库存储表情</div></div></a></div><div class="next-post pull-right"><a href="/posts/e0656c9c/"><img class="next-cover" data-lazy-src="/img/random/material-19.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">[转] Java 8 开发的 4 大顶级技巧</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/17d41b3e/" title="[转] springboot 过滤器和拦截器的实现和区别"><img class="relatedPosts_cover" data-lazy-src="/img/random/material-14.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2018-01-02</div><div class="relatedPosts_title">[转] springboot 过滤器和拦截器的实现和区别</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" style="background-image: url(/img/random/material-11.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2015 - 2020 By kiwi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://blog.coder4j.cn/">blog</a>!</div><div class="icp"><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.miit.gov.cn"><img class="icp-icon" src="/img/icp.png"/><span>皖ICP备16020534号-1</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: '8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+      appKey: 'M6soikk87YmsFLtgwu6vVqed',
+      placeholder: '记得留下您的昵称与邮箱，可以快速收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>

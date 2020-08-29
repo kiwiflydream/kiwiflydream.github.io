@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【Jasypt】给你的配置加把锁 | KIWI的碎碎念</title><meta name="description" content="前言前几天，有个前同事向我吐槽，他们公司有个大神把公司的项目代码全部上传到了 github，并且是公开项目，所有人都可以浏览。更加恐怖的是项目里面包含配置文件，数据库信息、redis 配置、各种公钥私钥密码全在项目里面，也一同上传了。 如果只是单纯的业务代码泄露，情况倒还好，因为别人知道你代码，要想搞你，他必须要把源码看一遍，分析漏洞。 又因为代码上线，经过了层层测试，漏洞也不好找，至少短时间内不"><meta name="keywords" content="Jasypt"><meta name="author" content="kiwi"><meta name="copyright" content="kiwi"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.coder4j.cn/posts/d0687c8b/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><meta name="google-site-verification" content="UmogYJs8EkbHTfEA10dQGhMlcfWLykt1UZYncxv0OE0"/><meta name="baidu-site-verification" content="gFvKOYwT3Y"/><meta property="og:type" content="article"><meta property="og:title" content="【Jasypt】给你的配置加把锁"><meta property="og:url" content="https://blog.coder4j.cn/posts/d0687c8b/"><meta property="og:site_name" content="KIWI的碎碎念"><meta property="og:description" content="前言前几天，有个前同事向我吐槽，他们公司有个大神把公司的项目代码全部上传到了 github，并且是公开项目，所有人都可以浏览。更加恐怖的是项目里面包含配置文件，数据库信息、redis 配置、各种公钥私钥密码全在项目里面，也一同上传了。 如果只是单纯的业务代码泄露，情况倒还好，因为别人知道你代码，要想搞你，他必须要把源码看一遍，分析漏洞。 又因为代码上线，经过了层层测试，漏洞也不好找，至少短时间内不"><meta property="og:image" content="https://blog.coder4j.cn/img/random/material-13.png"><meta property="article:published_time" content="2020-01-02T13:01:16.000Z"><meta property="article:modified_time" content="2020-08-29T03:42:00.938Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'true'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"距离本文发布已经过去了","messageNext":"天，如果是技术相关文章，很可能已不适应最新版本，请留意。"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: true    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-08-29 11:42:00'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="KIWI的碎碎念" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="KIWI的碎碎念" type="application/rss+xml">
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">70</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">47</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">33</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 读书</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96"><span class="toc-number">2.</span> <span class="toc-text">依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pom-xml"><span class="toc-number">2.1.</span> <span class="toc-text">pom.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">2.2.</span> <span class="toc-text">说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#application-properties"><span class="toc-number">3.1.</span> <span class="toc-text">application.properties</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E-1"><span class="toc-number">3.2.</span> <span class="toc-text">说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%8A%A0%E5%AF%86%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">生成加密内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-number">4.1.</span> <span class="toc-text">命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">5.</span> <span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TestController-java"><span class="toc-number">5.1.</span> <span class="toc-text">TestController.java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E-2"><span class="toc-number">5.2.</span> <span class="toc-text">说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E5%8A%A0%E5%AF%86%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">5.2.1.</span> <span class="toc-text">未加密的参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%8F%E8%BF%87%E5%8A%A0%E5%AF%86%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">5.2.2.</span> <span class="toc-text">经过加密的参数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">6.</span> <span class="toc-text">最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%88%86%E5%BC%80%E4%BF%9D%E5%AD%98"><span class="toc-number">6.1.</span> <span class="toc-text">密钥与配置分开保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">6.2.</span> <span class="toc-text">非对称加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB"><span class="toc-number">6.3.</span> <span class="toc-text">环境隔离</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%9E%E7%9B%B8%E5%85%B3"><span class="toc-number">7.</span> <span class="toc-text">其实相关</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(/img/random/material-13.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">KIWI的碎碎念</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 读书</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">【Jasypt】给你的配置加把锁</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2020-01-02T13:01:16.000Z" title="undefined 2020-01-02 21:01:16">2020-01-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Jasypt/">Jasypt</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1577972231962-a66da8bd-c22b-4924-bee6-ae77fd583bf9.png#align=left&display=inline&height=1584&name=image.png&originHeight=3168&originWidth=4752&size=2493712&status=done&style=none&width=2376" alt="image.png"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前几天，有个前同事向我吐槽，他们公司有个大神把公司的项目代码全部上传到了 github，并且是公开项目，所有人都可以浏览。更加恐怖的是项目里面包含配置文件，数据库信息、redis 配置、各种公钥私钥密码全在项目里面，也一同上传了。</p>
+<p>如果只是单纯的业务代码泄露，情况倒还好，因为别人知道你代码，要想搞你，他必须要把源码看一遍，分析漏洞。 又因为代码上线，经过了层层测试，漏洞也不好找，至少短时间内不好找。但是别人拿到你的数据库信息，那就开启了上帝模式，想怎么玩就怎么玩，删库都不用跑路的。</p>
+<p>不过，还好他们发现的及时，第一时间删除了 github 上的项目，但是不能保证当时的项目没有人拉到本地，所以第二就是把配置文件内的各项配置都更改一遍，改配置听起来简单，但是要知道有些配置是不能热更新的。很多配置要把前一个配置修改后才能使用，新老配置不能共存，你改的瞬间运行的项目就崩了，必须要停机维护才可以。为了变更配置他们花了大量的人力物力与精力。</p>
+<p>其实这种惨痛的教训本可以避免的，防止配置泄露，通用的有两种形式。一种是使用配置中心，本地不保存配置，启动的时候从配置中心获取，这应该是最优解了。但是很多时候你所做的项目并没有使用配置中心，配置就在项目里面裸奔。这个时候就需要本地加密的形式防止配置泄露了，常用框架是  jasypt。同时它也是本文的主题，话不多说，直接开始，看看如果使用  jasypt 进行配置加密。</p>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.ulisesbocchio<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jasypt-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.ulisesbocchio<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jasypt-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>如果你使用了 spring boot 那么使用  jasypt 很简单，只要依赖一个  jasypt-spring-boot-starter 包就可以了。</p>
+<p>至于  jasypt-maven-plugin 是方便我们加密解密配置的 maven 插件，后面会说用法。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="application-properties"><a href="#application-properties" class="headerlink" title="application.properties"></a>application.properties</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">my.conf.test1=123</span><br><span class="line">my.conf.test2=DEC(123)</span><br><span class="line"><span class="comment"># 记得看最佳实践</span></span><br><span class="line">jasypt.encryptor.password=lE1rl5K$</span><br></pre></td></tr></table></figure>
+
+<h3 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h3><p>总共有三个配置，第一个配置  <strong>my.conf.test1</strong> 是不需要加密的配置，第二个配置 <strong>my.conf.test2</strong> 是需要加密的配置，要加密的内容是 <strong>123</strong>。注意他的格式的是 <strong>DEC(待加密内容)**。第三个 **jasypt.encryptor.password</strong>  配置是我们的加密私钥，默认使用的加密算法是  <strong>PBEWITHHMACSHA512ANDAES_256</strong> ，这个密钥可以是任意字符串，而    <strong>lE1rl5K$</strong> 只是我随机生成的，你可以自由发挥。</p>
+<h2 id="生成加密内容"><a href="#生成加密内容" class="headerlink" title="生成加密内容"></a>生成加密内容</h2><p>好了，到目前为止，我们的配置还是明文的。<strong>my.conf.test2</strong> 是我们想加密的配置，他与  <strong>my.conf.test1</strong> 唯一的区别就是多了一个 <strong>DEC()</strong> 包裹，这算哪门子加密，其实我们还差一步。还记得我们上面加依赖的时候，配置了一个 Maven 插件吗？现在就是用到他的时候，在我们的项目目录路径下执行如下命令：</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn jasypt:encrypt -Djasypt.encryptor.password=<span class="string">&quot;lE1rl5K$&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意在执行的时候，password 要换成你自己在上文配置的密钥。执行完后，看到终端输出了一大堆日志，然后就没有然后了。但是真的是这样吗？</p>
+<p>你再打开  <strong>application.properties</strong> 看一下，有什么不一样的地方。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my.conf.test1=123</span><br><span class="line">my.conf.test2=ENC(0ZWzuD2DH0BZ8ANGMZxQyC6wv84sQLJtE6u7bcRjU+DntbMgkBvE2Z4fSzKKhYN8)</span><br><span class="line">jasypt.encryptor.password=lE1rl5K$</span><br></pre></td></tr></table></figure>
+
+<p>我们发现，三个配置中其它两个是原来的样子，但是  <strong>my.conf.test2</strong> 变了，首先格式从之前 <strong>DEC(xxx)</strong> 变成了 <strong>ENC(xxx)</strong> 。另外括号的 <strong>123</strong> 变成了  <strong>0ZWzuD2DH0BZ8ANGMZxQyC6wv84sQLJtE6u7bcRjU+DntbMgkBvE2Z4fSzKKhYN8</strong> 。</p>
+<p>这其实就是配置加密后的样子。这条命令的功能其实很简单:</p>
+<ol>
+<li>从配置文件中加载配置</li>
+<li>从配置中找到有 <strong>DEC(xxx)</strong> 格式并且不是 <strong>jasypt</strong> 开头的配置</li>
+<li>使用配置的密钥加密并覆盖配置为 <strong>ENC(加密后的值)</strong></li>
+</ol>
+<p>另外通过插件也可以解密，使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn jasypt:decrypt -Djasypt.encryptor.password=<span class="string">&quot;lE1rl5K$&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>执行这条命令会反过来，把 <strong>ENC(xxx)</strong> 内容的配置解密成 <strong>DEC(明文)</strong> 打印在控制台，注意是控制台，而不是把配置文件变回去，作者说这样是为了安全。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="TestController-java"><a href="#TestController-java" class="headerlink" title="TestController.java"></a>TestController.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  * *</span></span><br><span class="line"><span class="comment"> *  *  * blog.coder4j.cn</span></span><br><span class="line"><span class="comment"> *  *  * Copyright (C) 2016-2019 All Rights Reserved.</span></span><br><span class="line"><span class="comment"> *  *</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">package</span> cn.coder4j.study.example.jasypt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> buhao</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> TestController.java, v 0.1 2019-12-26 10:55 buhao</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/test&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;my.conf.test1&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String confTest1;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;my.conf.test2&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String confTest2;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/getConf/&#123;type&#125;&quot;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getConfTest</span><span class="params">(<span class="meta">@PathVariable</span> Integer type)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> confTest1;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> confTest2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="说明-2"><a href="#说明-2" class="headerlink" title="说明"></a>说明</h3><p>代码其实很简单，首先通过  <a href="#">@Value</a>  的方式读取配置，同时把没有加密的配置与加密的配置都读出来，然后通过接口，当路径参数为 1 的时候返回没有经过加密的参数，当路径参数为 2 的时候返回加密过的参数。要是都返回 123 说明我们成功了。</p>
+<p>为了方便验证，直接用 IDEA 的内置工具，下面是验证结果：</p>
+<h4 id="未加密的参数"><a href="#未加密的参数" class="headerlink" title="未加密的参数"></a>未加密的参数</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1578230853814-3c4fa873-3041-4c12-8548-83e7ab0780e3.png#align=left&display=inline&height=143&name=image.png&originHeight=286&originWidth=2082&size=51195&status=done&style=none&width=1041" alt="image.png"></p>
+<h4 id="经过加密的参数"><a href="#经过加密的参数" class="headerlink" title="经过加密的参数"></a>经过加密的参数</h4><p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1578230873283-6946fb5e-49bb-4059-ba48-84842ab57f18.png#align=left&display=inline&height=123&name=image.png&originHeight=246&originWidth=1616&size=37724&status=done&style=none&width=808" alt="image.png"></p>
+<p>结果如我们所料，加密成功。</p>
+<p>获取配置的大致流程其中跟上面加密配置的流程大致反过来：</p>
+<ol>
+<li>拦截获取配置的操作</li>
+<li>如果拦截到的配置是 <strong>ENC(xxx)</strong> 格式</li>
+<li>读取  <strong>jasypt.encryptor.password</strong> 密钥</li>
+<li>通过密钥解密配置</li>
+</ol>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="密钥与配置分开保存"><a href="#密钥与配置分开保存" class="headerlink" title="密钥与配置分开保存"></a>密钥与配置分开保存</h3><p>可以看到，通过  jasypt 十分的方便，第一依赖，第二配置，其中配置除加密内容外还有一个  <strong>jasypt.encryptor.password</strong> 。这个前文也说了是用于加密与解密的密码，通过它可以加解密配置。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/119443/1578231764351-ed960bdc-af01-4417-85e1-d0d130d69e34.png#align=left&display=inline&height=191&name=image.png&originHeight=381&originWidth=300&size=71153&status=done&style=none&width=150" alt="image.png"></p>
+<p>回到开头，我们加密的目的是为了防止代码泄露的时候把配置一起给泄露出去了。配置是没有问题了，我们加密了，但是我们同时把密钥也放在配置文件中了。这相当于什么呢？<strong>就像你把门给锁了，但是钥匙还插在锁上。</strong></p>
+<p>所以密钥一定要跟配置分开保存，通常是通过启动命令传给应用，比如下面这种：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Djasypt.encryptor.password=<span class="string">&quot;password&quot;</span> -jar my-application.jar</span><br></pre></td></tr></table></figure>
+
+<p>如果再保险一点，可以把密钥放在环境变量中，再通过命令传给应用。</p>
+<h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>默认使用的加密算法为对称加密  HHMAC ，既然有对称那肯定也有非对称。</p>
+<p>这里的对称与非对称指的是密钥的保存方式，对称加密是指的是加密与解密共用一个密钥，也就是说我用这个密钥即可以用来加密也可以用来解密。上一条说为了安全我们要把配置跟密钥分开保存，一般保存在两个地方，一个是线上服务器，一个是项目负责人的电脑上了，因为他要把配置从明文变成密文。为什么是项目负责人的电脑上，因为密钥不可能人手一份，那样又会增大泄露风险。</p>
+<p>但是这样的话又会出来一种问题，一个项目涉及了太多配置，我加一个配置找下项目负责人帮我生成个密文，加一个生成一个，项目负责人变成工具人了。</p>
+<p>这个时候我们可以通过非对称加密的方式来解决，这种方式的好处就是有一对密码，分别称为公钥与私钥，公钥用来生成加密数据，可以放心大胆人手一份，而私钥放在服务器上进行运行时候的解密工作，因篇幅有限，具体使用方式可以通过文末的链接查看官方文档。</p>
+<h3 id="环境隔离"><a href="#环境隔离" class="headerlink" title="环境隔离"></a>环境隔离</h3><p>配置肯定是区分环境的，有些环境安全等级没有那么高，比如开发与测试环境，没有必要加密。而预发及生产环境就需要加密，并且推荐使用不同的密钥，这样最大程度的避免安全问题。</p>
+<h2 id="其实相关"><a href="#其实相关" class="headerlink" title="其实相关"></a>其实相关</h2><ol>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ulisesbocchio/jasypt-spring-boot">jasypt-spring-boot</a> (jasypt 的 github 地址，有着详尽的文档)</li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/kiwiflydream/study-example/tree/master/study-jasypt-example">本文 DEMO</a> （因为文章篇幅有限，只展示部分代码，具体代码已上传 github）</li>
+</ol>
+<p>本文地址 <a href="https://blog.coder4j.cn/posts/d0687c8b/">https://blog.coder4j.cn/posts/d0687c8b/</a> </p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">kiwi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.coder4j.cn/posts/d0687c8b/">https://blog.coder4j.cn/posts/d0687c8b/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.coder4j.cn" target="_blank">KIWI的碎碎念</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Jasypt/">Jasypt</a></div><div class="post_share"><div class="social-share" data-image="/img/random/material-13.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat_pay.png" target="_blank"><img class="post-qr-code-img" data-lazy-src="/img/wechat_pay.png"/></a><div class="post-qr-code-desc"></div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3df73832/"><img class="prev-cover" data-lazy-src="/img/random/material-6.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【并发那些事】线程有序化神器CompletionService</div></div></a></div><div class="next-post pull-right"><a href="/posts/a9d13c35/"><img class="next-cover" data-lazy-src="/img/random/material-1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【xmind】 使用 Java 生成思维导图</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" style="background-image: url(/img/random/material-13.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2015 - 2020 By kiwi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://blog.coder4j.cn/">blog</a>!</div><div class="icp"><a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.beian.miit.gov.cn"><img class="icp-icon" src="/img/icp.png"/><span>皖ICP备16020534号-1</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: '8yC4X3BzOzeAMrSi2SrEwbMc-gzGzoHsz',
+      appKey: 'M6soikk87YmsFLtgwu6vVqed',
+      placeholder: '记得留下您的昵称与邮箱，可以快速收到回复',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer="defer" id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script></div></body></html>
