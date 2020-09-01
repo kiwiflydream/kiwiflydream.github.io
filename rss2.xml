@@ -9,8 +9,32 @@
     <atom:link href="https://blog.coder4j.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>清醒时做事,糊涂时读书,大怒时睡觉,独处时思考。</description>
-    <pubDate>Sat, 29 Aug 2020 03:42:00 GMT</pubDate>
+    <pubDate>Tue, 01 Sep 2020 14:08:05 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>【译】10 个有用的 git log 技巧</title>
+      <link>https://blog.coder4j.cn/posts/ca4b1f56/</link>
+      <guid>https://blog.coder4j.cn/posts/ca4b1f56/</guid>
+      <pubDate>Mon, 31 Aug 2020 02:59:40 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/png/119443/1598968984592-22efb69a-a3ac-4eab-84bf-9c327a3bf2ff.png#align=left&amp;display=inline&amp;</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/%E8%AF%91/">译</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E8%AF%91/">译</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/ca4b1f56/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>【随笔】外卖与影子</title>
@@ -460,30 +484,6 @@
       
       
       <comments>https://blog.coder4j.cn/posts/b8755310/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>【碎碎念】01(20190504)</title>
-      <link>https://blog.coder4j.cn/posts/1df65e03/</link>
-      <guid>https://blog.coder4j.cn/posts/1df65e03/</guid>
-      <pubDate>Thu, 25 Apr 2019 13:32:56 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h4 id=&quot;1-生命、宇宙以及任何事情的终极答案&quot;&gt;&lt;a href=&quot;#1-生命、宇宙以及任何事情的终极答案&quot; class=&quot;headerlink&quot; title=&quot;1. 生命、宇宙以及任何事情的终极答案&quot;&gt;&lt;/a&gt;1. 生命、宇宙以及任何事情的终极答案&lt;/h4&gt;&lt;blockq</description>
-        
-      
-      
-      
-      
-      <category domain="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
-      
-      
-      <category domain="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
-      
-      
-      <comments>https://blog.coder4j.cn/posts/1df65e03/#disqus_thread</comments>
       
     </item>
     
