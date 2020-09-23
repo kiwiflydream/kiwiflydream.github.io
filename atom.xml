@@ -6,7 +6,7 @@
   <link href="https://blog.coder4j.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2020-09-01T14:08:05.498Z</updated>
+  <updated>2020-09-23T06:19:33.190Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -17,11 +17,29 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【Java拾遗】不可不知的 Java 序列化</title>
+    <link href="https://blog.coder4j.cn/posts/bee4a1b6/"/>
+    <id>https://blog.coder4j.cn/posts/bee4a1b6/</id>
+    <published>2020-09-22T14:44:07.000Z</published>
+    <updated>2020-09-23T06:19:33.190Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/09/22/5MLOlX9Hx34ZoIn.png#align=left&amp;display=inline&amp;height=383&amp;margin=%5Bobject%20Object%5D&amp;originHeigh</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>【译】10 个有用的 git log 技巧</title>
     <link href="https://blog.coder4j.cn/posts/ca4b1f56/"/>
     <id>https://blog.coder4j.cn/posts/ca4b1f56/</id>
     <published>2020-08-31T02:59:40.000Z</published>
-    <updated>2020-09-01T14:08:05.498Z</updated>
+    <updated>2020-09-23T06:19:33.190Z</updated>
     
     
       
@@ -31,10 +49,6 @@
     
     
     
-    <category term="译" scheme="https://blog.coder4j.cn/categories/%E8%AF%91/"/>
-    
-    
-    <category term="译" scheme="https://blog.coder4j.cn/tags/%E8%AF%91/"/>
     
   </entry>
   
@@ -43,7 +57,7 @@
     <link href="https://blog.coder4j.cn/posts/42ae089e/"/>
     <id>https://blog.coder4j.cn/posts/42ae089e/</id>
     <published>2020-08-22T08:38:46.000Z</published>
-    <updated>2020-09-01T14:08:05.483Z</updated>
+    <updated>2020-09-23T06:19:33.183Z</updated>
     
     
       
@@ -53,10 +67,6 @@
     
     
     
-    <category term="随笔" scheme="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="随笔" scheme="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
@@ -65,7 +75,7 @@
     <link href="https://blog.coder4j.cn/posts/ca9ab046/"/>
     <id>https://blog.coder4j.cn/posts/ca9ab046/</id>
     <published>2020-04-19T07:56:25.000Z</published>
-    <updated>2020-09-01T14:08:05.492Z</updated>
+    <updated>2020-09-23T06:19:33.181Z</updated>
     
     
       
@@ -75,10 +85,6 @@
     
     
     
-    <category term="测试" scheme="https://blog.coder4j.cn/categories/%E6%B5%8B%E8%AF%95/"/>
-    
-    
-    <category term="测试" scheme="https://blog.coder4j.cn/tags/%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -87,7 +93,7 @@
     <link href="https://blog.coder4j.cn/posts/3bff6daa/"/>
     <id>https://blog.coder4j.cn/posts/3bff6daa/</id>
     <published>2020-03-31T11:40:26.000Z</published>
-    <updated>2020-09-01T14:08:05.501Z</updated>
+    <updated>2020-09-23T06:19:33.184Z</updated>
     
     
       
@@ -97,10 +103,6 @@
     
     
     
-    <category term="随笔" scheme="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="随笔" scheme="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
@@ -109,7 +111,7 @@
     <link href="https://blog.coder4j.cn/posts/7e8b6a7/"/>
     <id>https://blog.coder4j.cn/posts/7e8b6a7/</id>
     <published>2020-03-30T12:55:13.000Z</published>
-    <updated>2020-09-01T14:08:05.503Z</updated>
+    <updated>2020-09-23T06:19:33.186Z</updated>
     
     
       
@@ -119,10 +121,6 @@
     
     
     
-    <category term="Maven" scheme="https://blog.coder4j.cn/categories/Maven/"/>
-    
-    
-    <category term="Maven" scheme="https://blog.coder4j.cn/tags/Maven/"/>
     
   </entry>
   
@@ -131,7 +129,7 @@
     <link href="https://blog.coder4j.cn/posts/2a8bb95f/"/>
     <id>https://blog.coder4j.cn/posts/2a8bb95f/</id>
     <published>2020-03-22T09:41:02.000Z</published>
-    <updated>2020-09-01T14:08:05.513Z</updated>
+    <updated>2020-09-23T06:19:33.187Z</updated>
     
     
       
@@ -141,10 +139,6 @@
     
     
     
-    <category term="qdox" scheme="https://blog.coder4j.cn/categories/qdox/"/>
-    
-    
-    <category term="qdox" scheme="https://blog.coder4j.cn/tags/qdox/"/>
     
   </entry>
   
@@ -153,7 +147,7 @@
     <link href="https://blog.coder4j.cn/posts/3df73832/"/>
     <id>https://blog.coder4j.cn/posts/3df73832/</id>
     <published>2020-02-06T14:23:26.000Z</published>
-    <updated>2020-09-01T14:08:05.471Z</updated>
+    <updated>2020-09-23T06:19:33.188Z</updated>
     
     
       
@@ -163,10 +157,6 @@
     
     
     
-    <category term="并发那些事" scheme="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
-    
-    
-    <category term="并发那些事" scheme="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
     
   </entry>
   
@@ -175,7 +165,7 @@
     <link href="https://blog.coder4j.cn/posts/d0687c8b/"/>
     <id>https://blog.coder4j.cn/posts/d0687c8b/</id>
     <published>2020-01-02T13:01:16.000Z</published>
-    <updated>2020-09-01T14:08:05.494Z</updated>
+    <updated>2020-09-23T06:19:33.177Z</updated>
     
     
       
@@ -185,10 +175,6 @@
     
     
     
-    <category term="Jasypt" scheme="https://blog.coder4j.cn/categories/Jasypt/"/>
-    
-    
-    <category term="Jasypt" scheme="https://blog.coder4j.cn/tags/Jasypt/"/>
     
   </entry>
   
@@ -197,7 +183,7 @@
     <link href="https://blog.coder4j.cn/posts/a9d13c35/"/>
     <id>https://blog.coder4j.cn/posts/a9d13c35/</id>
     <published>2019-12-01T07:53:19.000Z</published>
-    <updated>2020-09-01T14:08:05.479Z</updated>
+    <updated>2020-09-23T06:19:33.178Z</updated>
     
     
       
@@ -207,10 +193,6 @@
     
     
     
-    <category term="xmind" scheme="https://blog.coder4j.cn/categories/xmind/"/>
-    
-    
-    <category term="xmind" scheme="https://blog.coder4j.cn/tags/xmind/"/>
     
   </entry>
   
@@ -219,7 +201,7 @@
     <link href="https://blog.coder4j.cn/posts/b2d626fd/"/>
     <id>https://blog.coder4j.cn/posts/b2d626fd/</id>
     <published>2019-11-24T02:34:38.000Z</published>
-    <updated>2020-09-01T14:08:05.497Z</updated>
+    <updated>2020-09-23T06:19:33.179Z</updated>
     
     
       
@@ -229,10 +211,6 @@
     
     
     
-    <category term="并发那些事" scheme="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
-    
-    
-    <category term="并发那些事" scheme="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
     
   </entry>
   
@@ -241,7 +219,7 @@
     <link href="https://blog.coder4j.cn/posts/48faaa95/"/>
     <id>https://blog.coder4j.cn/posts/48faaa95/</id>
     <published>2019-11-07T14:20:03.000Z</published>
-    <updated>2020-09-01T14:08:05.509Z</updated>
+    <updated>2020-09-23T06:19:33.180Z</updated>
     
     
       
@@ -251,10 +229,6 @@
     
     
     
-    <category term="并发那些事" scheme="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
-    
-    
-    <category term="并发那些事" scheme="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
     
   </entry>
   
@@ -263,7 +237,7 @@
     <link href="https://blog.coder4j.cn/posts/2022afcd/"/>
     <id>https://blog.coder4j.cn/posts/2022afcd/</id>
     <published>2019-10-31T12:39:45.000Z</published>
-    <updated>2020-09-01T14:08:05.511Z</updated>
+    <updated>2020-09-23T06:19:33.188Z</updated>
     
     
       
@@ -273,10 +247,6 @@
     
     
     
-    <category term="spock" scheme="https://blog.coder4j.cn/categories/spock/"/>
-    
-    
-    <category term="spock" scheme="https://blog.coder4j.cn/tags/spock/"/>
     
   </entry>
   
@@ -285,7 +255,7 @@
     <link href="https://blog.coder4j.cn/posts/d18db60a/"/>
     <id>https://blog.coder4j.cn/posts/d18db60a/</id>
     <published>2019-10-24T13:07:53.000Z</published>
-    <updated>2020-09-01T14:08:05.504Z</updated>
+    <updated>2020-09-23T06:19:33.183Z</updated>
     
     
       
@@ -295,10 +265,6 @@
     
     
     
-    <category term="碎碎念" scheme="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
-    
-    
-    <category term="碎碎念" scheme="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
     
   </entry>
   
@@ -307,7 +273,7 @@
     <link href="https://blog.coder4j.cn/posts/2bed5d1c/"/>
     <id>https://blog.coder4j.cn/posts/2bed5d1c/</id>
     <published>2019-10-22T09:11:33.000Z</published>
-    <updated>2020-09-01T14:08:05.476Z</updated>
+    <updated>2020-09-23T06:19:33.189Z</updated>
     
     
       
@@ -317,10 +283,6 @@
     
     
     
-    <category term="websocket" scheme="https://blog.coder4j.cn/categories/websocket/"/>
-    
-    
-    <category term="websocket" scheme="https://blog.coder4j.cn/tags/websocket/"/>
     
   </entry>
   
@@ -329,7 +291,7 @@
     <link href="https://blog.coder4j.cn/posts/8dfe4337/"/>
     <id>https://blog.coder4j.cn/posts/8dfe4337/</id>
     <published>2019-10-16T07:21:09.000Z</published>
-    <updated>2020-09-01T14:08:05.506Z</updated>
+    <updated>2020-09-23T06:19:33.186Z</updated>
     
     
       
@@ -339,10 +301,6 @@
     
     
     
-    <category term="并发那些事" scheme="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
-    
-    
-    <category term="并发那些事" scheme="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
     
   </entry>
   
@@ -351,7 +309,7 @@
     <link href="https://blog.coder4j.cn/posts/9f58e145/"/>
     <id>https://blog.coder4j.cn/posts/9f58e145/</id>
     <published>2019-10-13T01:03:53.000Z</published>
-    <updated>2020-09-01T14:08:05.486Z</updated>
+    <updated>2020-09-23T06:19:33.185Z</updated>
     
     
       
@@ -361,10 +319,6 @@
     
     
     
-    <category term="随笔" scheme="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="随笔" scheme="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
@@ -373,7 +327,7 @@
     <link href="https://blog.coder4j.cn/posts/ab94273d/"/>
     <id>https://blog.coder4j.cn/posts/ab94273d/</id>
     <published>2019-09-30T13:07:39.000Z</published>
-    <updated>2020-09-01T14:08:05.507Z</updated>
+    <updated>2020-09-23T06:19:33.185Z</updated>
     
     
       
@@ -383,10 +337,6 @@
     
     
     
-    <category term="随笔" scheme="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="随笔" scheme="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
@@ -395,7 +345,7 @@
     <link href="https://blog.coder4j.cn/posts/5f40214/"/>
     <id>https://blog.coder4j.cn/posts/5f40214/</id>
     <published>2019-09-12T15:17:02.000Z</published>
-    <updated>2020-09-01T14:05:21.630Z</updated>
+    <updated>2020-09-23T06:15:12.545Z</updated>
     
     
       
@@ -413,7 +363,7 @@
     <link href="https://blog.coder4j.cn/posts/f8a1a670/"/>
     <id>https://blog.coder4j.cn/posts/f8a1a670/</id>
     <published>2019-05-04T03:56:59.000Z</published>
-    <updated>2020-09-01T14:08:05.500Z</updated>
+    <updated>2020-09-23T06:19:33.182Z</updated>
     
     
       
@@ -422,28 +372,6 @@
 &lt;p&gt;&lt;strong&gt;如果想要更好的阅读体验，请点击文章末尾的阅读原文跳转语雀阅读。&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h4 id=&quot;1-动物世界&quot;&gt;&lt;a href=&quot;#1-动物世界&quot; class=&quot;headerlink&quot; titl</summary>
-      
-    
-    
-    
-    <category term="碎碎念" scheme="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
-    
-    
-    <category term="碎碎念" scheme="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JMH 简单入门</title>
-    <link href="https://blog.coder4j.cn/posts/b8755310/"/>
-    <id>https://blog.coder4j.cn/posts/b8755310/</id>
-    <published>2019-05-04T02:45:36.000Z</published>
-    <updated>2020-09-01T14:05:21.790Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2018/png/119443/1545838278500-0e333b6c-2ca5-4a0a-a7d6-59799f11ff91.png#align=left&amp;display=inline&amp;</summary>
       
     
     
