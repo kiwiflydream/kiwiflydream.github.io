@@ -9,7 +9,7 @@
     <atom:link href="https://blog.coder4j.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>清醒时做事,糊涂时读书,大怒时睡觉,独处时思考。</description>
-    <pubDate>Wed, 23 Sep 2020 06:19:33 GMT</pubDate>
+    <pubDate>Wed, 23 Sep 2020 06:40:08 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -26,6 +26,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/Java%E6%8B%BE%E9%81%97/">Java拾遗</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/Java%E6%8B%BE%E9%81%97/">Java拾遗</category>
       
       
       <comments>https://blog.coder4j.cn/posts/bee4a1b6/#disqus_thread</comments>
@@ -46,6 +50,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E8%AF%91/">译</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E8%AF%91/">译</category>
       
       
       <comments>https://blog.coder4j.cn/posts/ca4b1f56/#disqus_thread</comments>
@@ -66,6 +74,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
       
       
       <comments>https://blog.coder4j.cn/posts/42ae089e/#disqus_thread</comments>
@@ -86,6 +98,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E6%B5%8B%E8%AF%95/">测试</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E6%B5%8B%E8%AF%95/">测试</category>
       
       
       <comments>https://blog.coder4j.cn/posts/ca9ab046/#disqus_thread</comments>
@@ -106,6 +122,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
       
       
       <comments>https://blog.coder4j.cn/posts/3bff6daa/#disqus_thread</comments>
@@ -126,6 +146,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/Maven/">Maven</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/Maven/">Maven</category>
       
       
       <comments>https://blog.coder4j.cn/posts/7e8b6a7/#disqus_thread</comments>
@@ -146,6 +170,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/qdox/">qdox</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/qdox/">qdox</category>
       
       
       <comments>https://blog.coder4j.cn/posts/2a8bb95f/#disqus_thread</comments>
@@ -166,6 +194,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
       
       
       <comments>https://blog.coder4j.cn/posts/3df73832/#disqus_thread</comments>
@@ -186,6 +218,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/Jasypt/">Jasypt</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/Jasypt/">Jasypt</category>
       
       
       <comments>https://blog.coder4j.cn/posts/d0687c8b/#disqus_thread</comments>
@@ -206,6 +242,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/xmind/">xmind</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/xmind/">xmind</category>
       
       
       <comments>https://blog.coder4j.cn/posts/a9d13c35/#disqus_thread</comments>
@@ -226,6 +266,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
       
       
       <comments>https://blog.coder4j.cn/posts/b2d626fd/#disqus_thread</comments>
@@ -246,6 +290,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
       
       
       <comments>https://blog.coder4j.cn/posts/48faaa95/#disqus_thread</comments>
@@ -266,6 +314,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/spock/">spock</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/spock/">spock</category>
       
       
       <comments>https://blog.coder4j.cn/posts/2022afcd/#disqus_thread</comments>
@@ -286,6 +338,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
       
       
       <comments>https://blog.coder4j.cn/posts/d18db60a/#disqus_thread</comments>
@@ -306,6 +362,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/websocket/">websocket</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/websocket/">websocket</category>
       
       
       <comments>https://blog.coder4j.cn/posts/2bed5d1c/#disqus_thread</comments>
@@ -326,6 +386,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/">并发那些事</category>
       
       
       <comments>https://blog.coder4j.cn/posts/8dfe4337/#disqus_thread</comments>
@@ -346,6 +410,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
       
       
       <comments>https://blog.coder4j.cn/posts/9f58e145/#disqus_thread</comments>
@@ -366,6 +434,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
       
       
       <comments>https://blog.coder4j.cn/posts/ab94273d/#disqus_thread</comments>
@@ -409,6 +481,10 @@
       
       
       
+      <category domain="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
       
       
       <comments>https://blog.coder4j.cn/posts/f8a1a670/#disqus_thread</comments>

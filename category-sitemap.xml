@@ -8,6 +8,90 @@
     </url>
 
     <url>
+        <loc>https://blog.coder4j.cn/categories/qdox/</loc>
+        <lastmod>2020-09-23T06:40:08.702Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/spock/</loc>
+        <lastmod>2020-09-23T06:40:08.700Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/%25E5%25B9%25B6%25E5%258F%2591%25E9%2582%25A3%25E4%25BA%259B%25E4%25BA%258B/</loc>
+        <lastmod>2020-09-23T06:40:08.699Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/%25E9%259A%258F%25E7%25AC%2594/</loc>
+        <lastmod>2020-09-23T06:40:08.698Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/%25E7%25A2%258E%25E7%25A2%258E%25E5%25BF%25B5/</loc>
+        <lastmod>2020-09-23T06:40:08.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/Maven/</loc>
+        <lastmod>2020-09-23T06:40:08.695Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/%25E8%25AF%2591/</loc>
+        <lastmod>2020-09-23T06:40:08.691Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/Jasypt/</loc>
+        <lastmod>2020-09-23T06:40:08.688Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/%25E6%25B5%258B%25E8%25AF%2595/</loc>
+        <lastmod>2020-09-23T06:40:08.687Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/Java%25E6%258B%25BE%25E9%2581%2597/</loc>
+        <lastmod>2020-09-23T06:40:08.685Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/xmind/</loc>
+        <lastmod>2020-09-23T06:40:08.679Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.coder4j.cn/categories/websocket/</loc>
+        <lastmod>2020-09-23T06:40:08.677Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://blog.coder4j.cn/categories/%25E6%2596%25B0%25E5%25B9%25B4%25E6%2584%25BF%25E6%2599%25AF/</loc>
         <lastmod>2020-08-29T03:42:00.920Z</lastmod>
         <changefreq>weekly</changefreq>
