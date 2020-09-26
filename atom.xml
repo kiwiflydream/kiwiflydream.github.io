@@ -6,7 +6,7 @@
   <link href="https://blog.coder4j.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2020-09-23T06:40:08.685Z</updated>
+  <updated>2020-09-26T12:38:09.619Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -17,11 +17,55 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【BREW】brew mysql 无法连接问题</title>
+    <link href="https://blog.coder4j.cn/posts/adc594bd/"/>
+    <id>https://blog.coder4j.cn/posts/adc594bd/</id>
+    <published>2020-09-26T12:33:04.000Z</published>
+    <updated>2020-09-26T12:38:09.619Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123705416-12a12cdd-e97e-41ed-b3a8-65717e386197.jpeg#align=left&amp;display=inlin</summary>
+      
+    
+    
+    
+    <category term="BREW" scheme="https://blog.coder4j.cn/categories/BREW/"/>
+    
+    
+    <category term="BREW" scheme="https://blog.coder4j.cn/tags/BREW/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【GITBOOK】git book 导出 pdf 与 epub</title>
+    <link href="https://blog.coder4j.cn/posts/6f9fe2cd/"/>
+    <id>https://blog.coder4j.cn/posts/6f9fe2cd/</id>
+    <published>2020-09-26T12:33:04.000Z</published>
+    <updated>2020-09-26T12:38:09.597Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123738980-85811d51-3cf3-4ef5-bede-9e38cb17bf9d.jpeg#align=left&amp;display=inlin</summary>
+      
+    
+    
+    
+    <category term="GITBOOK" scheme="https://blog.coder4j.cn/categories/GITBOOK/"/>
+    
+    
+    <category term="GITBOOK" scheme="https://blog.coder4j.cn/tags/GITBOOK/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【Java拾遗】不可不知的 Java 序列化</title>
     <link href="https://blog.coder4j.cn/posts/bee4a1b6/"/>
     <id>https://blog.coder4j.cn/posts/bee4a1b6/</id>
     <published>2020-09-22T14:44:07.000Z</published>
-    <updated>2020-09-23T06:40:08.685Z</updated>
+    <updated>2020-09-26T12:38:09.592Z</updated>
     
     
       
@@ -43,7 +87,7 @@
     <link href="https://blog.coder4j.cn/posts/ca4b1f56/"/>
     <id>https://blog.coder4j.cn/posts/ca4b1f56/</id>
     <published>2020-08-31T02:59:40.000Z</published>
-    <updated>2020-09-23T06:40:08.691Z</updated>
+    <updated>2020-09-26T12:38:09.606Z</updated>
     
     
       
@@ -65,7 +109,7 @@
     <link href="https://blog.coder4j.cn/posts/42ae089e/"/>
     <id>https://blog.coder4j.cn/posts/42ae089e/</id>
     <published>2020-08-22T08:38:46.000Z</published>
-    <updated>2020-09-23T06:40:08.680Z</updated>
+    <updated>2020-09-26T12:38:09.571Z</updated>
     
     
       
@@ -87,7 +131,7 @@
     <link href="https://blog.coder4j.cn/posts/ca9ab046/"/>
     <id>https://blog.coder4j.cn/posts/ca9ab046/</id>
     <published>2020-04-19T07:56:25.000Z</published>
-    <updated>2020-09-23T06:40:08.687Z</updated>
+    <updated>2020-09-26T12:38:09.595Z</updated>
     
     
       
@@ -109,7 +153,7 @@
     <link href="https://blog.coder4j.cn/posts/3bff6daa/"/>
     <id>https://blog.coder4j.cn/posts/3bff6daa/</id>
     <published>2020-03-31T11:40:26.000Z</published>
-    <updated>2020-09-23T06:40:08.693Z</updated>
+    <updated>2020-09-26T12:38:09.609Z</updated>
     
     
       
@@ -131,7 +175,7 @@
     <link href="https://blog.coder4j.cn/posts/7e8b6a7/"/>
     <id>https://blog.coder4j.cn/posts/7e8b6a7/</id>
     <published>2020-03-30T12:55:13.000Z</published>
-    <updated>2020-09-23T06:40:08.695Z</updated>
+    <updated>2020-09-26T12:38:09.611Z</updated>
     
     
       
@@ -153,7 +197,7 @@
     <link href="https://blog.coder4j.cn/posts/2a8bb95f/"/>
     <id>https://blog.coder4j.cn/posts/2a8bb95f/</id>
     <published>2020-03-22T09:41:02.000Z</published>
-    <updated>2020-09-23T06:40:08.702Z</updated>
+    <updated>2020-09-26T12:38:09.625Z</updated>
     
     
       
@@ -175,7 +219,7 @@
     <link href="https://blog.coder4j.cn/posts/3df73832/"/>
     <id>https://blog.coder4j.cn/posts/3df73832/</id>
     <published>2020-02-06T14:23:26.000Z</published>
-    <updated>2020-09-23T06:40:08.675Z</updated>
+    <updated>2020-09-26T12:38:09.556Z</updated>
     
     
       
@@ -197,7 +241,7 @@
     <link href="https://blog.coder4j.cn/posts/d0687c8b/"/>
     <id>https://blog.coder4j.cn/posts/d0687c8b/</id>
     <published>2020-01-02T13:01:16.000Z</published>
-    <updated>2020-09-23T06:40:08.688Z</updated>
+    <updated>2020-09-26T12:38:09.600Z</updated>
     
     
       
@@ -219,7 +263,7 @@
     <link href="https://blog.coder4j.cn/posts/a9d13c35/"/>
     <id>https://blog.coder4j.cn/posts/a9d13c35/</id>
     <published>2019-12-01T07:53:19.000Z</published>
-    <updated>2020-09-23T06:40:08.679Z</updated>
+    <updated>2020-09-26T12:38:09.569Z</updated>
     
     
       
@@ -241,7 +285,7 @@
     <link href="https://blog.coder4j.cn/posts/b2d626fd/"/>
     <id>https://blog.coder4j.cn/posts/b2d626fd/</id>
     <published>2019-11-24T02:34:38.000Z</published>
-    <updated>2020-09-23T06:40:08.690Z</updated>
+    <updated>2020-09-26T12:38:09.603Z</updated>
     
     
       
@@ -263,7 +307,7 @@
     <link href="https://blog.coder4j.cn/posts/48faaa95/"/>
     <id>https://blog.coder4j.cn/posts/48faaa95/</id>
     <published>2019-11-07T14:20:03.000Z</published>
-    <updated>2020-09-23T06:40:08.699Z</updated>
+    <updated>2020-09-26T12:38:09.618Z</updated>
     
     
       
@@ -285,7 +329,7 @@
     <link href="https://blog.coder4j.cn/posts/2022afcd/"/>
     <id>https://blog.coder4j.cn/posts/2022afcd/</id>
     <published>2019-10-31T12:39:45.000Z</published>
-    <updated>2020-09-23T06:40:08.700Z</updated>
+    <updated>2020-09-26T12:38:09.622Z</updated>
     
     
       
@@ -307,7 +351,7 @@
     <link href="https://blog.coder4j.cn/posts/d18db60a/"/>
     <id>https://blog.coder4j.cn/posts/d18db60a/</id>
     <published>2019-10-24T13:07:53.000Z</published>
-    <updated>2020-09-23T06:40:08.696Z</updated>
+    <updated>2020-09-26T12:38:09.613Z</updated>
     
     
       
@@ -329,7 +373,7 @@
     <link href="https://blog.coder4j.cn/posts/2bed5d1c/"/>
     <id>https://blog.coder4j.cn/posts/2bed5d1c/</id>
     <published>2019-10-22T09:11:33.000Z</published>
-    <updated>2020-09-23T06:40:08.677Z</updated>
+    <updated>2020-09-26T12:38:09.562Z</updated>
     
     
       
@@ -351,7 +395,7 @@
     <link href="https://blog.coder4j.cn/posts/8dfe4337/"/>
     <id>https://blog.coder4j.cn/posts/8dfe4337/</id>
     <published>2019-10-16T07:21:09.000Z</published>
-    <updated>2020-09-23T06:40:08.697Z</updated>
+    <updated>2020-09-26T12:38:09.615Z</updated>
     
     
       
@@ -373,7 +417,7 @@
     <link href="https://blog.coder4j.cn/posts/9f58e145/"/>
     <id>https://blog.coder4j.cn/posts/9f58e145/</id>
     <published>2019-10-13T01:03:53.000Z</published>
-    <updated>2020-09-23T06:40:08.682Z</updated>
+    <updated>2020-09-26T12:38:09.575Z</updated>
     
     
       
@@ -395,7 +439,7 @@
     <link href="https://blog.coder4j.cn/posts/ab94273d/"/>
     <id>https://blog.coder4j.cn/posts/ab94273d/</id>
     <published>2019-09-30T13:07:39.000Z</published>
-    <updated>2020-09-23T06:40:08.698Z</updated>
+    <updated>2020-09-26T12:38:09.616Z</updated>
     
     
       
@@ -409,49 +453,6 @@
     
     
     <category term="随笔" scheme="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一个好看又能打的 swagger 工具包</title>
-    <link href="https://blog.coder4j.cn/posts/5f40214/"/>
-    <id>https://blog.coder4j.cn/posts/5f40214/</id>
-    <published>2019-09-12T15:17:02.000Z</published>
-    <updated>2020-09-23T06:15:12.545Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;【Swagger】可能是目前最好的-Spring-Boot-集成-swagger-的项目&quot;&gt;&lt;a href=&quot;#【Swagger】可能是目前最好的-Spring-Boot-集成-swagger-的项目&quot; class=&quot;headerlink&quot; title=&quot;【Swa</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>【碎碎念】02(20190511)</title>
-    <link href="https://blog.coder4j.cn/posts/f8a1a670/"/>
-    <id>https://blog.coder4j.cn/posts/f8a1a670/</id>
-    <published>2019-05-04T03:56:59.000Z</published>
-    <updated>2020-09-23T06:40:08.692Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;如果想要更好的阅读体验，请点击文章末尾的阅读原文跳转语雀阅读。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-动物世界&quot;&gt;&lt;a href=&quot;#1-动物世界&quot; class=&quot;headerlink&quot; titl</summary>
-      
-    
-    
-    
-    <category term="碎碎念" scheme="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
-    
-    
-    <category term="碎碎念" scheme="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
     
   </entry>
   

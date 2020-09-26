@@ -9,8 +9,56 @@
     <atom:link href="https://blog.coder4j.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>清醒时做事,糊涂时读书,大怒时睡觉,独处时思考。</description>
-    <pubDate>Wed, 23 Sep 2020 06:40:08 GMT</pubDate>
+    <pubDate>Sat, 26 Sep 2020 12:38:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>【BREW】brew mysql 无法连接问题</title>
+      <link>https://blog.coder4j.cn/posts/adc594bd/</link>
+      <guid>https://blog.coder4j.cn/posts/adc594bd/</guid>
+      <pubDate>Sat, 26 Sep 2020 12:33:04 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123705416-12a12cdd-e97e-41ed-b3a8-65717e386197.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/BREW/">BREW</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/BREW/">BREW</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/adc594bd/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【GITBOOK】git book 导出 pdf 与 epub</title>
+      <link>https://blog.coder4j.cn/posts/6f9fe2cd/</link>
+      <guid>https://blog.coder4j.cn/posts/6f9fe2cd/</guid>
+      <pubDate>Sat, 26 Sep 2020 12:33:04 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123738980-85811d51-3cf3-4ef5-bede-9e38cb17bf9d.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/GITBOOK/">GITBOOK</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/GITBOOK/">GITBOOK</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/6f9fe2cd/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>【Java拾遗】不可不知的 Java 序列化</title>
@@ -441,53 +489,6 @@
       
       
       <comments>https://blog.coder4j.cn/posts/ab94273d/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>一个好看又能打的 swagger 工具包</title>
-      <link>https://blog.coder4j.cn/posts/5f40214/</link>
-      <guid>https://blog.coder4j.cn/posts/5f40214/</guid>
-      <pubDate>Thu, 12 Sep 2019 15:17:02 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h1 id=&quot;【Swagger】可能是目前最好的-Spring-Boot-集成-swagger-的项目&quot;&gt;&lt;a href=&quot;#【Swagger】可能是目前最好的-Spring-Boot-集成-swagger-的项目&quot; class=&quot;headerlink&quot; title=&quot;【Swa</description>
-        
-      
-      
-      
-      
-      
-      
-      <comments>https://blog.coder4j.cn/posts/5f40214/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>【碎碎念】02(20190511)</title>
-      <link>https://blog.coder4j.cn/posts/f8a1a670/</link>
-      <guid>https://blog.coder4j.cn/posts/f8a1a670/</guid>
-      <pubDate>Sat, 04 May 2019 03:56:59 GMT</pubDate>
-      
-        
-        
-      <description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;如果想要更好的阅读体验，请点击文章末尾的阅读原文跳转语雀阅读。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;1-动物世界&quot;&gt;&lt;a href=&quot;#1-动物世界&quot; class=&quot;headerlink&quot; titl</description>
-        
-      
-      
-      
-      
-      <category domain="https://blog.coder4j.cn/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
-      
-      
-      <category domain="https://blog.coder4j.cn/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">碎碎念</category>
-      
-      
-      <comments>https://blog.coder4j.cn/posts/f8a1a670/#disqus_thread</comments>
       
     </item>
     
