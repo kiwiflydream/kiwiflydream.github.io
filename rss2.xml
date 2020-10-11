@@ -13,30 +13,6 @@
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>【BREW】brew mysql 无法连接问题</title>
-      <link>https://blog.coder4j.cn/posts/adc594bd/</link>
-      <guid>https://blog.coder4j.cn/posts/adc594bd/</guid>
-      <pubDate>Sat, 26 Sep 2020 12:33:04 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123705416-12a12cdd-e97e-41ed-b3a8-65717e386197.jpeg#align=left&amp;display=inlin</description>
-        
-      
-      
-      
-      
-      <category domain="https://blog.coder4j.cn/categories/BREW/">BREW</category>
-      
-      
-      <category domain="https://blog.coder4j.cn/tags/BREW/">BREW</category>
-      
-      
-      <comments>https://blog.coder4j.cn/posts/adc594bd/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>【GITBOOK】git book 导出 pdf 与 epub</title>
       <link>https://blog.coder4j.cn/posts/6f9fe2cd/</link>
       <guid>https://blog.coder4j.cn/posts/6f9fe2cd/</guid>
@@ -57,6 +33,30 @@
       
       
       <comments>https://blog.coder4j.cn/posts/6f9fe2cd/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【BREW】brew mysql 无法连接问题</title>
+      <link>https://blog.coder4j.cn/posts/adc594bd/</link>
+      <guid>https://blog.coder4j.cn/posts/adc594bd/</guid>
+      <pubDate>Sat, 26 Sep 2020 12:33:04 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123705416-12a12cdd-e97e-41ed-b3a8-65717e386197.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/BREW/">BREW</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/BREW/">BREW</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/adc594bd/#disqus_thread</comments>
       
     </item>
     

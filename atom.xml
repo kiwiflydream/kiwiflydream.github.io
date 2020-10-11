@@ -6,7 +6,7 @@
   <link href="https://blog.coder4j.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2020-09-26T12:39:12.780Z</updated>
+  <updated>2020-09-26T12:39:12.781Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -15,28 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>【BREW】brew mysql 无法连接问题</title>
-    <link href="https://blog.coder4j.cn/posts/adc594bd/"/>
-    <id>https://blog.coder4j.cn/posts/adc594bd/</id>
-    <published>2020-09-26T12:33:04.000Z</published>
-    <updated>2020-09-26T12:39:12.780Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123705416-12a12cdd-e97e-41ed-b3a8-65717e386197.jpeg#align=left&amp;display=inlin</summary>
-      
-    
-    
-    
-    <category term="BREW" scheme="https://blog.coder4j.cn/categories/BREW/"/>
-    
-    
-    <category term="BREW" scheme="https://blog.coder4j.cn/tags/BREW/"/>
-    
-  </entry>
   
   <entry>
     <title>【GITBOOK】git book 导出 pdf 与 epub</title>
@@ -57,6 +35,28 @@
     
     
     <category term="GITBOOK" scheme="https://blog.coder4j.cn/tags/GITBOOK/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【BREW】brew mysql 无法连接问题</title>
+    <link href="https://blog.coder4j.cn/posts/adc594bd/"/>
+    <id>https://blog.coder4j.cn/posts/adc594bd/</id>
+    <published>2020-09-26T12:33:04.000Z</published>
+    <updated>2020-09-26T12:39:12.780Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123705416-12a12cdd-e97e-41ed-b3a8-65717e386197.jpeg#align=left&amp;display=inlin</summary>
+      
+    
+    
+    
+    <category term="BREW" scheme="https://blog.coder4j.cn/categories/BREW/"/>
+    
+    
+    <category term="BREW" scheme="https://blog.coder4j.cn/tags/BREW/"/>
     
   </entry>
   
