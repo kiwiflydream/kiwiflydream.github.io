@@ -6,7 +6,7 @@
   <link href="https://blog.coder4j.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2020-09-26T12:39:12.781Z</updated>
+  <updated>2020-11-08T14:38:46.328Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -17,24 +17,24 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【GITBOOK】git book 导出 pdf 与 epub</title>
-    <link href="https://blog.coder4j.cn/posts/6f9fe2cd/"/>
-    <id>https://blog.coder4j.cn/posts/6f9fe2cd/</id>
-    <published>2020-09-26T12:33:04.000Z</published>
-    <updated>2020-09-26T12:39:12.781Z</updated>
+    <title>【keynote】神奇的神奇移动</title>
+    <link href="https://blog.coder4j.cn/posts/15ecccae/"/>
+    <id>https://blog.coder4j.cn/posts/15ecccae/</id>
+    <published>2020-11-08T14:34:37.000Z</published>
+    <updated>2020-11-08T14:38:46.328Z</updated>
     
     
       
       
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123738980-85811d51-3cf3-4ef5-bede-9e38cb17bf9d.jpeg#align=left&amp;display=inlin</summary>
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;前几天，看了一篇技术文章，《&lt;a href=&quot;https://juejin.im/post/6890545920883032071&quot;&gt;做了一</summary>
       
     
     
     
-    <category term="GITBOOK" scheme="https://blog.coder4j.cn/categories/GITBOOK/"/>
+    <category term="keynote" scheme="https://blog.coder4j.cn/categories/keynote/"/>
     
     
-    <category term="GITBOOK" scheme="https://blog.coder4j.cn/tags/GITBOOK/"/>
+    <category term="keynote" scheme="https://blog.coder4j.cn/tags/keynote/"/>
     
   </entry>
   
@@ -43,7 +43,7 @@
     <link href="https://blog.coder4j.cn/posts/adc594bd/"/>
     <id>https://blog.coder4j.cn/posts/adc594bd/</id>
     <published>2020-09-26T12:33:04.000Z</published>
-    <updated>2020-09-26T12:39:12.780Z</updated>
+    <updated>2020-11-08T14:38:46.298Z</updated>
     
     
       
@@ -61,11 +61,33 @@
   </entry>
   
   <entry>
+    <title>【GITBOOK】git book 导出 pdf 与 epub</title>
+    <link href="https://blog.coder4j.cn/posts/6f9fe2cd/"/>
+    <id>https://blog.coder4j.cn/posts/6f9fe2cd/</id>
+    <published>2020-09-26T12:33:04.000Z</published>
+    <updated>2020-11-08T14:38:46.299Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123738980-85811d51-3cf3-4ef5-bede-9e38cb17bf9d.jpeg#align=left&amp;display=inlin</summary>
+      
+    
+    
+    
+    <category term="GITBOOK" scheme="https://blog.coder4j.cn/categories/GITBOOK/"/>
+    
+    
+    <category term="GITBOOK" scheme="https://blog.coder4j.cn/tags/GITBOOK/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【Java拾遗】不可不知的 Java 序列化</title>
     <link href="https://blog.coder4j.cn/posts/bee4a1b6/"/>
     <id>https://blog.coder4j.cn/posts/bee4a1b6/</id>
     <published>2020-09-22T14:44:07.000Z</published>
-    <updated>2020-09-26T12:39:12.778Z</updated>
+    <updated>2020-11-08T14:38:46.300Z</updated>
     
     
       
@@ -87,7 +109,7 @@
     <link href="https://blog.coder4j.cn/posts/ca4b1f56/"/>
     <id>https://blog.coder4j.cn/posts/ca4b1f56/</id>
     <published>2020-08-31T02:59:40.000Z</published>
-    <updated>2020-09-26T12:39:12.777Z</updated>
+    <updated>2020-11-08T14:38:46.306Z</updated>
     
     
       
@@ -109,7 +131,7 @@
     <link href="https://blog.coder4j.cn/posts/42ae089e/"/>
     <id>https://blog.coder4j.cn/posts/42ae089e/</id>
     <published>2020-08-22T08:38:46.000Z</published>
-    <updated>2020-09-26T12:39:12.760Z</updated>
+    <updated>2020-11-08T14:38:46.307Z</updated>
     
     
       
@@ -131,7 +153,7 @@
     <link href="https://blog.coder4j.cn/posts/ca9ab046/"/>
     <id>https://blog.coder4j.cn/posts/ca9ab046/</id>
     <published>2020-04-19T07:56:25.000Z</published>
-    <updated>2020-09-26T12:39:12.753Z</updated>
+    <updated>2020-11-08T14:38:46.303Z</updated>
     
     
       
@@ -153,7 +175,7 @@
     <link href="https://blog.coder4j.cn/posts/3bff6daa/"/>
     <id>https://blog.coder4j.cn/posts/3bff6daa/</id>
     <published>2020-03-31T11:40:26.000Z</published>
-    <updated>2020-09-26T12:39:12.761Z</updated>
+    <updated>2020-11-08T14:38:46.313Z</updated>
     
     
       
@@ -175,7 +197,7 @@
     <link href="https://blog.coder4j.cn/posts/7e8b6a7/"/>
     <id>https://blog.coder4j.cn/posts/7e8b6a7/</id>
     <published>2020-03-30T12:55:13.000Z</published>
-    <updated>2020-09-26T12:39:12.767Z</updated>
+    <updated>2020-11-08T14:38:46.322Z</updated>
     
     
       
@@ -197,7 +219,7 @@
     <link href="https://blog.coder4j.cn/posts/2a8bb95f/"/>
     <id>https://blog.coder4j.cn/posts/2a8bb95f/</id>
     <published>2020-03-22T09:41:02.000Z</published>
-    <updated>2020-09-26T12:39:12.769Z</updated>
+    <updated>2020-11-08T14:38:46.323Z</updated>
     
     
       
@@ -219,7 +241,7 @@
     <link href="https://blog.coder4j.cn/posts/3df73832/"/>
     <id>https://blog.coder4j.cn/posts/3df73832/</id>
     <published>2020-02-06T14:23:26.000Z</published>
-    <updated>2020-09-26T12:39:12.774Z</updated>
+    <updated>2020-11-08T14:38:46.327Z</updated>
     
     
       
@@ -241,7 +263,7 @@
     <link href="https://blog.coder4j.cn/posts/d0687c8b/"/>
     <id>https://blog.coder4j.cn/posts/d0687c8b/</id>
     <published>2020-01-02T13:01:16.000Z</published>
-    <updated>2020-09-26T12:39:12.744Z</updated>
+    <updated>2020-11-08T14:38:46.299Z</updated>
     
     
       
@@ -263,7 +285,7 @@
     <link href="https://blog.coder4j.cn/posts/a9d13c35/"/>
     <id>https://blog.coder4j.cn/posts/a9d13c35/</id>
     <published>2019-12-01T07:53:19.000Z</published>
-    <updated>2020-09-26T12:39:12.747Z</updated>
+    <updated>2020-11-08T14:38:46.301Z</updated>
     
     
       
@@ -285,7 +307,7 @@
     <link href="https://blog.coder4j.cn/posts/b2d626fd/"/>
     <id>https://blog.coder4j.cn/posts/b2d626fd/</id>
     <published>2019-11-24T02:34:38.000Z</published>
-    <updated>2020-09-26T12:39:12.749Z</updated>
+    <updated>2020-11-08T14:38:46.302Z</updated>
     
     
       
@@ -307,7 +329,7 @@
     <link href="https://blog.coder4j.cn/posts/48faaa95/"/>
     <id>https://blog.coder4j.cn/posts/48faaa95/</id>
     <published>2019-11-07T14:20:03.000Z</published>
-    <updated>2020-09-26T12:39:12.751Z</updated>
+    <updated>2020-11-08T14:38:46.302Z</updated>
     
     
       
@@ -329,7 +351,7 @@
     <link href="https://blog.coder4j.cn/posts/2022afcd/"/>
     <id>https://blog.coder4j.cn/posts/2022afcd/</id>
     <published>2019-10-31T12:39:45.000Z</published>
-    <updated>2020-09-26T12:39:12.772Z</updated>
+    <updated>2020-11-08T14:38:46.324Z</updated>
     
     
       
@@ -351,7 +373,7 @@
     <link href="https://blog.coder4j.cn/posts/d18db60a/"/>
     <id>https://blog.coder4j.cn/posts/d18db60a/</id>
     <published>2019-10-24T13:07:53.000Z</published>
-    <updated>2020-09-26T12:39:12.759Z</updated>
+    <updated>2020-11-08T14:38:46.305Z</updated>
     
     
       
@@ -373,7 +395,7 @@
     <link href="https://blog.coder4j.cn/posts/2bed5d1c/"/>
     <id>https://blog.coder4j.cn/posts/2bed5d1c/</id>
     <published>2019-10-22T09:11:33.000Z</published>
-    <updated>2020-09-26T12:39:12.776Z</updated>
+    <updated>2020-11-08T14:38:46.326Z</updated>
     
     
       
@@ -395,7 +417,7 @@
     <link href="https://blog.coder4j.cn/posts/8dfe4337/"/>
     <id>https://blog.coder4j.cn/posts/8dfe4337/</id>
     <published>2019-10-16T07:21:09.000Z</published>
-    <updated>2020-09-26T12:39:12.765Z</updated>
+    <updated>2020-11-08T14:38:46.301Z</updated>
     
     
       
@@ -417,34 +439,12 @@
     <link href="https://blog.coder4j.cn/posts/9f58e145/"/>
     <id>https://blog.coder4j.cn/posts/9f58e145/</id>
     <published>2019-10-13T01:03:53.000Z</published>
-    <updated>2020-09-26T12:39:12.763Z</updated>
+    <updated>2020-11-08T14:38:46.315Z</updated>
     
     
       
       
     <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1570951045907-9a52ecf3-6ca0-4795-9de3-bdf2a8a92c9b.jpeg#align=left&amp;display=inlin</summary>
-      
-    
-    
-    
-    <category term="随笔" scheme="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="随笔" scheme="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【随笔】爱因斯坦与科举制</title>
-    <link href="https://blog.coder4j.cn/posts/ab94273d/"/>
-    <id>https://blog.coder4j.cn/posts/ab94273d/</id>
-    <published>2019-09-30T13:07:39.000Z</published>
-    <updated>2020-09-26T12:39:12.764Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;前段时间知乎上有一个热门问题–《&lt;a href=&quot;https://www.zhihu.com/question/333199024/answer/746004419&quot;&gt;历史上有哪两件事听起来不在同一个年代实际上却同时发生的?&lt;/a&gt;》。点赞最高的是下面这个答案。&lt;br&gt;&lt;i</summary>
       
     
     

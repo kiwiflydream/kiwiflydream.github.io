@@ -9,30 +9,30 @@
     <atom:link href="https://blog.coder4j.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>清醒时做事,糊涂时读书,大怒时睡觉,独处时思考。</description>
-    <pubDate>Sat, 26 Sep 2020 12:39:12 GMT</pubDate>
+    <pubDate>Sun, 08 Nov 2020 14:38:46 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>【GITBOOK】git book 导出 pdf 与 epub</title>
-      <link>https://blog.coder4j.cn/posts/6f9fe2cd/</link>
-      <guid>https://blog.coder4j.cn/posts/6f9fe2cd/</guid>
-      <pubDate>Sat, 26 Sep 2020 12:33:04 GMT</pubDate>
+      <title>【keynote】神奇的神奇移动</title>
+      <link>https://blog.coder4j.cn/posts/15ecccae/</link>
+      <guid>https://blog.coder4j.cn/posts/15ecccae/</guid>
+      <pubDate>Sun, 08 Nov 2020 14:34:37 GMT</pubDate>
       
         
         
-      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123738980-85811d51-3cf3-4ef5-bede-9e38cb17bf9d.jpeg#align=left&amp;display=inlin</description>
+      <description>&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;前几天，看了一篇技术文章，《&lt;a href=&quot;https://juejin.im/post/6890545920883032071&quot;&gt;做了一</description>
         
       
       
       
       
-      <category domain="https://blog.coder4j.cn/categories/GITBOOK/">GITBOOK</category>
+      <category domain="https://blog.coder4j.cn/categories/keynote/">keynote</category>
       
       
-      <category domain="https://blog.coder4j.cn/tags/GITBOOK/">GITBOOK</category>
+      <category domain="https://blog.coder4j.cn/tags/keynote/">keynote</category>
       
       
-      <comments>https://blog.coder4j.cn/posts/6f9fe2cd/#disqus_thread</comments>
+      <comments>https://blog.coder4j.cn/posts/15ecccae/#disqus_thread</comments>
       
     </item>
     
@@ -57,6 +57,30 @@
       
       
       <comments>https://blog.coder4j.cn/posts/adc594bd/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>【GITBOOK】git book 导出 pdf 与 epub</title>
+      <link>https://blog.coder4j.cn/posts/6f9fe2cd/</link>
+      <guid>https://blog.coder4j.cn/posts/6f9fe2cd/</guid>
+      <pubDate>Sat, 26 Sep 2020 12:33:04 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2020/jpeg/119443/1601123738980-85811d51-3cf3-4ef5-bede-9e38cb17bf9d.jpeg#align=left&amp;display=inlin</description>
+        
+      
+      
+      
+      
+      <category domain="https://blog.coder4j.cn/categories/GITBOOK/">GITBOOK</category>
+      
+      
+      <category domain="https://blog.coder4j.cn/tags/GITBOOK/">GITBOOK</category>
+      
+      
+      <comments>https://blog.coder4j.cn/posts/6f9fe2cd/#disqus_thread</comments>
       
     </item>
     
@@ -465,30 +489,6 @@
       
       
       <comments>https://blog.coder4j.cn/posts/9f58e145/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>【随笔】爱因斯坦与科举制</title>
-      <link>https://blog.coder4j.cn/posts/ab94273d/</link>
-      <guid>https://blog.coder4j.cn/posts/ab94273d/</guid>
-      <pubDate>Mon, 30 Sep 2019 13:07:39 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;前段时间知乎上有一个热门问题–《&lt;a href=&quot;https://www.zhihu.com/question/333199024/answer/746004419&quot;&gt;历史上有哪两件事听起来不在同一个年代实际上却同时发生的?&lt;/a&gt;》。点赞最高的是下面这个答案。&lt;br&gt;&lt;i</description>
-        
-      
-      
-      
-      
-      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
-      
-      
-      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
-      
-      
-      <comments>https://blog.coder4j.cn/posts/ab94273d/#disqus_thread</comments>
       
     </item>
     
