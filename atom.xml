@@ -6,7 +6,7 @@
   <link href="https://blog.coder4j.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.coder4j.cn/"/>
-  <updated>2020-11-08T14:38:46.328Z</updated>
+  <updated>2020-12-23T13:20:09.549Z</updated>
   <id>https://blog.coder4j.cn/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>yuque-helper 1.0 发布了</title>
+    <link href="https://blog.coder4j.cn/posts/f63c25b0/"/>
+    <id>https://blog.coder4j.cn/posts/f63c25b0/</id>
+    <published>2020-12-18T09:57:24.000Z</published>
+    <updated>2020-12-23T13:20:09.549Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture&amp;a=0.5370183293516069&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;什么是-yuque-helpe</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>【keynote】神奇的神奇移动</title>
@@ -431,28 +450,6 @@
     
     
     <category term="并发那些事" scheme="https://blog.coder4j.cn/tags/%E5%B9%B6%E5%8F%91%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【随笔】跳出程序员思维看世界</title>
-    <link href="https://blog.coder4j.cn/posts/9f58e145/"/>
-    <id>https://blog.coder4j.cn/posts/9f58e145/</id>
-    <published>2019-10-13T01:03:53.000Z</published>
-    <updated>2020-11-08T14:38:46.315Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1570951045907-9a52ecf3-6ca0-4795-9de3-bdf2a8a92c9b.jpeg#align=left&amp;display=inlin</summary>
-      
-    
-    
-    
-    <category term="随笔" scheme="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="随笔" scheme="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   

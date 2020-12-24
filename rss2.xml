@@ -9,8 +9,29 @@
     <atom:link href="https://blog.coder4j.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>清醒时做事,糊涂时读书,大怒时睡觉,独处时思考。</description>
-    <pubDate>Sun, 08 Nov 2020 14:38:46 GMT</pubDate>
+    <pubDate>Wed, 23 Dec 2020 13:20:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>yuque-helper 1.0 发布了</title>
+      <link>https://blog.coder4j.cn/posts/f63c25b0/</link>
+      <guid>https://blog.coder4j.cn/posts/f63c25b0/</guid>
+      <pubDate>Fri, 18 Dec 2020 09:57:24 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture&amp;a=0.5370183293516069&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;什么是-yuque-helpe</description>
+        
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.coder4j.cn/posts/f63c25b0/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>【keynote】神奇的神奇移动</title>
@@ -465,30 +486,6 @@
       
       
       <comments>https://blog.coder4j.cn/posts/8dfe4337/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>【随笔】跳出程序员思维看世界</title>
-      <link>https://blog.coder4j.cn/posts/9f58e145/</link>
-      <guid>https://blog.coder4j.cn/posts/9f58e145/</guid>
-      <pubDate>Sun, 13 Oct 2019 01:03:53 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;&lt;img src=&quot;https://cdn.nlark.com/yuque/0/2019/jpeg/119443/1570951045907-9a52ecf3-6ca0-4795-9de3-bdf2a8a92c9b.jpeg#align=left&amp;display=inlin</description>
-        
-      
-      
-      
-      
-      <category domain="https://blog.coder4j.cn/categories/%E9%9A%8F%E7%AC%94/">随笔</category>
-      
-      
-      <category domain="https://blog.coder4j.cn/tags/%E9%9A%8F%E7%AC%94/">随笔</category>
-      
-      
-      <comments>https://blog.coder4j.cn/posts/9f58e145/#disqus_thread</comments>
       
     </item>
     
